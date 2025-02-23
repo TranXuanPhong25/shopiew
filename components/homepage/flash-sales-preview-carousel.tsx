@@ -10,6 +10,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 1,
         flashSalePrice: 250000,
+        originalPrice: 300000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 100,
         flashSaleAvailableQuantity: 500
@@ -17,6 +18,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 2,
         flashSalePrice: 77000,
+        originalPrice: 100000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 0,
         flashSaleAvailableQuantity: 13
@@ -24,6 +26,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 3,
         flashSalePrice: 34623,
+        originalPrice: 40000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 10,
         flashSaleAvailableQuantity: 45
@@ -31,6 +34,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 4,
         flashSalePrice: 23454,
+        originalPrice: 30000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 10,
         flashSaleAvailableQuantity: 13
@@ -38,6 +42,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 5,
         flashSalePrice: 234234,
+        originalPrice: 300000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 10,
         flashSaleAvailableQuantity: 17
@@ -45,6 +50,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 6,
         flashSalePrice: 2345234,
+        originalPrice: 3000000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 10,
         flashSaleAvailableQuantity: 71
@@ -52,6 +58,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 7,
         flashSalePrice: 12753,
+        originalPrice: 20000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 100,
         flashSaleAvailableQuantity: 347
@@ -59,6 +66,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 8,
         flashSalePrice: 282484,
+        originalPrice: 300000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 100,
         flashSaleAvailableQuantity: 34
@@ -66,6 +74,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 9,
         flashSalePrice: 250000,
+        originalPrice: 300000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 100,
         flashSaleAvailableQuantity: 264
@@ -73,6 +82,7 @@ const products: CompactDisplayFlashSaleProps[] = [
     {
         id: 10,
         flashSalePrice: 250000,
+        originalPrice: 300000,
         imageUrl: "https://placehold.co/400x400.png",
         flashSaleSoldQuantity: 100,
         flashSaleAvailableQuantity: 112

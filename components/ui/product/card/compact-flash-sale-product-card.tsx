@@ -22,8 +22,12 @@ export default function CompactFlashSaleProductCard({product}: { product: Compac
 
             <CardContent className="p-4 pt-2 text-center">
 
-                <span
-                    className="font-medium text-red-400">đ {new Intl.NumberFormat('en-US').format(product.flashSalePrice)}</span>
+                <span className="font-medium text-red-400 ">
+                    đ {new Intl.NumberFormat('en-US').format(product.flashSalePrice)}
+                    <span className="ml-2 px-2 bg-orange-400/40 rounded-full text-red-500/90">
+                        {Math.floor((product.flashSalePrice - product.originalPrice) / product.flashSalePrice * 100)}%
+                    </span>
+                </span>
                 <div
                     className="flex flex-col items-center gap-1.5 w-full rounded-full bg-gradient-to-r from-red-500 to-orange-400 px-3 py-1.5 text-white shadow-sm"
                 >

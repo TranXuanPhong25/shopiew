@@ -1,10 +1,11 @@
 import Image from "next/image"
-import { Star } from "lucide-react"
+import {MapPin, Star} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import {ProductCardProps} from "@/interfaces/product";
+import {clsx} from "clsx";
 
-export default function ProductCard({product}:{product:ProductCardProps}) {
+export default function ProductCard({product,compact=false}:{product:ProductCardProps,compact?:boolean}) {
     return (
         <Card className="max-w-sm overflow-hidden">
             <div className="relative">
@@ -26,18 +27,11 @@ export default function ProductCard({product}:{product:ProductCardProps}) {
             </div>
 
             <CardContent className="p-4">
-                {/* Badges */}
-                <div className="flex gap-2 mb-2">
-                    <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50">
-                        CHÍNH HÃNG
-                    </Badge>
-                    <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-50">
-                        Freeship
-                    </Badge>
-                </div>
-
                 {/* Product Name */}
-                <h3 className="font-medium mb-2">Mặt Nạ Ngủ Phục Hồi Laneige Cica Sleeping Mask</h3>
+                <h3 className={clsx(
+                    "font-medium mb-2 text-ellipsis line-clamp-2",
+                    {"text-sm": compact}
+                )}>{product.name}</h3>
 
                 {/* Rating */}
                 <div className="flex items-center gap-1 mb-2">
@@ -50,12 +44,13 @@ export default function ProductCard({product}:{product:ProductCardProps}) {
                 {/* Price */}
                 <div className="flex items-center gap-2">
                     <span className="text-xl font-bold text-red-500">{product.salePrice}</span>
-                    <span className="text-sm text-muted-foreground">-{100-Math.round(product.salePrice/product.originalPrice)}%</span>
+                    <span className="text-sm text-muted-foreground">-{100-Math.round(product.salePrice/product.originalPrice*100)}%</span>
                 </div>
 
                 {/* Delivery */}
-                <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                <div className="flex items-center justify-between gap-2  mt-2 text-sm text-muted-foreground ">
                     <span>Giao siêu tốc 2h</span>
+                    <span className="text-xs flex"><MapPin className={"size-4"}/> {product.soldAddress}</span>
                 </div>
             </CardContent>
         </Card>

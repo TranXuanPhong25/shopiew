@@ -31,7 +31,7 @@ export function EventBannerCarousel() {
     }, [emblaApi])
 
     return (
-        <div className="relative flex my-4 px-4 bg-white rounded-2xl shadow-sm">
+        <div className="relative flex my-4 px-4 bg-white rounded-2xl shadow-sm group">
             <div className="relative flex-1">
                 <div className="overflow-hidden" ref={emblaRef}>
                     <div className="flex">
@@ -54,7 +54,7 @@ export function EventBannerCarousel() {
                 <Button
                     variant="outline"
                     size="icon"
-                    className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm"
+                    className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm hidden group-hover:flex "
                     onClick={scrollPrev}
                 >
                     <ChevronLeft className="h-4 w-4"/>
@@ -62,7 +62,7 @@ export function EventBannerCarousel() {
                 <Button
                     variant="outline"
                     size="icon"
-                    className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm"
+                    className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm  hidden group-hover:flex"
                     onClick={scrollNext}
                 >
                     <ChevronRight className="h-4 w-4"/>

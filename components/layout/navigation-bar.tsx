@@ -2,6 +2,7 @@ import React from 'react';
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {MapPin, User, ShoppingCart, Search,  Menu} from "lucide-react";
+import Link from "next/link";
 
 const NavigationBar = () => {
     return (
@@ -14,7 +15,7 @@ const NavigationBar = () => {
             </div>
 
             {/* Main header */}
-            <div className="w-full px-2 sm:px-4 py-2 sm:py-3 bg-white border-b">
+            <div className="w-full px-2 sm:px-4 pt-2  bg-white border-b">
                 <nav className="max-w-7xl mx-auto flex items-center px-4">
                     <div>
                         {/* Mobile menu button */}
@@ -23,10 +24,10 @@ const NavigationBar = () => {
                         </Button>
 
                         {/* Logo */}
-                        <div className="text-blue-500 font-bold text-xl sm:text-3xl">
+                        <Link href={"/"} className="text-blue-500 font-bold text-xl sm:text-3xl">
                             Shopiew
                             <div className="text-[10px] sm:text-xs font-normal mt-1">Good and goods</div>
-                        </div>
+                        </Link>
 
                     </div>
                     <div className="w-full px-2 sm:px-4 py-2 sm:py-3 ">
