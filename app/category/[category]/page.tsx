@@ -1,8 +1,8 @@
 import ProductGrid from "@/components/ui/product/product-grid";
 import {ProductCardProps} from "@/interfaces/product";
+import SearchFilter from "@/components/search/search-filters";
 
 const products: ProductCardProps[] = [
-
     {
         "id": 1,
         "imageUrl": "https://placehold.co/400x400.png",
@@ -255,15 +255,13 @@ const products: ProductCardProps[] = [
     }
 ]
 
-export default async function CategoryPage(props: { params: Promise<{slug: string }> }) {
+export default async function CategoryPage(props: { params: Promise<{ slug: string }> }) {
     const {slug} = await props.params;
-
+    console.log(slug);
     return (
-        <div className="max-w-7xl mx-auto flex relative">
-            <div className="sticky top-0 w-[280px]">
-                {slug}
-            </div>
-            <div className="flex-1">
+        <div className="max-w-7xl mx-auto flex relative  my-4 gap-4">
+            <SearchFilter/>
+            <div className="flex-1 bg-white rounded-2xl shadow-sm p-4">
                 <ProductGrid products={products} compact/>
             </div>
         </div>

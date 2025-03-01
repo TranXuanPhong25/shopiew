@@ -31,9 +31,9 @@ export function EventBannerCarousel() {
     }, [emblaApi])
 
     return (
-        <div className="relative flex my-4 px-4 bg-white rounded-2xl shadow-sm group">
-            <div className="relative flex-1">
-                <div className="overflow-hidden" ref={emblaRef}>
+        <div className="relative flex my-4 px-4 bg-white rounded-2xl shadow-sm ">
+            <div className="relative flex-1 group">
+                <div className="overflow-hidden " ref={emblaRef}>
                     <div className="flex">
                         {events.map((event, index) => (
                             <div className="flex-[0_0_100%] min-w-0" key={event.id}>
