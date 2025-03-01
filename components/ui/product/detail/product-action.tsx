@@ -1,5 +1,5 @@
 import QuantityInput from "@/components/form/quanitty-input";
-import {MapPin, Plus, ShoppingCart} from "lucide-react";
+import {MapPin} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import ShoppingCartPlus from "@/components/icon/shopping-cart-plus";
 

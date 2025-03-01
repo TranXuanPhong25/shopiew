@@ -1,4 +1,3 @@
-import {notFound} from "next/navigation";
 import ProductGrid from "@/components/ui/product/product-grid";
 import {ProductCardProps} from "@/interfaces/product";
 

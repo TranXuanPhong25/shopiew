@@ -1,5 +1,6 @@
 import {BadgeCheckIcon, MapPinHouse, MessageSquare} from "lucide-react"
 import {Button} from "@/components/ui/button"
+import Image from "next/image";
 
 export default function ShopInfoCard() {
     return (
@@ -11,7 +12,7 @@ export default function ShopInfoCard() {
                 <div>
                     <div className="flex my-2">
                         <div className="relative">
-                            <img className="rounded-full"
+                            <Image className="rounded-full"
                                  src={"https://placehold.co/70x70.png"}
                                  alt={"FOCALLURE Beauty.VN"}
                                  width={70}

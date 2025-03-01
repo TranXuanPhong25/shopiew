@@ -1,19 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-
 "use client";
-import { Button } from "@/components/ui/button";
 import {
     Card,
-    CardContent,
-    CardDescription,
     CardFooter,
-    CardHeader,
-    CardTitle,
+    CardHeader
 } from "@/components/ui/card";
 import { Lens } from "@/components/magicui/lens";
 import {useCallback, useEffect, useState} from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 const images = [
     {
@@ -92,7 +87,7 @@ export default function ProductImages() {
                     isStatic={false}
                     ariaLabel="Zoom Area"
                 >
-                    <img
+                    <Image
                         src={selectedImage.src}
                         alt={selectedImage.alt}
                         width={500}
@@ -115,9 +110,11 @@ export default function ProductImages() {
                                         emblaApi?.scrollTo(index)
                                     }}
                                 >
-                                    <img
-                                        src={slide.src || "/placeholder.svg"}
+                                    <Image
+                                        src={slide.src || "https://placehold.co/500x500.png"}
                                         alt={slide.alt}
+                                        width={500}
+                                        height={500}
                                         className="h-20 w-full object-cover rounded-md"
                                     />
                                 </div>

@@ -79,11 +79,10 @@ export default function RatingComponent() {
                 {/* 1 star */}
                 <div className="flex items-center">
                      <span className="w-16 font-medium underline flex">
-
                             <Star className="size-4 fill-yellow-300 text-yellow-300"/>
 
                          {[...Array(4)].map((_, i) => (
-                             <Star className="size-4 fill-gray-200 text-gray-200"/>
+                             <Star key={"x"+i} className="size-4 fill-gray-200 text-gray-200"/>
                          ))}
                     </span>
                     <div className="flex-1 h-5 bg-gray-200 rounded-full mx-2">

@@ -10,7 +10,6 @@ import Link from "next/link";
 import ProductImages from "@/components/ui/product/detail/product-image";
 import RatingStars from "@/components/ui/rating-stars";
 import ProductAction from "@/components/ui/product/detail/product-action";
-import {Button} from "@/components/ui/button";
 import ProductSpecifications from "@/components/ui/product/detail/product-specifications";
 import CustomerReviews from "@/components/ui/product/detail/customer-review/customer-reviews";
 import ProductDescription from "@/components/ui/product/detail/product-description";
@@ -105,7 +104,7 @@ export default async function ProductPage({params}: { params: Promise<{ product:
 
 
                     </div>
-                    <div className="bg-white rounded-2xl shadow-sm  mt-4 h-[100vh]">
+                    <div className="bg-white rounded-2xl shadow-sm  mt-4">
                         <ProductSpecifications/>
                         <ProductDescription/>
                         <CustomerReviews/>

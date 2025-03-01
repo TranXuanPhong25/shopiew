@@ -1,6 +1,5 @@
 import Image from "next/image"
 import {MapPin, Star} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import {ProductCardProps} from "@/interfaces/product";
 import {clsx} from "clsx";
