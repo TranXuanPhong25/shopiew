@@ -4,6 +4,8 @@ import "./globals.css";
 import NavigationBar from "@/components/layout/navigation-bar";
 import {ReactNode} from "react";
 import Footer from "@/components/layout/footer";
+import AjaxProgressBarProvider from "@/provider/ajax-progress-bar-provider";
+import {BackToTopButton} from "@/components/ui/back-to-top-btn";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -28,11 +30,14 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}
         >
-        <NavigationBar/>
-        {children}
-        <Footer/>
+        <AjaxProgressBarProvider>
+            <NavigationBar/>
+            {children}
+            <Footer/>
+            <BackToTopButton/>
+        </AjaxProgressBarProvider>
         </body>
         </html>
     );

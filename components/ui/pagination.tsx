@@ -1,12 +1,13 @@
+"use client"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface PaginationProps {
     currentPage: number
     totalPages: number
-    onPageChange: (page: number) => void
+    onPageChangeAction: (page: number) => void
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export default function Pagination({ currentPage, totalPages, onPageChangeAction }: PaginationProps) {
     // Generate page numbers to display
     const getPageNumbers = () => {
         const pages = []
@@ -45,7 +46,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         <div className="flex items-center justify-center mt-6 gap-1">
             {/* Previous button */}
             <button
-                onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+                onClick={() => currentPage > 1 && onPageChangeAction(currentPage - 1)}
                 disabled={currentPage === 1}
                 className={`flex items-center justify-center w-9 h-9 rounded-md border ${
                     currentPage === 1
@@ -62,7 +63,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                     typeof page === "number" ? (
                         <button
                             key={index}
-                            onClick={() => onPageChange(page)}
+                            onClick={() => onPageChangeAction(page)}
                             className={`flex items-center justify-center w-9 h-9 rounded-md ${
                                 currentPage === page
                                     ? "bg-custom-1 text-white border border-custom-1"
@@ -80,7 +81,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
             {/* Next button */}
             <button
-                onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
+                onClick={() => currentPage < totalPages && onPageChangeAction(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className={`flex items-center justify-center w-9 h-9 rounded-md border ${
                     currentPage === totalPages

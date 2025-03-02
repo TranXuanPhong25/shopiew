@@ -1,8 +1,8 @@
-import {ProductCardProps} from "@/interfaces/product";
 import SearchFilter from "@/components/search/search-filters";
 import SearchResults from "@/components/search/search-results";
+import {ProductCardProps} from "@/interfaces/product";
 
- const products: ProductCardProps[] = [
+const products: ProductCardProps[] = [
     {
         "id": 1,
         "imageUrl": "https://placehold.co/400x400.png",
@@ -254,21 +254,24 @@ import SearchResults from "@/components/search/search-results";
         "rating": 4.5
     }
 ]
-export async function generateMetadata({ params }:{ params: Promise<{ category: string }> }) {
-     const { category } = await params;
-     const decodedCategory = decodeURIComponent(category).replace(/(%20)|-/g, " ");
+
+export async function generateMetadata({searchParams}: {
+    searchParams: Record<string, string | string[] | undefined>
+}) {
+    const query = searchParams.query || searchParams.q || "";
     return {
-        title: `${decodedCategory} | Shopiew`,
-        description: `:D:D:D:`,
+        title: (query ? `Search results for "${query}"` : 'Search results') + ' | Shopiew',
     };
 }
-export default async function CategoryPage(props: { params: Promise<{ category: string }> }) {
-    const {category} = await props.params;
-    console.log(category);
+
+export default function SearchPage() {
+
     return (
         <div className="max-w-7xl mx-auto flex relative  my-4 gap-4">
             <SearchFilter/>
-            <SearchResults products={products}/>
+            <div className="flex-1">
+                <SearchResults products={products}/>
+            </div>
         </div>
     );
 }

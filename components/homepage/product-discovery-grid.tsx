@@ -1,5 +1,5 @@
 import {ProductCardProps} from "@/interfaces/product";
-import ProductGrid from "@/components/ui/product/product-grid";
+import ProductGrid from "@/components/product/product-grid";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 

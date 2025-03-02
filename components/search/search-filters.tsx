@@ -2,11 +2,14 @@
 
 import { useState } from "react"
 import { ChevronDown, ChevronUp, Filter } from "lucide-react"
+import {useSearchParams} from "next/navigation";
 
 export default function SearchFilter() {
     const [expandedCategory, setExpandedCategory] = useState(false)
     const [expandedShipping, setExpandedShipping] = useState(false)
-
+    const searchParams = useSearchParams();
+    const query = searchParams.get('query')
+    console.log(query)
     return (
         <div className="sticky top-0 w-[230px] bg-white rounded-2xl shadow-sm p-4 h-fit">
             <div className="flex items-center gap-2 font-medium text-gray-800 mb-4">

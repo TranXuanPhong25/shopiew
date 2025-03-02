@@ -8,6 +8,7 @@ import Autoplay from "embla-carousel-autoplay"
 
 import {Card} from "@/components/ui/card"
 import {Button} from "@/components/ui/button"
+import {cn} from "@/lib/utils";
 
 // Sample event data
 const events = [
@@ -22,6 +23,7 @@ const events = [
 export function EventBannerCarousel() {
     const [emblaRef, emblaApi] = useEmblaCarousel({loop: true}, [Autoplay()])
 
+    const [selectedIndex, setSelectedIndex] = React.useState(0)
     const scrollPrev = React.useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev()
     }, [emblaApi])
@@ -29,12 +31,20 @@ export function EventBannerCarousel() {
     const scrollNext = React.useCallback(() => {
         if (emblaApi) emblaApi.scrollNext()
     }, [emblaApi])
-
+    React.useEffect(() => {
+        if (!emblaApi) return;
+        const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+        emblaApi.on('select', onSelect);
+        onSelect(); // Set the initial selected index
+        return () => {
+            emblaApi.off('select', onSelect);
+        }
+    }, [emblaApi]);
     return (
         <div className="relative flex my-4 px-4 bg-white rounded-2xl shadow-sm ">
-            <div className="relative flex-1 group">
-                <div className="overflow-hidden " ref={emblaRef}>
-                    <div className="flex">
+            <div className="relative flex-1 group ">
+                <div className="overflow-hidden relative rounded-lg" ref={emblaRef}>
+                    <div className="flex rounded-lg">
                         {events.map((event, index) => (
                             <div className="flex-[0_0_100%] min-w-0" key={event.id}>
                                 <Card className="mx-1 my-4 border-0">
@@ -43,11 +53,26 @@ export function EventBannerCarousel() {
                                             src={event.imageUrl}
                                             alt={"event-" + index}
                                             fill
-                                            className="object-cover rounded-t-lg"
+                                            className="object-cover rounded-lg"
                                         />
                                     </div>
                                 </Card>
                             </div>
+                        ))}
+                    </div>
+                    <div className="flex justify-center gap-2 mt-2 absolute bottom-0 -translate-y-[24px] left-1/2 -translate-x-1/2">
+                        {/*dot navigation*/}
+                        {events.map((_, index) => (
+                            <Button
+                                key={index}
+                                variant="ghost"
+                                size="icon"
+                                className={cn(
+                                    " rounded-full  hover:bg-custom-1/100 transition-all duration-300 h-2 ease-in-out border ",
+                                    index === selectedIndex ? "bg-custom-1/90 h-2 w-6" : "bg-custom-1/30 w-4 "
+                                )}
+                                onClick={() => emblaApi?.scrollTo(index)}
+                            />
                         ))}
                     </div>
                 </div>

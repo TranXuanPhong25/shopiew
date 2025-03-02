@@ -7,13 +7,13 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import ProductImages from "@/components/ui/product/detail/product-image";
+import ProductImages from "@/components/product/detail/product-image";
 import RatingStars from "@/components/ui/rating-stars";
-import ProductAction from "@/components/ui/product/detail/product-action";
-import ProductSpecifications from "@/components/ui/product/detail/product-specifications";
-import CustomerReviews from "@/components/ui/product/detail/customer-review/customer-reviews";
-import ProductDescription from "@/components/ui/product/detail/product-description";
-import ShopInfoCard from "@/components/ui/product/detail/shop-info-card";
+import ProductAction from "@/components/product/detail/product-action";
+import ProductSpecifications from "@/components/product/detail/product-specifications";
+import CustomerReviews from "@/components/product/detail/customer-review/customer-reviews";
+import ProductDescription from "@/components/product/detail/product-description";
+import ShopInfoCard from "@/components/product/detail/shop-info-card";
 
 export default async function ProductPage({params}: { params: Promise<{ product: string }> }) {
     const {product} = await params;
