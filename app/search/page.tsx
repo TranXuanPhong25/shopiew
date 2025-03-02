@@ -2,6 +2,7 @@ import SearchFilter from "@/components/search/search-filters";
 import SearchResults from "@/components/search/search-results";
 import {ProductCardProps} from "@/interfaces/product";
 import {Metadata} from "next";
+import {Suspense} from "react";
 
 const products: ProductCardProps[] = [
     {
@@ -257,9 +258,10 @@ const products: ProductCardProps[] = [
 ]
 
 export async function generateMetadata({searchParams}: {
-    searchParams: Record<string, string | string[] | undefined>
-}):Promise<Metadata> {
-    const query = searchParams.query || searchParams.q || "";
+    searchParams: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+    const resolvedSearchParams = await searchParams;
+    const query = resolvedSearchParams.query || resolvedSearchParams.q || "";
     return {
         title: (query ? `Search results for "${query}"` : 'Search results') + ' | Shopiew',
     };
@@ -269,9 +271,13 @@ export default function SearchPage() {
 
     return (
         <div className="max-w-7xl mx-auto flex relative  my-4 gap-4">
-            <SearchFilter/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <SearchFilter/>
+            </Suspense>
             <div className="flex-1">
-                <SearchResults products={products}/>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SearchResults products={products}/>
+                </Suspense>
             </div>
         </div>
     );
