@@ -1,9 +1,9 @@
 "use client"
 
-import {EventBannerCarousel} from "@/components/homepage/event-banner-carousel";
-import CategoriesGrid from "@/components/homepage/categories-grid";
-import FlashSalesPreviewCarousel from "@/components/homepage/flash-sales-preview-carousel";
-import ProductDiscoveryGrid from "@/components/homepage/product-discovery-grid";
+import {EventBannerCarousel} from "@/features/homepage/event-banner-carousel";
+import CategoriesGrid from "@/features/homepage/categories-grid";
+import FlashSalesPreviewCarousel from "@/features/homepage/flash-sales-preview-carousel";
+import ProductDiscoveryGrid from "@/features/homepage/product-discovery-grid";
 
 export default function HomePage() {
 

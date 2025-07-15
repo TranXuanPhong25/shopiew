@@ -1,5 +1,5 @@
-import SearchFilter from "@/components/search/search-filters";
-import SearchResults from "@/components/search/search-results";
+import SearchFilter from "@/features/search/search-filters";
+import SearchResults from "@/features/search/search-results";
 import {ProductCardProps} from "@/interfaces/product";
 import {Metadata} from "next";
 import {Suspense} from "react";

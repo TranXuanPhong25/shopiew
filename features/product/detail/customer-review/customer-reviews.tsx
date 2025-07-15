@@ -1,7 +1,7 @@
 "use client";
-import RatingComponent from "@/components/product/detail/customer-review/rating-component";
+import RatingComponent from "@/features/product/detail/customer-review/rating-component";
 import {Button} from "@/components/ui/button";
-import IndividualReview from "@/components/product/detail/customer-review/individual-review";
+import IndividualReview from "@/features/product/detail/customer-review/individual-review";
 import Pagination from "@/components/ui/pagination";
 
 export default function CustomerReviews() {

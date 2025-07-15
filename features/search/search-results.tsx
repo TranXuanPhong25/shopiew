@@ -1,6 +1,6 @@
 "use client"
-import ProductSorting from "@/components/search/product-sorting";
-import ProductGrid from "@/components/product/product-grid";
+import ProductSorting from "@/features/search/product-sorting";
+import ProductGrid from "@/features/product/product-grid";
 import Pagination from "@/components/ui/pagination";
 import {ProductCardProps} from "@/interfaces/product";
 import {useSearchParams} from "next/navigation";
