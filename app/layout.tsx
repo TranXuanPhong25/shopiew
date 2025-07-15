@@ -4,7 +4,7 @@ import "./globals.css";
 import NavigationBar from "@/components/layout/navigation-bar";
 import {ReactNode} from "react";
 import Footer from "@/components/layout/footer";
-import AjaxProgressBarProvider from "@/provider/ajax-progress-bar-provider";
+import AjaxProgressBarProvider from "@/context/ajax-progress-bar-provider";
 import {BackToTopButton} from "@/components/ui/back-to-top-btn";
 
 const geistSans = Geist({

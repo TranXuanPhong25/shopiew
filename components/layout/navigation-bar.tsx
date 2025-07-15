@@ -1,8 +1,9 @@
 import React from 'react';
 import {Button} from "@/components/ui/button";
-import {MapPin, User, ShoppingCart, Menu} from "lucide-react";
+import {MapPin, ShoppingCart, Menu} from "lucide-react";
 import Link from "next/link";
 import {DroppableSearch} from "@/components/layout/droppable-search";
+import AccountButton from "@/components/layout/account-button";
 
 const NavigationBar = () => {
     return (
@@ -54,13 +55,12 @@ const NavigationBar = () => {
 
                             {/* Right side buttons */}
                             <div className="flex items-center gap-2 sm:gap-6">
-                                <Button variant="ghost" className="hidden sm:flex items-center">
-                                    <User className="w-5 h-5 mr-2"/>
-                                    Tài khoản
-                                </Button>
-                                <Button variant="ghost" className="sm:hidden p-2">
-                                    <User className="w-5 h-5"/>
-                                </Button>
+                                <div className="hidden sm:block">
+                                    <AccountButton />
+                                </div>
+                                <div className="sm:hidden">
+                                    <AccountButton />
+                                </div>
 
                                 <div className="relative">
                                     <Link href="/cart">
