@@ -26,65 +26,23 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Store and retrieve user from localStorage
-const LOCAL_STORAGE_USER_KEY = 'eticket_user';
-
-const getUserFromStorage = (): User | null => {
-  if (typeof window === 'undefined') return null;
-  
-  try {
-    const storedUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
-    return storedUser ? JSON.parse(storedUser) : null;
-  } catch (error) {
-    console.error('Error reading user from localStorage:', error);
-    return null;
-  }
-};
-
-const saveUserToStorage = (user: User | null) => {
-  if (typeof window === 'undefined') return;
-  
-  try {
-    if (user) {
-      localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(user));
-    } else {
-      localStorage.removeItem(LOCAL_STORAGE_USER_KEY);
-    }
-  } catch (error) {
-    console.error('Error saving user to localStorage:', error);
-  }
-};
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
    const [user, setUser] = useState<User | null>(null);
    const [loading, setLoading] = useState(true);
    const [redirectTo, setRedirectTo] = useState("/");
    const router = useRouter();
    
-   // Load user from localStorage on mount and set up auth check
+   // Initialize by checking auth status on mount
    useEffect(() => {
-      // First try to get user from localStorage to prevent flicker
-      const storedUser = getUserFromStorage();
-      if (storedUser) {
-        setUser(storedUser);
-      }
-      
-      // Then verify with the server
       checkAuthStatus();
    }, []);
-
-   // Custom setter for user that also updates localStorage
-   const updateUser = (newUser: User | null) => {
-      setUser(newUser);
-      saveUserToStorage(newUser);
-   };
    
    // Update specific user details without replacing the entire user object
    const updateUserDetails = (details: Partial<User>) => {
       if (!user) return;
       
       const updatedUser = { ...user, ...details };
-      updateUser(updatedUser);
+      setUser(updatedUser);
    };
 
    const loginWithRedirect = async (redirectTo: string) => {
@@ -98,10 +56,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
          // Use axiosClient which has withCredentials set to true
          // This ensures cookies are sent with the request
          const response = await axiosClient.get('/auth/me');
-         updateUser(response.data);
+         setUser(response.data);
       } catch (error) {
          console.error('Auth check failed:', error);
-         updateUser(null);
+         setUser(null);
       } finally {
          setLoading(false);
       }
@@ -110,7 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    const logout = async () => {
       try {
          await logoutAction();
-         updateUser(null);
+         setUser(null);
       } catch (error) {
          console.error('Logout failed:', error);
       }
@@ -120,7 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
          const response = await loginAction(email, password);
          const user = response.user;
-         updateUser(user);
+         setUser(user);
          
          const dest = redirectTo;
          if (redirectTo !== "/") {
@@ -137,7 +95,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    const register = async (email: string, password: string) => {
       try {
          const response = await registerAction(email, password);
-         updateUser(response.user);
+         setUser(response.user);
          return response;
       } catch (error) {
          console.error('Registration failed:', error);
