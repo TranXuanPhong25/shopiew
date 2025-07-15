@@ -25,7 +25,7 @@ const NavigationBar = () => {
                         </Button>
 
                         {/* Logo */}
-                        <Link href={"/public"} className="text-blue-500 font-bold text-xl sm:text-3xl">
+                        <Link href={"/"} className="text-blue-500 font-bold text-xl sm:text-3xl">
                             Shopiew
                             <div className="text-[10px] sm:text-xs font-normal mt-1">Good and goods</div>
                         </Link>
