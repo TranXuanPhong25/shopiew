@@ -1,7 +1,6 @@
 /**
  * Auth service handling API interactions
  */
-import axios from 'axios';
 import {LoginResponse, RegisterResponse, User} from './models';
 import axiosClient from '@/utils/axiosClient';
 
@@ -9,16 +8,12 @@ export const AuthService = {
     /**
      * Get the current user profile
      */
-    getCurrentUser: async (): Promise<LoginResponse> => {
+    getCurrentUser: async () => {
         try {
-            const response = await axiosClient.get(`/auth/me`, {
-                withCredentials: true
-            });
-
+            const response = await axiosClient.get(`/auth/me`);
             return response.data;
         } catch (error: any) {
-            console.error('Get current user failed:', error.response?.data || error.message);
-            throw error;
+            // throw error;
         }
     },
 
@@ -28,11 +23,7 @@ export const AuthService = {
     login: async (email: string, password: string): Promise<LoginResponse> => {
         try {
             const body = {email, password};
-            const response = await axiosClient.post(`/auth/login`, body,
-                {
-                    withCredentials: true
-                }
-            );
+            const response = await axiosClient.post(`/auth/login`, body);
 
             // Return the data including the access token to the client
             return response.data;
@@ -64,9 +55,7 @@ export const AuthService = {
      */
     logout: async (): Promise<boolean> => {
         try {
-            await axiosClient.post(`/auth/logout`, {}, {
-                withCredentials: true
-            });
+            await axiosClient.post(`/auth/logout`, {});
 
             return true
         } catch (error: any) {
