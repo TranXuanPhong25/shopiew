@@ -38,11 +38,10 @@ export function RegisterForm({ className, onSwitchToLogin, ...props }: RegisterF
     try {
       // Simulate API call
       await register(data.email, data.password)
-
+      form.reset() // Reset form on successful registration
       toast.success("Registration successful!")
       // Handle successful registration
     } catch (error) {
-      toast.error("Registration failed. Please try again.")
       form.setError("root", {
         message: "Registration failed. Please try again.",
       })

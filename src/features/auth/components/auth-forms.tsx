@@ -7,10 +7,10 @@ import { ForgotPasswordForm } from "./forgot-password-form"
 import { AnimatedFormWrapper } from "./animated-form-wrapper"
 type AuthState = "login" | "register" | "forgot-password"
 
-export function AuthForms() {
+export function AuthForms({setOpen}: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
   const [authState, setAuthState] = useState<AuthState>("login")
   const [isTransitioning, setIsTransitioning] = useState(false)
-
+  
   const handleTransition = (newState: AuthState) => {
     if (newState === authState) return
 
@@ -37,7 +37,11 @@ export function AuthForms() {
   const switchToForgotPassword = () => {
     handleTransition("forgot-password")
   }
-
+  const closeForm = () => {
+    setOpen(false)
+    setAuthState("login")
+    setIsTransitioning(false) 
+  }
   return (
     <div className="relative w-[700px]  top-0">
       {/* Login Form */}
@@ -47,7 +51,9 @@ export function AuthForms() {
         duration={300}
         className="absolute inset-0"
       >
-        <LoginForm onSwitchToRegister={switchToRegister} onSwitchToForgotPassword={switchToForgotPassword} />
+        <LoginForm onSwitchToRegister={switchToRegister}
+         onSwitchToForgotPassword={switchToForgotPassword}
+         closeForm={closeForm} />
       </AnimatedFormWrapper>
 
       {/* Register Form */}

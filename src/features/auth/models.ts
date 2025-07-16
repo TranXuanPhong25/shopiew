@@ -23,7 +23,7 @@ export type AuthContextType = {
 };
 
 export type LoginResponse = {
-    user: User;
+    userInfo: User;
     token?: string;
 };
 

@@ -9,7 +9,7 @@ export const AuthService = {
     /**
      * Get the current user profile
      */
-    getCurrentUser: async (): Promise<User> => {
+    getCurrentUser: async (): Promise<LoginResponse> => {
         try {
             const response = await axiosClient.get(`/auth/me`, {
                 withCredentials: true
@@ -28,7 +28,11 @@ export const AuthService = {
     login: async (email: string, password: string): Promise<LoginResponse> => {
         try {
             const body = {email, password};
-            const response = await axiosClient.post(`/auth/login`, body);
+            const response = await axiosClient.post(`/auth/login`, body,
+                {
+                    withCredentials: true
+                }
+            );
 
             // Return the data including the access token to the client
             return response.data;

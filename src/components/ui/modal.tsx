@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import { Button } from "./button";
+import React from "react";
 
 const Modal = ({ setOpen ,children }: { setOpen: React.Dispatch<React.SetStateAction<boolean>>,children:React.ReactNode }) => {
     return (
@@ -21,7 +22,13 @@ const Modal = ({ setOpen ,children }: { setOpen: React.Dispatch<React.SetStateAc
                     </Button>
                 </div>
 
-               {children}
+                 {/* {React.Children.map(children, (child) => {
+                    if (React.isValidElement(child)) {
+                        return React.cloneElement(child, { setOpen } as any);
+                    }
+                    return child;
+                })} */}
+                {children}
             </div>
         </>
     )

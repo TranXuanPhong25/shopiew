@@ -17,8 +17,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     // Initialize by checking auth status on mount
     useEffect(() => {
-        console.log("replace me to check auth status");
-        // checkAuthStatus();
+        checkAuthStatus();
     }, []);
 
     // Update specific user details without replacing the entire user object
@@ -38,7 +37,8 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
         try {
             setLoading(true);
             const userData = await AuthService.getCurrentUser();
-            setUser(userData);
+            console.log('Current user:', userData);
+            setUser(userData.userInfo);
         } catch (error) {
             console.error('Auth check failed:', error);
             setUser(null);
@@ -59,7 +59,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     const login = async (email: string, password: string) => {
         try {
             const response = await AuthService.login(email, password);
-            const user = response.user;
+            const user = response.userInfo;
             setUser(user);
 
             const dest = redirectTo;

@@ -11,15 +11,18 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { loginSchema, type LoginFormData } from "@/lib/validations"
+import { useAuth } from "../hook"
+import { toast } from "sonner"
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
    onSwitchToRegister: () => void
    onSwitchToForgotPassword: () => void
+   closeForm: () => void
 }
 
-export function LoginForm({ className, onSwitchToRegister, onSwitchToForgotPassword, ...props }: LoginFormProps) {
+export function LoginForm({ className, onSwitchToRegister, onSwitchToForgotPassword, closeForm, ...props }: LoginFormProps) {
    const [isLoading, setIsLoading] = useState(false)
-
+   const {login} = useAuth() 
    const form = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
       mode: "onSubmit", // Only validate on submit, not on change/blur
@@ -34,18 +37,10 @@ export function LoginForm({ className, onSwitchToRegister, onSwitchToForgotPassw
 
       try {
          // Simulate API call
-         await new Promise((resolve, reject) => {
-            setTimeout(() => {
-               // Simulate random success/failure for demo
-               if (Math.random() > 0.7) {
-                  reject(new Error("Invalid credentials"))
-               } else {
-                  resolve(data)
-               }
-            }, 2000)
-         })
+         const response = await login(data.email, data.password)
 
-         console.log("Login successful:", data)
+         toast.success("Login successful!")
+         closeForm()
          // Handle successful login (redirect, etc.)
       } catch (error) {
          form.setError("root", {
@@ -84,7 +79,7 @@ export function LoginForm({ className, onSwitchToRegister, onSwitchToForgotPassw
                                     <FormControl>
                                        <Input type="email" placeholder="m@example.com" {...field} />
                                     </FormControl>
-                                                                        <FormMessage />
+                                    <FormMessage />
 
                                  </FormItem>
                               )}
