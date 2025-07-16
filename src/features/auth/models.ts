@@ -14,15 +14,20 @@ export type User = {
 export type AuthContextType = {
     user: User | null;
     loading: boolean;
-    login: (email: string, password: string) => Promise<AuthResponse>;
-    register: (email: string, password: string) => Promise<AuthResponse>;
+    login: (email: string, password: string) => Promise<LoginResponse>;
+    register: (email: string, password: string) => Promise<RegisterResponse>;
     logout: () => Promise<void>;
     loginWithRedirect: (redirectTo: string) => Promise<void>;
     checkAuthStatus: () => Promise<void>;
     updateUserDetails: (details: Partial<User>) => void;
 };
 
-export type AuthResponse = {
+export type LoginResponse = {
     user: User;
     token?: string;
 };
+
+export type RegisterResponse = {
+    message?: string;
+    error?: string
+}

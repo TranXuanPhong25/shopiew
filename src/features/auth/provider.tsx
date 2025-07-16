@@ -77,7 +77,6 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     const register = async (email: string, password: string) => {
         try {
             const response = await AuthService.register(email, password);
-            setUser(response.user);
             return response;
         } catch (error) {
             console.error('Registration failed:', error);

@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { registerSchema, type RegisterFormData } from "@/lib/validations"
+import { useAuth } from "../hook"
 
 interface RegisterFormProps extends React.ComponentProps<"div"> {
   onSwitchToLogin: () => void
@@ -18,7 +19,7 @@ interface RegisterFormProps extends React.ComponentProps<"div"> {
 
 export function RegisterForm({ className, onSwitchToLogin, ...props }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false)
-
+  const { register } = useAuth()
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -35,16 +36,7 @@ export function RegisterForm({ className, onSwitchToLogin, ...props }: RegisterF
 
     try {
       // Simulate API call
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          // Simulate random success/failure for demo
-          if (Math.random() > 0.8) {
-            reject(new Error("Email already exists"))
-          } else {
-            resolve(data)
-          }
-        }, 2000)
-      })
+      await register(data.email, data.password)
 
       console.log("Registration successful:", data)
       // Handle successful registration
@@ -114,25 +106,25 @@ export function RegisterForm({ className, onSwitchToLogin, ...props }: RegisterF
                         </FormControl>
                         {password && password.length > 0 && (
                           <FormDescription>
-                            <div className="space-y-2">
-                              <div className="flex text-xs">
+                            <span className="space-y-2">
+                              <span className="flex text-xs">
                                 <span className="text-muted-foreground">Password strength:</span>
-                              </div>
-                              <div className="flex space-x-1">
-                                <div
+                              </span>
+                              <span className="flex space-x-1">
+                                <span
                                   className={`h-1 w-1/4 rounded ${passwordStrength >= 1 ? "bg-green-500" : "bg-gray-200"}`}
                                 />
-                                <div
+                                <span
                                   className={`h-1 w-1/4 rounded ${passwordStrength >= 2 ? "bg-green-500" : "bg-gray-200"}`}
                                 />
-                                <div
+                                <span
                                   className={`h-1 w-1/4 rounded ${passwordStrength >= 3 ? "bg-green-500" : "bg-gray-200"}`}
                                 />
-                                <div
+                                <span
                                   className={`h-1 w-1/4 rounded ${passwordStrength >= 4 ? "bg-green-500" : "bg-gray-200"}`}
                                 />
-                              </div>
-                            </div>
+                              </span>
+                            </span>
                           </FormDescription>
                         )}
                         <FormMessage />
