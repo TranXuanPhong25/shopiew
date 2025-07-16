@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { registerSchema, type RegisterFormData } from "@/lib/validations"
 import { useAuth } from "../hook"
+import { toast } from "sonner"
 
 interface RegisterFormProps extends React.ComponentProps<"div"> {
   onSwitchToLogin: () => void
@@ -38,9 +39,10 @@ export function RegisterForm({ className, onSwitchToLogin, ...props }: RegisterF
       // Simulate API call
       await register(data.email, data.password)
 
-      console.log("Registration successful:", data)
+      toast.success("Registration successful!")
       // Handle successful registration
     } catch (error) {
+      toast.error("Registration failed. Please try again.")
       form.setError("root", {
         message: "Registration failed. Please try again.",
       })
