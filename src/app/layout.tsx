@@ -7,7 +7,7 @@ import Footer from "@/components/layout/footer";
 import AjaxProgressBarProvider from "@/features/ajax-progress-bar/provider";
 import { BackToTopButton } from "@/components/ui/back-to-top-btn";
 import { AuthProvider } from "@/features/auth";
-
+import {Toaster} from "@/components/ui/sonner";
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
@@ -42,6 +42,7 @@ export default function RootLayout({
                         <BackToTopButton />
                     </AjaxProgressBarProvider>
                 </AuthProvider>
+                <Toaster/>
             </body>
         </html>
     );
