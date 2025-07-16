@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import Modal from "../ui/modal";
-import LoginForm from "@/features/auth/components/login-form";
+import { AuthForms } from "@/features/auth/components/auth-forms";
 
 const AccountButton = () => {
     const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ const AccountButton = () => {
             </Button>
 
             {
-                open && <Modal setOpen={setOpen} children={<LoginForm />} />}
+                open && <Modal setOpen={setOpen} children={<AuthForms />} />}
         </>
     );
 };

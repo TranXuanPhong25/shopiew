@@ -17,7 +17,8 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     // Initialize by checking auth status on mount
     useEffect(() => {
-        checkAuthStatus();
+        console.log("replace me to check auth status");
+        // checkAuthStatus();
     }, []);
 
     // Update specific user details without replacing the entire user object

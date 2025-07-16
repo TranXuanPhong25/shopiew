@@ -8,7 +8,7 @@ const Modal = ({ setOpen ,children }: { setOpen: React.Dispatch<React.SetStateAc
                 className="fixed inset-0 z-50 bg-black/40"
                 onClick={() => setOpen(false)}
             />
-            <div className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg  min-w-[320px] ">
+            <div className="fixed z-50  left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg  min-w-[320px] ">
                 <div className="absolute -top-3 -right-3 z-50">
                     <Button
                     variant={"outline"}
