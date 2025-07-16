@@ -20,7 +20,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
           loading: "!bg-gray-50 !text-gray-800 !border-gray-200",
           error: "!bg-red-50 !text-red-700 !border-red-200",
           info: "!bg-blue-50 !text-blue-700 !border-blue-200",
-          default: "!bg-slate-50 !text-slate-800 !border-slate-200",
         }
       }}
       closeButton={true}
