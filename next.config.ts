@@ -1,3 +1,5 @@
+import { StrictMode } from "react";
+
 const nextConfig = {
     images: {
         remotePatterns: [

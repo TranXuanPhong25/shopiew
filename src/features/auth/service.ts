@@ -3,14 +3,15 @@
  */
 import axios from 'axios';
 import {AuthResponse, User} from './models';
+import axiosClient from '@/utils/axiosClient';
 
-export const authService = {
+export const AuthService = {
     /**
      * Get the current user profile
      */
     getCurrentUser: async (): Promise<User> => {
         try {
-            const response = await axios.get(`/auth/me`, {
+            const response = await axiosClient.get(`/auth/me`, {
                 withCredentials: true
             });
 
@@ -27,7 +28,7 @@ export const authService = {
     login: async (email: string, password: string): Promise<AuthResponse> => {
         try {
             const body = {email, password};
-            const response = await axios.post(`/auth/login`, body, {
+            const response = await axiosClient.post(`/auth/login`, body, {
                 withCredentials: true
             });
 
@@ -44,7 +45,7 @@ export const authService = {
      */
     register: async (email: string, password: string): Promise<AuthResponse> => {
         try {
-            const response = await axios.post(`/auth/register`, {
+            const response = await axiosClient.post(`/auth/register`, {
                 email,
                 password
             }, {
@@ -63,7 +64,7 @@ export const authService = {
      */
     logout: async (): Promise<boolean> => {
         try {
-            await axios.post(`/auth/logout`, {}, {
+            await axiosClient.post(`/auth/logout`, {}, {
                 withCredentials: true
             });
 

@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@bprogress/next": "^3.2.0",
+    "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-checkbox": "^1.1.4",
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.1.2",
     "@tanstack/react-query": "^5.81.5",
     "axios": "^1.10.0",
@@ -23,8 +25,10 @@
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.60.0",
     "tailwind-merge": "^3.0.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

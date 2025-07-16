@@ -1,11 +1,12 @@
-import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "@/components/layout/navigation-bar";
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import Footer from "@/components/layout/footer";
 import AjaxProgressBarProvider from "@/features/ajax-progress-bar/provider";
-import {BackToTopButton} from "@/components/ui/back-to-top-btn";
+import { BackToTopButton } from "@/components/ui/back-to-top-btn";
+import { AuthProvider } from "@/features/auth";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -23,22 +24,25 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: ReactNode;
 }>) {
     return (
         <html lang="en">
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}
-        >
-        <AjaxProgressBarProvider>
-            <NavigationBar/>
-            {children}
-            <Footer/>
-            <BackToTopButton/>
-        </AjaxProgressBarProvider>
-        </body>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}
+            >
+                <AuthProvider>
+                    <AjaxProgressBarProvider>
+
+                        <NavigationBar />
+                        {children}
+                        <Footer />
+                        <BackToTopButton />
+                    </AjaxProgressBarProvider>
+                </AuthProvider>
+            </body>
         </html>
     );
 }

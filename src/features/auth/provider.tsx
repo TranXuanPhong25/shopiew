@@ -6,7 +6,7 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation';
 import {AuthContext} from './context';
-import {authService} from './service';
+import {AuthService} from './service';
 import {User} from './models';
 
 export function AuthProvider({children}: { children: React.ReactNode }) {
@@ -36,7 +36,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     const checkAuthStatus = async () => {
         try {
             setLoading(true);
-            const userData = await authService.getCurrentUser();
+            const userData = await AuthService.getCurrentUser();
             setUser(userData);
         } catch (error) {
             console.error('Auth check failed:', error);
@@ -48,7 +48,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     const logout = async () => {
         try {
-            await authService.logout();
+            await AuthService.logout();
             setUser(null);
         } catch (error) {
             console.error('Logout failed:', error);
@@ -57,7 +57,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     const login = async (email: string, password: string) => {
         try {
-            const response = await authService.login(email, password);
+            const response = await AuthService.login(email, password);
             const user = response.user;
             setUser(user);
 
@@ -75,7 +75,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     const register = async (email: string, password: string) => {
         try {
-            const response = await authService.register(email, password);
+            const response = await AuthService.register(email, password);
             setUser(response.user);
             return response;
         } catch (error) {
