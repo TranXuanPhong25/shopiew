@@ -1,4 +1,4 @@
-import {ProductCardProps} from "@/interfaces/product";
+import {ProductCardProps} from "@/types/product";
 import SearchFilter from "@/features/search/search-filters";
 import SearchResults from "@/features/search/search-results";
 
@@ -264,7 +264,6 @@ export async function generateMetadata({ params }:{ params: Promise<{ category: 
 }
 export default async function CategoryPage(props: { params: Promise<{ category: string }> }) {
     const {category} = await props.params;
-    console.log(category);
     return (
         <div className="max-w-7xl mx-auto flex relative  my-4 gap-4">
             <SearchFilter/>
