@@ -1,1 +1,0 @@
-Image: [Vectezzy](https://www.vecteezy.com/)
