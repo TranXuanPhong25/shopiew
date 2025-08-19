@@ -34,3 +34,31 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## Running the Microservices with Docker Compose
+
+This project includes two microservices, `product-service` and `product-variance-service`, which can be orchestrated using Docker Compose.
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Building and Running the Services
+
+1.  **Build the services**:
+    ```bash
+    docker-compose build
+    ```
+
+2.  **Run the services**:
+    ```bash
+    docker-compose up
+    ```
+
+The services will be available at the following endpoints:
+
+-   **Product Service**: `http://localhost:8080`
+-   **Product Variance Service**: `http://localhost:8081`
