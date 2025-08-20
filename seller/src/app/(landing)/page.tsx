@@ -1,9 +1,15 @@
+import HeroSection from "@/components/landing/hero-section";
+import FeaturesSection from "@/components/landing/features-section";
+import TestimonialsSection from "@/components/landing/testimonials-section";
+import CTASection from "@/components/landing/cta-section";
+
 export default function LandingPage() {
    return (
-      <div className="w-full mt-4 flex gap-4 container mx-auto">
-         <h1>Welcome to Shopiew Seller</h1>
-         <p>Your one-stop solution for managing your online store.</p>
-         {/* Add more content or components as needed */}
+      <div className="min-h-screen">
+         <HeroSection />
+         <FeaturesSection />
+         <TestimonialsSection />
+         <CTASection />
       </div>
    );
 }
