@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.turbo/
+dist/
+build/
+*.log
+.env*
+.DS_Store
+coverage/
+.nyc_output/

@@ -1,0 +1,149 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: shopiew
+  DOCKER_USERNAME: rengumin
+  NODE_VERSION: '18'
+
+jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      main: ${{ steps.changes.outputs.main }}
+      seller: ${{ steps.changes.outputs.seller }}
+      admin: ${{ steps.changes.outputs.admin }}
+      packages: ${{ steps.changes.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            main:
+              - 'apps/main/**'
+            seller:
+              - 'apps/seller/**'
+            admin:
+              - 'apps/admin/**'
+            packages:
+              - 'packages/**'
+
+  build-and-deploy-main:
+    name: Build & Deploy Main App
+    runs-on: ubuntu-latest
+    if: needs.changes.outputs.main == 'true' || needs.changes.outputs.packages == 'true' || github.event_name == 'workflow_dispatch'
+    needs: changes
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/main/Dockerfile
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/shopiew-main:latest
+            ${{ env.DOCKER_USERNAME }}/shopiew-main:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}-main
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_MAIN }}
+          images: ${{ env.DOCKER_USERNAME }}/shopiew-main:${{ github.sha }}
+
+  build-and-deploy-seller:
+    name: Build & Deploy Seller App
+    runs-on: ubuntu-latest
+    if: needs.changes.outputs.seller == 'true' || needs.changes.outputs.packages == 'true' || github.event_name == 'workflow_dispatch'
+    needs: changes
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/seller/Dockerfile
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/shopiew-seller:latest
+            ${{ env.DOCKER_USERNAME }}/shopiew-seller:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}-seller
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_SELLER }}
+          images: ${{ env.DOCKER_USERNAME }}/shopiew-seller:${{ github.sha }}
+
+  build-and-deploy-admin:
+    name: Build & Deploy Admin App
+    runs-on: ubuntu-latest
+    if: needs.changes.outputs.admin == 'true' || needs.changes.outputs.packages == 'true' || github.event_name == 'workflow_dispatch'
+    needs: changes
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/admin/Dockerfile
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/shopiew-admin:latest
+            ${{ env.DOCKER_USERNAME }}/shopiew-admin:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}-admin
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_ADMIN }}
+          images: ${{ env.DOCKER_USERNAME }}/shopiew-admin:${{ github.sha }}
