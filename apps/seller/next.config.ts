@@ -12,7 +12,9 @@ const nextConfig = {
                 hostname: "fastly.picsum.photos",
             }
         ],
-    }
+    },
+    output: 'standalone',
+
 };
 
 module.exports = nextConfig;
