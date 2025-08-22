@@ -1,3 +1,9 @@
+## [0.2.2](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.1...v0.2.2) (2025-08-22)
+
+### 🐛 Bug Fixes
+
+* move to main package before bulid ([556d82d](https://github.com/TranXuanPhong25/shopiew/commit/556d82da7b6890e109e41ba9cbcc19313c0a2200))
+
 ## [0.2.1](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.0...v0.2.1) (2025-08-22)
 
 ### 🐛 Bug Fixes
