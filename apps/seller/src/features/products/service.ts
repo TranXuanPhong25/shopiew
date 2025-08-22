@@ -9,7 +9,6 @@ import {
 } from "./model";
 import {ErrorResponse} from "@/lib/clients/types/ErrorResponse";
 import axios from "axios";
-import {Category} from '../../../../admin/src/models/category';
 
 
 export const ProductsService = {
@@ -24,9 +23,9 @@ export const ProductsService = {
          throw err;
       }
    },
-   getCategoryAndChildren: async (categoryId: string): Promise<Category> => {
+   getCategoryAndChildren: async (categoryId: string): Promise<any> => {
       try {
-         const response = await axiosClient.get<Category>(`/product-categories${categoryId && "/" + categoryId}`);
+         const response = await axiosClient.get<any>(`/product-categories${categoryId && "/" + categoryId}`);
          return response.data;
       } catch (err) {
          if (axios.isAxiosError(err) && err.response) {
