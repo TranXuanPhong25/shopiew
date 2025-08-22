@@ -22,14 +22,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
+          cache: pnpm
       - name: Go to @shopiew/main
         run: |
           cd apps/main
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --filter=@shopiew/main
+
+      - name: Build with turbo
+        run: pnpm turbo run build --filter=@shopiew/main
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
