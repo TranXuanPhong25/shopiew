@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-          cache: pnpm
+          cache: 'pnpm'
       - name: Go to @shopiew/main
         run: |
           cd apps/main
