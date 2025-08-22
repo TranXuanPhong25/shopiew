@@ -38,7 +38,7 @@ jobs:
         run: |
           cd apps/main
           cp -r public .next/standalone/apps/main/ && cp -r .next/static .next/standalone/apps/main/.next/
-
+          cd .next/standalone/apps/main
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -46,5 +46,5 @@ jobs:
         with:
           app-name: 'shopiew-main'
           slot-name: 'Production'
-          package: .next/standalone/apps/main
+          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F2F80BEC02DF4DD18BD6782811F0060E }}
