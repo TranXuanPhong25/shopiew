@@ -53,5 +53,6 @@ This repository is a monorepo for Shopiew, a modern e-commerce platform. It cont
 - For config changes, update the relevant config file in the app or repo root.
 - For CI validation, ensure all steps pass locally before submitting.
 - Always refer to best practices for building with Next.js, Vue.js. Use their most modern features.
+- Application should have a modern and clean design, separate UI, and business logic like mvvp
 
 ---
