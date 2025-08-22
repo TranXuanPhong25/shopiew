@@ -1,10 +1,15 @@
 {
-	"name": "ecom",
+	"name": "shopiew",
+	"packageManager": "pnpm@10.4.1",
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
 	"devDependencies": {
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/git": "^10.0.1",
 		"conventional-changelog-conventionalcommits": "^9.1.0",
-		"semantic-release": "^24.2.7"
+		"semantic-release": "^24.2.7",
+		"turbo": "^2.5.6"
 	},
 	"repository": {
 		"type": "git",
