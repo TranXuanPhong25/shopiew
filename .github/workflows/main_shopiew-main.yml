@@ -39,6 +39,11 @@ jobs:
           cd apps/main
           cp -r public .next/standalone/apps/main/ && cp -r .next/static .next/standalone/apps/main/.next/
 
+      - name: Install production dependencies in standalone
+        run: |
+          cd apps/main/.next/standalone/apps/main
+          pnpm install --prod
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
