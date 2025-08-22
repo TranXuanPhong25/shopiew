@@ -88,9 +88,11 @@ export function ResetPasswordForm({ className, token, ...props }: ResetPasswordF
                      </div>
                   </div>
                   <div className="relative hidden bg-muted md:block">
-                     <img
+                     <Image
                         src="/placeholder.svg?height=600&width=400"
                         alt="Image"
+                        width={500}
+                        height={500}
                         className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                      />
                   </div>

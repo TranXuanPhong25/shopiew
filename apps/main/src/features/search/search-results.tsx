@@ -2,7 +2,7 @@
 import ProductSorting from "@/features/search/product-sorting";
 import ProductGrid from "@/features/product/product-grid";
 import Pagination from "@/components/ui/pagination";
-import {ProductCardProps} from "@/interfaces/product";
+import {ProductCardProps} from "@/types/product";
 import {useSearchParams} from "next/navigation";
 
 export default function SearchResults({products}:{products:ProductCardProps[]}){

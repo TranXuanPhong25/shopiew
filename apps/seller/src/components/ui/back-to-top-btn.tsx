@@ -32,7 +32,7 @@ export function BackToTopButton() {
     return (
         <Button
             onClick={scrollToTop}
-            variant="custom-1"
+            variant="default"
             size="icon"
             className={cn(
                 "fixed right-4 bottom-4 rounded-full shadow-md transition-all duration-200 ease-in-out z-[1000]",

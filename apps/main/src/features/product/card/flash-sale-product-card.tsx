@@ -1,7 +1,7 @@
 import Image from "next/image"
 import {Star} from "lucide-react"
 import {Card, CardContent} from "@/components/ui/card"
-import {FlashSaleCardProps} from "@/interfaces/product";
+import {FlashSaleCardProps} from "@/types/product";
 
 export default function FlashSaleProductCard({product}:{product:FlashSaleCardProps}) {
     return (

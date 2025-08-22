@@ -77,12 +77,12 @@ export function ForgotPasswordForm({ className, onSwitchToLogin, ...props }: For
                   </div>
                   <h1 className="text-2xl font-bold">Check your email</h1>
                   <p className="text-balance text-muted-foreground">
-                    We've sent a password reset link to <strong>{submittedEmail}</strong>
+                    We&apos;ve sent a password reset link to <strong>{submittedEmail}</strong>
                   </p>
                 </div>
                 <div className="space-y-4 w-full">
                   <p className="text-sm text-muted-foreground">
-                    Didn't receive the email? Check your spam folder or try again.
+                    Didn&apos;t receive the email? Check your spam folder or try again.
                   </p>
                   <Button type="button" variant="outline" className="w-full bg-transparent" onClick={handleTryAgain}>
                     Try again
@@ -95,9 +95,11 @@ export function ForgotPasswordForm({ className, onSwitchToLogin, ...props }: For
               </div>
             </div>
             <div className="relative hidden bg-muted md:block">
-              <img
+              <Image
                 src="/placeholder.svg?height=600&width=400"
                 alt="Image"
+                width={500}
+                height={500}
                 className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
               />
             </div>
@@ -119,7 +121,7 @@ export function ForgotPasswordForm({ className, onSwitchToLogin, ...props }: For
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Reset your password</h1>
                 <p className="text-balance text-muted-foreground">
-                  Enter your email address and we'll send you a link to reset your password
+                  Enter your email address and we&apos;ll send you a link to reset your password
                 </p>
               </div>
 
@@ -140,7 +142,7 @@ export function ForgotPasswordForm({ className, onSwitchToLogin, ...props }: For
                         <FormControl>
                           <Input type="email" placeholder="m@example.com" {...field} />
                         </FormControl>
-                        <FormDescription>We'll send a password reset link to this email address.</FormDescription>
+                        <FormDescription>{"We'll send a password reset link to this email address."}</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

@@ -2,7 +2,12 @@
 	"name": "shopiew",
 	"packageManager": "pnpm@10.4.1",
 	"scripts": {
-		"check-types": "tsc --noEmit"
+		"check-types": "tsc --noEmit",
+		"build": "turbo build",
+		"lint": "turbo lint",
+		"test": "turbo test",
+		"dev": "turbo dev"
+
 	},
 	"devDependencies": {
 		"@semantic-release/changelog": "^6.0.3",

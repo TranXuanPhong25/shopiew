@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 export default function SectionWrapper({
    children,
    className = "",
@@ -6,7 +8,7 @@ export default function SectionWrapper({
    className?: string;
 }) {
    return (
-      <div className="p-6 bg-white shadow-md rounded-lg ">
+      <div className={cn("p-6 bg-white shadow-md rounded-lg ", className)}>
          {children}
       </div>
    );

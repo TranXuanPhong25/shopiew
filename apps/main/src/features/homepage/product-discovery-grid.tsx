@@ -1,4 +1,4 @@
-import {ProductCardProps} from "@/interfaces/product";
+import {ProductCardProps} from "@/types/product";
 import ProductGrid from "@/features/product/product-grid";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
@@ -264,7 +264,7 @@ export default function ProductDiscoveryGrid() {
             <h2 className="text-center text-2xl font-bold mb-4">Daily Discovery</h2>
             <ProductGrid products={products}/>
             <div className={"grid place-items-center mt-4"}>
-                <Button variant={"custom-1"} className="w-[250px]">
+                <Button variant="default" className="w-[250px]">
                     <Link
                         href={"/daily-discovery"}
                     >

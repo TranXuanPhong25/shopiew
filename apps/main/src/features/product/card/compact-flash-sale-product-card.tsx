@@ -1,6 +1,6 @@
 import Image from "next/image"
 import {Card, CardContent} from "@/components/ui/card"
-import {CompactDisplayFlashSaleProps} from "@/interfaces/product";
+import {CompactDisplayFlashSaleProps} from "@/types/product";
 import {Flame} from "lucide-react"
 
 

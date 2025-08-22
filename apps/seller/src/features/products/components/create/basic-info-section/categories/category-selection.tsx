@@ -22,7 +22,7 @@ const CategorySelection = ({
       if (!isDirty && path.length > 0) {
          resetPath();
       }
-   }, [isDirty, resetPath]);
+   }, [isDirty, resetPath, path.length]);
 
    const handleValueChange = (value: string, field: any) => {
       toast(value);

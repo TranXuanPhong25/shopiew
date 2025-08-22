@@ -27,7 +27,9 @@ const AccountButton = () => {
                 </Button>
 
                 {
-                    open && <Modal setOpen={setOpen} children={<AuthForms setOpen={setOpen} />} />}
+                    open && <Modal setOpen={setOpen} >
+                        <AuthForms setOpen={setOpen} />
+                    </Modal>}
             </>
         )
     }

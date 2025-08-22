@@ -219,7 +219,7 @@ export default function TestimonialsSection() {
 
                                     {/* Quote */}
                                     <blockquote className="text-gray-700 leading-relaxed italic">
-                                        "{testimonial.quote}"
+                                        {`"${testimonial.quote}"`}
                                     </blockquote>
 
                                     {/* Footer */}

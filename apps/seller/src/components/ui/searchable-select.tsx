@@ -86,7 +86,7 @@ export default function SearchableSelect() {
                       className="w-full justify-start text-left"
                       onClick={() => addNewBrand(searchTerm)}
                     >
-                      <span className="text-blue-600">+ Thêm "{searchTerm}"</span>
+                      <span className="text-blue-600">{`+ Thêm "${searchTerm}"`}</span>
                     </Button>
                   )}
                 </div>

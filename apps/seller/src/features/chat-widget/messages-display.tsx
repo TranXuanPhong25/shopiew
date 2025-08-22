@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useRef, useState} from "react"
+import {useEffect, useMemo, useRef, useState} from "react"
 import {ScrollArea} from "@/components/ui/scroll-area"
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
@@ -17,9 +17,11 @@ export function MessageDisplay({ messages, selectedConversation }: MessageDispla
   const [newMessage, setNewMessage] = useState("")
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
-  const filteredMessages = selectedConversation
-    ? messages.filter((msg) => msg.conversationId === selectedConversation.id)
-    : []
+  const filteredMessages = useMemo(() => {
+    return selectedConversation
+      ? messages.filter((msg) => msg.conversationId === selectedConversation.id)
+      : []
+  }, [messages, selectedConversation])
 
   useEffect(() => {
     if (scrollAreaRef.current) {

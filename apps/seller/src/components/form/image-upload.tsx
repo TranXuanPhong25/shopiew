@@ -80,6 +80,20 @@ const ImageUpload = ({
          setIsLoading(false);
       }
    }, [validateFile, onImageChange]);
+     const handleRemoveImage = useCallback(() => {
+      if (previewUrl && !initialImageUrl) {
+         URL.revokeObjectURL(previewUrl);
+      }
+      setPreviewUrl(null);
+      setError(null);
+      onImageChange?.(null);
+
+      // Clear file input
+      if (fileInputRef.current) {
+         fileInputRef.current.value = '';
+      }
+   }, [previewUrl, initialImageUrl, onImageChange]);
+
    const handleFileInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) {
@@ -88,7 +102,7 @@ const ImageUpload = ({
             handleRemoveImage();
          }
       }
-   }, [handleFileSelect]);
+   }, [handleFileSelect, handleRemoveImage, variant]);
 
    const handleDragOver = useCallback((e: React.DragEvent) => {
       e.preventDefault();
@@ -117,22 +131,9 @@ const ImageUpload = ({
             handleRemoveImage();
          }  
       }
-   }, [disabled, handleFileSelect]);
+   }, [disabled, handleFileSelect, handleRemoveImage, variant]);
 
-   const handleRemoveImage = useCallback(() => {
-      if (previewUrl && !initialImageUrl) {
-         URL.revokeObjectURL(previewUrl);
-      }
-      setPreviewUrl(null);
-      setError(null);
-      onImageChange?.(null);
-
-      // Clear file input
-      if (fileInputRef.current) {
-         fileInputRef.current.value = '';
-      }
-   }, [previewUrl, initialImageUrl, onImageChange]);
-
+ 
    const handleClick = useCallback(() => {
       if (!disabled) {
          fileInputRef.current?.click();
