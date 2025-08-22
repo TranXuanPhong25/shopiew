@@ -9,7 +9,7 @@ import {
 } from "./model";
 import {ErrorResponse} from "@/lib/clients/types/ErrorResponse";
 import axios from "axios";
-import {Category} from '../../../../../admin/src/models/category';
+import {Category} from '../../../../admin/src/models/category';
 
 
 export const ProductsService = {
