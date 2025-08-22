@@ -1,5 +1,5 @@
 {
-  "repositoryUrl": "https://github.com/TranXuanPhong25/shopiew-seller.git",
+  "repositoryUrl": "https://github.com/TranXuanPhong25/shopiew.git",
   "branches": ["main"],
   "plugins": [
     "@semantic-release/commit-analyzer",
