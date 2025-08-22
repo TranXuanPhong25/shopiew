@@ -46,5 +46,5 @@ jobs:
         with:
           app-name: 'shopiew-main'
           slot-name: 'Production'
-          package: .
+          package: .next/standalone/apps/main
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F2F80BEC02DF4DD18BD6782811F0060E }}
