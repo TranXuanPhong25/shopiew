@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "node .next/standalone/apps/main/server.js",
+    "start": "node server.js",
     "lint": "next lint"
   },
   "dependencies": {
