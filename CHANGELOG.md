@@ -1,3 +1,9 @@
+## [0.2.1](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.0...v0.2.1) (2025-08-22)
+
+### 🐛 Bug Fixes
+
+* remove .env ([e6236da](https://github.com/TranXuanPhong25/shopiew/commit/e6236da4da8032255fb3d72a0a3231349d15b58a))
+
 ## [0.2.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.1.1...v0.2.0) (2025-08-22)
 
 ### 🚀 Features
