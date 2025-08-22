@@ -42,7 +42,7 @@ jobs:
       - name: Install production dependencies in standalone
         run: |
           cd apps/main/.next/standalone/apps/main
-          pnpm install --prod
+          npm install --only=production
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
