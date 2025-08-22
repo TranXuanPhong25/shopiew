@@ -1,3 +1,9 @@
+## [0.2.5](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.4...v0.2.5) (2025-08-22)
+
+### 🐛 Bug Fixes
+
+* build standalone instead ([440b265](https://github.com/TranXuanPhong25/shopiew/commit/440b265d37e4cded988ac72f7657059e16d7938f))
+
 ## [0.2.4](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.3...v0.2.4) (2025-08-22)
 
 ### 🐛 Bug Fixes
