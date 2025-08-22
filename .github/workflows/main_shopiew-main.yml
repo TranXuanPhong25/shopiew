@@ -22,7 +22,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-
+      - name: Go to @shopiew/main
+        run: |
+          cd apps/main
       - name: npm install, build, and test
         run: |
           npm install
