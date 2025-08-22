@@ -1,3 +1,13 @@
+## [0.2.6](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.5...v0.2.6) (2025-08-22)
+
+### 🐛 Bug Fixes
+
+* update deployment package path to point to standalone build ([2428a67](https://github.com/TranXuanPhong25/shopiew/commit/2428a67bf97b28a873992c6d5d96a76871190573))
+
+### 🔨 Technical Changes
+
+* simplify workflow by removing unused permissions and artifact steps ([f0314e8](https://github.com/TranXuanPhong25/shopiew/commit/f0314e82f95a8d462c77d6abf3926bc3e5c4ed12))
+
 ## [0.2.5](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.4...v0.2.5) (2025-08-22)
 
 ### 🐛 Bug Fixes
