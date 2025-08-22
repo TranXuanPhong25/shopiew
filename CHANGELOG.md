@@ -1,3 +1,9 @@
+## [0.2.4](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.3...v0.2.4) (2025-08-22)
+
+### 🐛 Bug Fixes
+
+* update Node.js setup and pnpm action version in workflow ([fd7b28b](https://github.com/TranXuanPhong25/shopiew/commit/fd7b28b1671fbd5e89895a99df188ab6a3c1d287))
+
 ## [0.2.3](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.2...v0.2.3) (2025-08-22)
 
 ### 🐛 Bug Fixes
