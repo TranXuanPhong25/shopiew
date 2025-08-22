@@ -1,3 +1,9 @@
+## [0.2.3](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.2...v0.2.3) (2025-08-22)
+
+### 🐛 Bug Fixes
+
+* correct cache syntax in Node.js setup step ([b71893e](https://github.com/TranXuanPhong25/shopiew/commit/b71893e184856e647e2f74a79e3703052fc16b69))
+
 ## [0.2.2](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.1...v0.2.2) (2025-08-22)
 
 ### 🐛 Bug Fixes
