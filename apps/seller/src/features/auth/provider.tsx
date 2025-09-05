@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             shop = await AuthService.getShop(userData.userInfo.userId);
         } catch (error: AxiosError | any) {
             if (error.response && error.response.status === 404) {
-                router.push('/shop/create');
+                router.push('/shops/create');
                 dispatch({ type: 'SET_AUTH_DATA', payload: { user: userData.userInfo, shop: null } });
                 return;
             }
