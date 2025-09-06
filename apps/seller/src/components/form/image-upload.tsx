@@ -18,6 +18,8 @@ interface ImageUploadProps {
    variant?: 'default' | 'compact';
    initialImageUrl?: string;
    label?: string;
+   aspectRatio?: 'square' | '16/9' | '4/3' | '3/2' | 'auto' | '8/3';
+   rounded?: boolean;
 }
 
 export const ImageUploadSizeClasses = {
@@ -25,6 +27,15 @@ export const ImageUploadSizeClasses = {
    md: 'w-28 h-28',
    lg: 'w-36 h-36',
    xl: 'w-40 h-40'
+};
+
+const aspectRatioClasses = {
+   square: 'aspect-square',
+   '16/9': 'aspect-video',
+   '4/3': 'aspect-[4/3]',
+   '3/2': 'aspect-[3/2]',
+   '8/3': 'aspect-[8/3]',
+   auto: ''
 };
 
 const ImageUpload = ({
@@ -36,7 +47,9 @@ const ImageUpload = ({
    size = 'md',
    variant = 'default',
    initialImageUrl,
-   label
+   label,
+   aspectRatio = 'square',
+   rounded = false
 }: ImageUploadProps) => {
    const [previewUrl, setPreviewUrl] = useState<string | null>(initialImageUrl||null);
    const [isDragOver, setIsDragOver] = useState(false);
@@ -149,7 +162,9 @@ const ImageUpload = ({
             isDragOver && "border-primary bg-primary/5",
             disabled && "cursor-not-allowed opacity-50",
             previewUrl && "border-solid border-gray-200",
-            ImageUploadSizeClasses[size]
+            aspectRatioClasses[aspectRatio],
+            aspectRatio === 'square' ? ImageUploadSizeClasses[size] : 'w-full',
+            rounded && "rounded-full"
          )}
          onClick={handleClick}
          onDragOver={handleDragOver}
@@ -172,7 +187,10 @@ const ImageUpload = ({
                      type="button"
                      variant="destructive"
                      size="icon"
-                     className="absolute top-1 right-1 h-6 w-6 rounded-full"
+                     className={cn(
+                        "absolute h-6 w-6 rounded-full",
+                        rounded ? "!top-4  !right-4" : "top-1 right-1"
+                     )}
                      onClick={(e) => {
                         e.stopPropagation();
                         handleRemoveImage();
@@ -202,14 +220,19 @@ const ImageUpload = ({
             "focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20",
             isDragOver && "border-primary bg-primary/5",
             disabled && "cursor-not-allowed opacity-50",
-            previewUrl && "border-solid border-gray-200"
+            previewUrl && "border-solid border-gray-200",
+            rounded && "rounded-full"
          )}
          onClick={handleClick}
          onDragOver={handleDragOver}
          onDragLeave={handleDragLeave}
          onDrop={handleDrop}
       >
-         <div className={cn("aspect-square relative  flex items-center justify-center", ImageUploadSizeClasses[size])}>
+         <div className={cn(
+            "relative flex items-center justify-center",
+            aspectRatioClasses[aspectRatio],
+            aspectRatio === 'square' ? ImageUploadSizeClasses[size] : 'w-full'
+         )}>
             {isLoading ? (
                <div className="flex flex-col items-center space-y-2">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -228,7 +251,10 @@ const ImageUpload = ({
                      type="button"
                      variant="destructive"
                      size="icon"
-                     className="absolute top-2 right-2 h-8 w-8 rounded-full"
+                     className={cn(
+                        "absolute h-8 w-8 rounded-full",
+                        rounded ? "top-6 right-6" : "top-2 right-2"
+                     )}
                      onClick={(e) => {
                         e.stopPropagation();
                         handleRemoveImage();
