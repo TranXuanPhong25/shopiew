@@ -7,8 +7,8 @@ export interface ShopData {
    name: string
    location: string
    businessType: string
-   logo: File| null
-   banner: File| null
+   logo: string
+   banner: string
 
    // Contact
    email: string

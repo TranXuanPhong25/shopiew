@@ -4,13 +4,14 @@ import { Types } from './types'
 import { ShopData } from '../../features/shops/models'
 import { ShopService } from '../../features/shops/service'
 import { toast } from 'sonner'
+import { UploadService } from '@/features/products/service'
 
 const initialShopData: ShopData = {
    name: "",
    location: "",
    businessType: "individual",
-   logo: null,
-   banner: null,
+   logo: "",
+   banner: "",
    email: "",
    phone: "",
 }
@@ -139,7 +140,14 @@ export const useShopCreationStore = create<Types>()(
                   toast.error("Please fix the validation errors")
                   return
                }
-
+               const logo = get().logo
+               if (logo) {
+                  shopData.logo = await UploadService.uploadFile(logo, logo?.name || "")
+               }
+               const banner = get().banner
+               if (banner) {
+                  shopData.banner = await UploadService.uploadFile(banner, banner?.name || "")
+               }
                // Prepare data with ownerId
                const submitData: ShopData = {
                   ...shopData,

@@ -117,5 +117,14 @@ export const UploadService = {
          xhr.onerror = () => reject(new Error("Network error"));
          xhr.send(file);
       });
+   },
+   uploadFile: async(file: File, fileName: string): Promise<string> => {
+      try {
+         const { presignedUrl } = await UploadService.generatePresignedUrl(file, fileName);
+         const uploadedUrl = await UploadService.upload(file, presignedUrl);
+         return uploadedUrl;
+      } catch (err) {
+         throw err;
+      }
    }
 }
