@@ -46,7 +46,7 @@ export function useFormStep<T extends FieldValues>({
       form.reset(currentFormData)
       isInitialized.current = true
     }
-  }, [])
+  }, [form, getFormData])
 
   // Reset when step changes
   useEffect(() => {

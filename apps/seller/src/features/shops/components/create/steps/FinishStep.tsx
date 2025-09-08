@@ -10,7 +10,7 @@ export interface StepRef {
   saveData: () => void
 }
 
-export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
+export const FinishStep = forwardRef<StepRef, object>((props, ref) => {
   const { shopData, submitForm, isSubmitting } = useShopCreationStore()
   const { user } = useAuth()
 
@@ -65,7 +65,7 @@ export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
                   <label className="text-sm font-medium text-gray-500 block mb-2">Logo</label>
                   <div className="inline-block">
                     <img 
-                      src={shopData.logo} 
+                      src={typeof shopData.logo === 'string' ? shopData.logo : URL.createObjectURL(shopData.logo)} 
                       alt="Shop logo"
                       className="w-16 h-16 object-cover rounded-lg border border-gray-200"
                     />
@@ -77,7 +77,7 @@ export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
                   <label className="text-sm font-medium text-gray-500 block mb-2">Cover Image</label>
                   <div className="inline-block">
                     <img 
-                      src={shopData.banner} 
+                      src={typeof shopData.banner === 'string' ? shopData.banner : URL.createObjectURL(shopData.banner)} 
                       alt="Shop cover"
                       className="w-48 h-27 object-cover rounded-lg border border-gray-200"
                       style={{ aspectRatio: '16/9' }}

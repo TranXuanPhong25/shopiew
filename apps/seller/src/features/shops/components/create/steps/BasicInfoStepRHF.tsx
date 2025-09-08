@@ -13,7 +13,7 @@ export interface StepRef {
    saveData: () => void
 }
 
-export const BasicInfoStepRHF = forwardRef<StepRef, {}>((props, ref) => {
+export const BasicInfoStepRHF = forwardRef<StepRef, object>((props, ref) => {
    const {
       form,
       handleNext,
@@ -151,3 +151,5 @@ export const BasicInfoStepRHF = forwardRef<StepRef, {}>((props, ref) => {
       </div>
    )
 })
+
+BasicInfoStepRHF.displayName = 'BasicInfoStepRHF'

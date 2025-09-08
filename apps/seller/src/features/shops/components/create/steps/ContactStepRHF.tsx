@@ -10,7 +10,7 @@ export interface StepRef {
   saveData: () => void
 }
 
-export const ContactStepRHF = forwardRef<StepRef, {}>((props, ref) => {
+export const ContactStepRHF = forwardRef<StepRef, object>((props, ref) => {
   const {
     form,
     handleNext,
@@ -75,3 +75,5 @@ export const ContactStepRHF = forwardRef<StepRef, {}>((props, ref) => {
     </div>
   )
 })
+
+ContactStepRHF.displayName = 'ContactStepRHF'

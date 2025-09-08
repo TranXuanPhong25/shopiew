@@ -40,7 +40,7 @@ export function ShopCreationSuccess() {
               Congratulations! 🎉
             </h1>
             <h2 className="text-xl text-gray-700 mb-6">
-              Your shop "{shopData.name}" has been created successfully!
+              Your shop &ldquo;{shopData.name}&rdquo; has been created successfully!
             </h2>
 
             {/* Info Cards */}
@@ -67,7 +67,7 @@ export function ShopCreationSuccess() {
 
             {/* Next Steps */}
             <div className="text-left mb-8">
-              <h3 className="font-semibold text-gray-900 mb-3">What's next?</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">What&apos;s next?</h3>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center">
                   <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
