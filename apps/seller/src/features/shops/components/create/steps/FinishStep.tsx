@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle } from 'react'
 import { CheckCircle, Store, Mail, Phone, MapPin, Image } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useShopCreationStore } from '../../../../../stores/shop-creation-store'
+import { useShopCreationStore } from '@/stores'
 
 export interface StepRef {
   submit: () => void

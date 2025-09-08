@@ -1,5 +1,5 @@
 import {act, renderHook} from '@testing-library/react'
-import {useVariantStore} from '../variant-store'
+import {useVariantStore} from '@/stores'
 
 describe('useVariantStore', () => {
   beforeEach(() => {

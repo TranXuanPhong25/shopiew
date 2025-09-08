@@ -2,7 +2,7 @@ import { useForm, DefaultValues, FieldValues, SubmitHandler } from 'react-hook-f
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ZodSchema } from 'zod'
 import { useEffect, useRef } from 'react'
-import { useShopCreationStore } from '../../../stores/shop-creation-store'
+import { useShopCreationStore } from '@/stores'
 import { ShopData } from '../models'
 
 interface UseFormStepProps<T extends FieldValues> {

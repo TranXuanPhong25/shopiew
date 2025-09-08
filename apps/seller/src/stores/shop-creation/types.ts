@@ -40,4 +40,4 @@ export interface ShopCreationStoreActions {
    // File uploads
    setLogo: (file: File | null) => void
    setBanner: (file: File | null) => void
-}export type ShopCreationStore = ShopCreationStoreState & ShopCreationStoreActions
+}export type Types = ShopCreationStoreState & ShopCreationStoreActions

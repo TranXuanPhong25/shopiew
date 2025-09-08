@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { ShopCreationStore } from './types/shop-creation-store'
-import { ShopData } from '../features/shops/models'
-import { ShopService } from '../features/shops/service'
+import { Types } from './types'
+import { ShopData } from '../../features/shops/models'
+import { ShopService } from '../../features/shops/service'
 import { toast } from 'sonner'
 
 const initialShopData: ShopData = {
@@ -18,7 +18,7 @@ const initialShopData: ShopData = {
    zipCode: "",
 }
 
-export const useShopCreationStore = create<ShopCreationStore>()(
+export const useShopCreationStore = create<Types>()(
    devtools(
       (set, get) => ({
          // Initial state

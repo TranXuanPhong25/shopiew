@@ -3,7 +3,7 @@ import { CheckCircle, ArrowRight, Store, Home } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
-import { useShopCreationStore } from '../../../../stores/shop-creation-store'
+import { useShopCreationStore } from '@/stores'
 
 export function ShopCreationSuccess() {
   const router = useRouter()

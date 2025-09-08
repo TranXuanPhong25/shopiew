@@ -5,7 +5,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
-import { useShopCreationStore } from '../../stores/shop-creation-store'
+import { useShopCreationStore } from '@/stores'
 
 // Re-export the store hook for backward compatibility and add router integration
 export const useShopCreation = () => {

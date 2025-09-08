@@ -7,7 +7,7 @@ import Image from 'next/image';
 import {Button} from '@/components/ui/button';
 import {MoveLeft, MoveRight, X} from 'lucide-react';
 import {Card} from '@/components/ui/card';
-import {MediaItem} from '@/stores/types/product-media-store';
+import {MediaItem} from '@/stores/product-media/types';
 import CoverImage from './cover-image';
 
 interface ImageListProps {

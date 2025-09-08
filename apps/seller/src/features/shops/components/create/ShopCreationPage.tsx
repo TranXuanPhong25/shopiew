@@ -7,7 +7,7 @@ import React, { useRef, useState, useEffect } from "react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useShopCreationStore } from '../../../../stores/shop-creation-store'
+import { useShopCreationStore } from '@/stores'
 import { SHOP_CREATION_STEPS, TOTAL_STEPS, getStepDescription } from '../../constants'
 import { BasicInfoStepRHF, StepRef } from './steps/BasicInfoStepRHF'
 import { ContactStepRHF } from './steps/ContactStepRHF'

@@ -7,7 +7,7 @@ import {Control, Controller, FieldErrors, UseFormRegister} from "react-hook-form
 import {NewProductFormData} from "@/lib/validations"
 import {InputWithUnit} from "@/components/form/input-with-unit"
 import VariantOptions from "../variants/variant-options"
-import {useVariantStore} from "@/stores/variant-store"
+import {useVariantStore} from "@/stores"
 
 type SalesInfoSectionProps = {
    register: UseFormRegister<NewProductFormData>
