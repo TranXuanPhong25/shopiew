@@ -26,7 +26,7 @@ export const BasicInfoStepRHF = forwardRef<StepRef, {}>((props, ref) => {
    } = useFormStep<BasicInfoFormData>({
       schema: basicInfoSchema,
       defaultValues: {
-         shopName: '',
+         name: '',
          location: '',
          businessType: 'individual' as const,
       }
@@ -48,17 +48,17 @@ export const BasicInfoStepRHF = forwardRef<StepRef, {}>((props, ref) => {
       <div className="space-y-6">
          {/* Shop Name */}
          <div className="space-y-2">
-            <Label htmlFor="shopName" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="name" className="text-sm font-medium text-gray-700">
                Shop Name *
             </Label>
             <Input
-               id="shopName"
-               {...register('shopName')}
+               id="name"
+               {...register('name')}
                placeholder="Enter your shop name"
-               className={errors.shopName ? 'border-red-500' : ''}
+               className={errors.name ? 'border-red-500' : ''}
             />
-            {errors.shopName && (
-               <p className="text-sm text-red-600">{errors.shopName.message}</p>
+            {errors.name && (
+               <p className="text-sm text-red-600">{errors.name.message}</p>
             )}
          </div>
 

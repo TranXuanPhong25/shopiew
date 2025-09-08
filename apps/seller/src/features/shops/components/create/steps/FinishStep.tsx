@@ -2,6 +2,7 @@ import React, { forwardRef, useImperativeHandle } from 'react'
 import { CheckCircle, Store, Mail, Phone, MapPin, Image } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useShopCreationStore } from '@/stores'
+import { useAuth } from '@/features/auth'
 
 export interface StepRef {
   submit: () => void
@@ -11,11 +12,16 @@ export interface StepRef {
 
 export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
   const { shopData, submitForm, isSubmitting } = useShopCreationStore()
+  const { user } = useAuth()
 
   useImperativeHandle(ref, () => ({
     submit: () => {
       // Submit the form when Continue/Create Shop is clicked
-      submitForm()
+      if (user?.userId) {
+        submitForm(user.userId)
+      } else {
+        console.error('User ID not available for shop creation')
+      }
     },
     isValid: true, // Finish step is always valid
     saveData: () => {
@@ -24,7 +30,11 @@ export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
   }))
 
   const handleCreateShop = () => {
-    submitForm()
+    if (user?.userId) {
+      submitForm(user.userId)
+    } else {
+      console.error('User ID not available for shop creation')
+    }
   }
 
   return (
@@ -91,7 +101,7 @@ export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
             <CardContent className="space-y-3">
               <div>
                 <label className="text-sm font-medium text-gray-500">Shop Name</label>
-                <p className="text-gray-900">{shopData.shopName || 'Not provided'}</p>
+                <p className="text-gray-900">{shopData.name || 'Not provided'}</p>
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-500">Location</label>
@@ -127,16 +137,7 @@ export const FinishStep = forwardRef<StepRef, {}>((props, ref) => {
                   <p className="text-gray-900">{shopData.phone || 'Not provided'}</p>
                 </div>
               </div>
-              <div className="flex items-center">
-                <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Address</label>
-                  <p className="text-gray-900">{`${shopData.city}, ${shopData.country}` || 'Not provided'}</p>
-                  {shopData.zipCode && (
-                    <p className="text-gray-600 text-sm">ZIP: {shopData.zipCode}</p>
-                  )}
-                </div>
-              </div>
+             
             </CardContent>
           </Card>
         </div>

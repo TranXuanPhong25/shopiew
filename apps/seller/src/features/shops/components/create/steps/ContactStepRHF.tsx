@@ -22,9 +22,7 @@ export const ContactStepRHF = forwardRef<StepRef, {}>((props, ref) => {
     defaultValues: {
       email: '',
       phone: '',
-      city: '',
-      country: '',
-      zipCode: ''
+
     }
   })
 
@@ -74,58 +72,6 @@ export const ContactStepRHF = forwardRef<StepRef, {}>((props, ref) => {
           <p className="text-sm text-red-600">{errors.phone.message}</p>
         )}
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* City */}
-        <div className="space-y-2">
-          <Label htmlFor="city" className="text-sm font-medium text-gray-700">
-            City *
-          </Label>
-          <Input
-            id="city"
-            {...register('city')}
-            placeholder="Your city"
-            className={errors.city ? 'border-red-500' : ''}
-          />
-          {errors.city && (
-            <p className="text-sm text-red-600">{errors.city.message}</p>
-          )}
-        </div>
-
-        {/* Country */}
-        <div className="space-y-2">
-          <Label htmlFor="country" className="text-sm font-medium text-gray-700">
-            Country *
-          </Label>
-          <Input
-            id="country"
-            {...register('country')}
-            placeholder="Your country"
-            className={errors.country ? 'border-red-500' : ''}
-          />
-          {errors.country && (
-            <p className="text-sm text-red-600">{errors.country.message}</p>
-          )}
-        </div>
-      </div>
-
-      {/* Zip Code */}
-      <div className="space-y-2">
-        <Label htmlFor="zipCode" className="text-sm font-medium text-gray-700">
-          Zip Code *
-        </Label>
-        <Input
-          id="zipCode"
-          {...register('zipCode')}
-          placeholder="12345"
-          className={errors.zipCode ? 'border-red-500' : ''}
-        />
-        {errors.zipCode && (
-          <p className="text-sm text-red-600">{errors.zipCode.message}</p>
-        )}
-      </div>
-
-    
     </div>
   )
 })

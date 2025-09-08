@@ -4,7 +4,7 @@
 
 export interface ShopData {
    // Basic Info
-   shopName: string
+   name: string
    location: string
    businessType: string
    logo: File| null
@@ -13,9 +13,9 @@ export interface ShopData {
    // Contact
    email: string
    phone: string
-   city: string
-   country: string
-   zipCode: string
+   
+   // Owner information (optional for form data, will be added during submission)
+   ownerId?: string
 }
 
 export interface ShopCreationStep {

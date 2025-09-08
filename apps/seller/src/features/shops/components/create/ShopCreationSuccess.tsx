@@ -40,7 +40,7 @@ export function ShopCreationSuccess() {
               Congratulations! 🎉
             </h1>
             <h2 className="text-xl text-gray-700 mb-6">
-              Your shop "{shopData.shopName}" has been created successfully!
+              Your shop "{shopData.name}" has been created successfully!
             </h2>
 
             {/* Info Cards */}

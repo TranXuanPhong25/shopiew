@@ -6,16 +6,13 @@ import { ShopService } from '../../features/shops/service'
 import { toast } from 'sonner'
 
 const initialShopData: ShopData = {
-   shopName: "",
+   name: "",
    location: "",
    businessType: "individual",
    logo: null,
    banner: null,
    email: "",
    phone: "",
-   city: "",
-   country: "",
-   zipCode: "",
 }
 
 export const useShopCreationStore = create<Types>()(
@@ -117,7 +114,7 @@ export const useShopCreationStore = create<Types>()(
          },
 
          // Form submission
-         submitForm: async (onSuccess?: () => void) => {
+         submitForm: async (userId: string, onSuccess?: () => void) => {
             const { shopData, setSubmitting, setCompleted } = get()
             
             setSubmitting(true)
@@ -127,8 +124,8 @@ export const useShopCreationStore = create<Types>()(
                // Basic validation
                const errors: Partial<Record<keyof ShopData, string>> = {}
                
-               if (!shopData.shopName.trim()) {
-                  errors.shopName = "Shop name is required"
+               if (!shopData.name.trim()) {
+                  errors.name = "Shop name is required"
                }
 
                if (!shopData.email.trim()) {
@@ -143,9 +140,15 @@ export const useShopCreationStore = create<Types>()(
                   return
                }
 
+               // Prepare data with ownerId
+               const submitData: ShopData = {
+                  ...shopData,
+                  ownerId: userId
+               }
+
                // Submit to API
-               // await ShopService.createShop(shopData)
-               console.log("Submitting shop data:", shopData)
+               await ShopService.createShop(submitData)
+               console.log("Submitting shop data:", submitData)
                toast.success("Shop created successfully!")
                
                // Mark as completed

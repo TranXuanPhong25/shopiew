@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useShopCreationStore } from '@/stores'
+import { useAuth } from '@/features/auth'
 import { SHOP_CREATION_STEPS, TOTAL_STEPS, getStepDescription } from '../../constants'
 import { BasicInfoStepRHF, StepRef } from './steps/BasicInfoStepRHF'
 import { ContactStepRHF } from './steps/ContactStepRHF'
@@ -24,6 +25,8 @@ export function ShopCreationPage() {
       goToStep,
       submitForm,
    } = useShopCreationStore()
+   
+   const { user } = useAuth()
 
    // Create refs for each step component
    const basicInfoRef = useRef<StepRef>(null)
@@ -101,7 +104,7 @@ export function ShopCreationPage() {
       // For timeline display only - actual validation handled by RHF
       switch (stepIndex) {
          case 0: // Basic Info
-            return !!(shopData.shopName.trim() && shopData.location.trim())
+            return !!(shopData.name.trim() && shopData.location.trim())
          case 1: // Contact
             return !!shopData.email.trim()
          case 2: // Finish
@@ -286,7 +289,13 @@ export function ShopCreationPage() {
                   
                   {currentStep === TOTAL_STEPS - 1 ? (
                      <Button 
-                        onClick={() => submitForm()} 
+                        onClick={() => {
+                           if (user?.userId) {
+                              submitForm(user.userId)
+                           } else {
+                              console.error('User ID not available for shop creation')
+                           }
+                        }}
                         disabled={isSubmitting}
                         className="bg-green-600 hover:bg-green-700 text-white px-8 py-2 shadow-lg w-full sm:w-auto"
                      >

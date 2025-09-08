@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 // Basic Info Step Schema
 export const basicInfoSchema = z.object({
-  shopName: z.string()
+  name: z.string()
     .min(1, 'Shop name is required')
     .min(3, 'Shop name must be at least 3 characters')
     .max(50, 'Shop name must be less than 50 characters'),
@@ -20,13 +20,6 @@ export const contactSchema = z.object({
   phone: z.string()
     .min(1, 'Phone number is required')
     .regex(/^[+]?[\d\s\-\(\)]{10,}$/, 'Please enter a valid phone number'),
-  city: z.string()
-    .min(1, 'City is required'),
-  country: z.string()
-    .min(1, 'Country is required'),
-  zipCode: z.string()
-    .min(1, 'Zip code is required')
-    .regex(/^\d{5}(-\d{4})?$/, 'Please enter a valid zip code'),
 })
 
 // Combined schema for final validation

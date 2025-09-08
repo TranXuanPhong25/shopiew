@@ -35,7 +35,7 @@ export interface ShopCreationStoreActions {
    clearAllErrors: () => void
 
    // Form submission
-   submitForm: (onSuccess?: () => void) => Promise<void>
+   submitForm: (userId: string, onSuccess?: () => void) => Promise<void>
 
    // File uploads
    setLogo: (file: File | null) => void
