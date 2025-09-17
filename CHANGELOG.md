@@ -1,3 +1,26 @@
+## [0.3.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.6...v0.3.0) (2025-09-17)
+
+### 🚀 Features
+
+* Implement shop creation flow with multi-step form ([c8d72cc](https://github.com/TranXuanPhong25/shopiew/commit/c8d72cc36a323bdf294cc634cd54f66129d3e1d6))
+* shop creation integrated ([a69f090](https://github.com/TranXuanPhong25/shopiew/commit/a69f090b35b564717ca0ba9f316012d5848d5a08))
+
+### 🐛 Bug Fixes
+
+* build errors fixed ([780f007](https://github.com/TranXuanPhong25/shopiew/commit/780f007b23bafa24a2883586948b9fe2365a4b12))
+* shop creation needed constraint ([f80f912](https://github.com/TranXuanPhong25/shopiew/commit/f80f9122c1137839e4f43a1e606c8c45202cf8eb))
+
+### 🔨 Technical Changes
+
+* auto deploy @shopiew/main to docker hub then azure auto deploy from that image ([a1489a7](https://github.com/TranXuanPhong25/shopiew/commit/a1489a7690a2f636be99f8ba58e99e77c72516c7))
+* fix the pnpm symlink ([1dad1fe](https://github.com/TranXuanPhong25/shopiew/commit/1dad1fe23b766689d56ee012b6b92c8ba20b11ef))
+* fix the pnpm symlink ([ab21cb8](https://github.com/TranXuanPhong25/shopiew/commit/ab21cb8782b202bc5879371942b67d76085667f5))
+* fix the pnpm symlink ([c6d0d14](https://github.com/TranXuanPhong25/shopiew/commit/c6d0d149e5231efc0eaf5ec6d33962c24210e8b3))
+* move shop creation page ([4ddf792](https://github.com/TranXuanPhong25/shopiew/commit/4ddf792f5da7ddf4f67a859aac992d130b2f6352))
+* store imports and restructure store files ([f9b64a9](https://github.com/TranXuanPhong25/shopiew/commit/f9b64a9051cc5ed27c5bd6472c58f3f7a8a8fde7))
+* update shop route references and create new shop page ([926b802](https://github.com/TranXuanPhong25/shopiew/commit/926b802a1a527a7941c9e64bb9afadbb72ae81f2))
+* upload logo and banner when submit ([f5a1919](https://github.com/TranXuanPhong25/shopiew/commit/f5a191902b446ca2e40437d775e3eacf8a3de418))
+
 ## [0.2.6](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.5...v0.2.6) (2025-08-22)
 
 ### 🐛 Bug Fixes
