@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Checkbox} from "@/components/ui/checkbox"
 import {TriadCheckbox} from "@/components/ui/triad-checkbox"
-import {useVariantStore} from "@/stores/variant-store"
+import {useVariantStore} from "@/stores"
 import {InputWithUnit} from "@/components/form/input-with-unit"
 import ImageUpload from "@/components/form/image-upload"
 

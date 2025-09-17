@@ -1,4 +1,4 @@
-import {useVariantStore} from '@/stores/variant-store'
+import {useVariantStore} from '@/stores'
 
 import {RawProductVariant} from '../../../model'
 

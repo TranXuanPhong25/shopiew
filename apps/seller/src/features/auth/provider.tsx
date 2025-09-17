@@ -3,12 +3,14 @@
  */
 "use client";
 
-import React, {useReducer} from 'react';
-import {useRouter, useSearchParams} from 'next/navigation';
-import {AuthContext} from './context';
-import {AuthService} from './service';
-import {User} from './models';
-import {authReducer} from './reducer';
+import React, { useReducer, useCallback } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { AuthContext } from './context';
+import { AuthService } from './service';
+import { LoginResponse, User } from './models';
+import { authReducer } from './reducer';
+import { AxiosError } from 'axios';
+import { toast } from 'sonner';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(authReducer, {
@@ -19,27 +21,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const router = useRouter();
     const redirectUrl = useSearchParams().get('redirect') || '/';
-    const checkAuthStatus = async () => {
+    
+    const checkAuthStatus = useCallback(async () => {
+        let userData: LoginResponse;
         try {
-            const userData = await AuthService.getCurrentUser();
-            const shop = await AuthService.getShop(userData.userInfo.userId);
+            userData = await AuthService.getCurrentUser();
+        } catch (error: AxiosError | any) {
+            const currentPath = window.location.pathname;
+            loginWithRedirect(currentPath);
+            return;
+        }
 
-            if (!shop) {
-                router.push('/shop/create');
+        let shop = null;
+        try {
+            shop = await AuthService.getShop(userData.userInfo.userId);
+        } catch (error: AxiosError | any) {
+            if (error.response && error.response.status === 404) {
+                router.push('/shops/create');
                 dispatch({ type: 'SET_AUTH_DATA', payload: { user: userData.userInfo, shop: null } });
                 return;
             }
-
-            // Single state update - only 1 re-render!
-            dispatch({ type: 'SET_AUTH_DATA', payload: { user: userData.userInfo, shop } });
-
-        } catch (error) {
-            console.error('Auth check failed:', error);
-            dispatch({ type: 'RESET_AUTH' });
-            const currentPath = window.location.pathname;
-            loginWithRedirect(currentPath);
         }
-    };
+        dispatch({ type: 'SET_AUTH_DATA', payload: { user: userData.userInfo, shop } });
+    }, [router]);
 
     // Update specific user details without replacing the entire user object
     const updateUserDetails = (details: Partial<User>) => {

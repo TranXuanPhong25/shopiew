@@ -1,8 +1,8 @@
 import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
-import {ProductMediaStore} from './types/product-media-store'
+import {Types} from './types'
 
-const useProductMediaStore = create<ProductMediaStore>()(
+const useProductMediaStore = create<Types>()(
    devtools(
       (set, get) => ({
          images: [],

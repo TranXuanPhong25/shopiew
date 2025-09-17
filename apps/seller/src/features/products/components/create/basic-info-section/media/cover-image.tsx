@@ -1,5 +1,5 @@
 import ImageUpload from "@/components/form/image-upload";
-import useProductMediaStore from "@/stores/product-media-store";
+import {useProductMediaStore} from "@/stores";
 
 const CoverImage = () => {
    const {

@@ -14,4 +14,4 @@ export interface ProductMediaStoreState {
    images: MediaItem[];
    coverImage: File | null;
 }
-export type ProductMediaStore = ProductMediaStoreState & ProductMediaStoreActions
+export type Types = ProductMediaStoreState & ProductMediaStoreActions

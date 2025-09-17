@@ -56,4 +56,4 @@ export interface VariantStoreState {
   options: ProductOption[]
   variants: Variant[]
 }
-export type VariantStore = VariantStoreState & VariantStoreActions
+export type Types = VariantStoreState & VariantStoreActions

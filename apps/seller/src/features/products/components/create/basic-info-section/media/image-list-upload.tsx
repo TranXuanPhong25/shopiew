@@ -3,9 +3,8 @@
 import ImageList from './image-list';
 import {Checkbox} from '@/components/ui/checkbox';
 import {Label} from '@/components/ui/label';
-import useProductMediaStore from '@/stores/product-media-store';
-import {MediaItem} from '@/stores/types/product-media-store';
-
+import {useProductMediaStore} from '@/stores';
+import { MediaItem } from '@/stores/product-media/types';
 const ImageListUpload = () => {
   const {images, setImages } = useProductMediaStore();
 

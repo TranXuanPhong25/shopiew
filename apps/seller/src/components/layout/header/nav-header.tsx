@@ -16,7 +16,7 @@ const NavHeader = () => {
 
       </div>
       <div className="flex items-center gap-2 px-4">
-        <Link href="/shop" className="text-sm font-semibold text-gray-700 hover:text-gray-900">
+        <Link href="/shops" className="text-sm font-semibold text-gray-700 hover:text-gray-900">
           <Store className="size-7 stroke-[1.5]" />
         </Link>
         <NavUser />

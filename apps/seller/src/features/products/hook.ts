@@ -1,9 +1,8 @@
 import {useMutation} from "@tanstack/react-query";
 import {CreateProductData, ProductVariant, UploadImageResponse} from "./model";
 import {ProductsService, UploadService} from "./service";
-import {useVariantStore} from "@/stores/variant-store";
-import {MediaItem} from "@/stores/types/product-media-store";
-import useProductMediaStore from "@/stores/product-media-store";
+import {useVariantStore, useProductMediaStore} from "@/stores";
+import { MediaItem } from "@/stores/product-media/types";
 
 const useCreateProduct = () => {
    const { getSelectedVariantsHasImage } = useVariantStore();

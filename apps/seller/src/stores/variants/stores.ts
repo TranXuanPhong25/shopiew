@@ -1,6 +1,6 @@
 import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
-import {OptionValue, ProductOption, Variant, VariantStore} from '@/stores/types/variant-store'
+import {OptionValue, ProductOption, Variant, Types} from './types'
 import {TriadState} from '@/components/ui/triad-checkbox'
 import {formatPriceValue, generateUniqueId} from '@/lib/utils'
 
@@ -41,7 +41,7 @@ const generateVariantCombinations = (options: ProductOption[]): Variant[] => {
   }))
 }
 
-export const useVariantStore = create<VariantStore>()(
+export const useVariantStore = create<Types>()(
   devtools(
     (set, get) => ({
       options: [],
