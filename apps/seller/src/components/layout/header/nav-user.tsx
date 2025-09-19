@@ -17,7 +17,7 @@ import {useAuth} from "@/features/auth/hook"
 import {Skeleton} from "@/components/ui/skeleton"
 
 export function NavUser() {
-  const { user, loading: isGettingUserData } = useAuth()
+  const { user, loading: isGettingUserData, logout } = useAuth()
   const { isMobile } = useSidebar()
 
   return (
@@ -88,7 +88,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
