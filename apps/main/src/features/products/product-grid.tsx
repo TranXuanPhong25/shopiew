@@ -1,4 +1,4 @@
-import ProductCard from "@/features/product/card/product-card";
+import ProductCard from "@/features/products/card/product-card";
 import {ProductCardProps} from "@/types/product";
 
 export default function ProductGrid({products,compact=false}: { products: ProductCardProps[],compact?:boolean }) {

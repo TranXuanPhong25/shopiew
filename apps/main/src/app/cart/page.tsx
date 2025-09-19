@@ -1,4 +1,4 @@
-import ShoppingCart from "@/features/cart/shopping-cart";
+import ShoppingCart from "@/features/carts/shopping-cart";
 
 export default function CartPage(){
     return <ShoppingCart/>
