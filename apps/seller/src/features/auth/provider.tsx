@@ -10,7 +10,6 @@ import { AuthService } from './service';
 import { LoginResponse, User } from './models';
 import { authReducer } from './reducer';
 import { AxiosError } from 'axios';
-import { toast } from 'sonner';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(authReducer, {
@@ -20,7 +19,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     const router = useRouter();
-    const redirectUrl = useSearchParams().get('redirect') || '/';
+    const redirectUrl = useSearchParams().get('redirect') || '/dashboard';
     
     const checkAuthStatus = useCallback(async () => {
         let userData: LoginResponse;
