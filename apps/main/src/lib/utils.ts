@@ -21,3 +21,19 @@ export function handlePlural(value: number, unit: string, shouldTruncate: boolea
 
   return `${value}${unit}`;
 }
+
+export function formatCurrency(value: number, currency: string = 'VND'): string {
+  if (currency === 'VND') {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value)
+  }
+  
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+  }).format(value)
+}
