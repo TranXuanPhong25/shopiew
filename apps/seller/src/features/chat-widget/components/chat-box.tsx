@@ -1,13 +1,13 @@
 "use client"
 
-import {useState} from "react"
-import {Card} from "@/components/ui/card"
-import {Button} from "@/components/ui/button"
-import {X} from "lucide-react"
-import {ConversationList} from "./conversation-list"
-import {MessageDisplay} from "./messages-display"
-import {AIChatInterface} from "./ai-chat-interface"
-import {dummyConversations, dummyMessages} from "./data"
+import { useState } from "react"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { X } from "lucide-react"
+import { ConversationList } from "./conversation-list"
+import { MessageDisplay } from "./messages-display"
+import { AIChatInterface } from "./ai-chat-interface"
+import { dummyConversations, dummyMessages } from "./data"
 
 interface ChatBoxProps {
   onClose: () => void
@@ -30,9 +30,6 @@ export function ChatBox({ onClose }: ChatBoxProps) {
     setCurrentView('ai-chat')
   }
 
-  const handleBackToList = () => {
-    setCurrentView('list')
-  }
 
   return (
     <Card className="relative w-[80vw] max-w-3xl h-[70vh] max-h-[600px] flex flex-col shadow-lg rounded-lg overflow-hidden">
@@ -41,41 +38,25 @@ export function ChatBox({ onClose }: ChatBoxProps) {
           <X className="h-5 w-5" />
         </Button>
       </div>
-      
-      {currentView === 'list' && (
-        <div className="flex flex-1 min-h-0">
-          <div className="w-full">
-            <ConversationList
-              conversations={dummyConversations}
-              selectedConversationId={selectedConversationId}
-              onSelectConversation={handleSelectConversation}
-              onStartNewAIChat={handleStartNewAIChat}
-            />
-          </div>
+
+      <div className="flex flex-1 min-h-0">
+        <div className="w-1/3 min-w-[200px] max-w-[300px] border-r">
+          <ConversationList
+            conversations={dummyConversations}
+            selectedConversationId={selectedConversationId}
+            onSelectConversation={handleSelectConversation}
+            onStartNewAIChat={handleStartNewAIChat}
+          />
         </div>
-      )}
-      
-      {currentView === 'conversation' && (
-        <div className="flex flex-1 min-h-0">
-          <div className="w-1/3 min-w-[200px] max-w-[300px] border-r">
-            <ConversationList
-              conversations={dummyConversations}
-              selectedConversationId={selectedConversationId}
-              onSelectConversation={handleSelectConversation}
-              onStartNewAIChat={handleStartNewAIChat}
-            />
-          </div>
-          <div className="flex-1">
+        <div className="flex-1">
+          {currentView === 'conversation' ? (
             <MessageDisplay messages={dummyMessages} selectedConversation={selectedConversation || null} />
-          </div>
+          ) : (
+            <AIChatInterface />
+          )}
         </div>
-      )}
-      
-      {currentView === 'ai-chat' && (
-        <div className="flex flex-1 min-h-0">
-          <AIChatInterface onBack={handleBackToList} />
-        </div>
-      )}
+      </div>
+
     </Card>
   )
 }
