@@ -1,3 +1,13 @@
+## [0.4.1](https://github.com/TranXuanPhong25/shopiew/compare/v0.4.0...v0.4.1) (2025-09-21)
+
+### 🐛 Bug Fixes
+
+* useCallback and missing deps error ([9e972d1](https://github.com/TranXuanPhong25/shopiew/commit/9e972d1a238f11a171ddd25c0ba0cc8911ef6f88))
+
+### 🔨 Technical Changes
+
+* refactor ChatWidget component and update import paths ([f7f4dce](https://github.com/TranXuanPhong25/shopiew/commit/f7f4dcebdb506d8dc5e61cbab6990e6712019c00))
+
 ## [0.4.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.3.0...v0.4.0) (2025-09-21)
 
 ### 🚀 Features
