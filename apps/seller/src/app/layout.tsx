@@ -34,16 +34,12 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
             >
                 {/* Suspense boundary for AuthProvider, uses loading.tsx automatically as fallback */}
-                <Suspense fallback={<Loading />}>
-                  <AuthProvider>
-                      <ReactQueryProvider>
-                          <AjaxProgressBarProvider>
-                              {children}
-                              {/* <BackToTopButton /> */}
-                          </AjaxProgressBarProvider>
-                      </ReactQueryProvider>
-                  </AuthProvider>
-                </Suspense>
+                <ReactQueryProvider>
+                    <AjaxProgressBarProvider>
+                        {children}
+                        {/* <BackToTopButton /> */}
+                    </AjaxProgressBarProvider>
+                </ReactQueryProvider>r
                 <Toaster />
             </body>
         </html>

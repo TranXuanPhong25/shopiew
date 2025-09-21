@@ -86,8 +86,8 @@ export default function MassiveOrbSection() {
                transition={{ duration: 0.8, delay: 1.6 }}
                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-               <Link href="#hero-section">
-                  <LandingButton title="Get Started" />
+               <Link href="/auth/signup">
+                  <LandingButton title="Register now" />
                </Link>
             </motion.div>
 
