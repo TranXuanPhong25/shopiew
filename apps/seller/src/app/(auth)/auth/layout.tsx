@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/features/auth';
 import Image from 'next/image'
 import Link from "next/link"
 

@@ -5,6 +5,7 @@ import { SidebarInset, SidebarProvider, } from "@/components/ui/sidebar"
 import NavHeader from '@/components/layout/header/nav-header';
 import {ChatWidget} from '@/features/chat-widget/components/chat-widget';
 import ProtectedPage from '@/components/auth/ProtectedPage';
+import { AuthProvider } from '@/features/auth';
 
 export const metadata: Metadata = {
   title: 'Shopiew Seller',
@@ -30,5 +31,6 @@ export default function MainLayout({
       </SidebarProvider>
       <ChatWidget />
     </ProtectedPage>
+    </AuthProvider>
   );
 }
