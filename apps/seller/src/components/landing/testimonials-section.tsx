@@ -126,7 +126,7 @@ export default function TestimonialsSection() {
             >
                 {/* Header */}
                 <motion.div variants={itemVariants} className="text-center space-y-6 mb-16">
-                    <Badge variant="outline" className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border-gray-200 text-gray-700">
+                    <Badge variant="outline" className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border-blue-200 text-blue-700">
                         <Award className="w-4 h-4" />
                         Câu chuyện thành công
                     </Badge>
@@ -134,7 +134,7 @@ export default function TestimonialsSection() {
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                         Hàng trăm nghìn seller
                         <br />
-                        <span className="bg-gradient-to-r from-gray-600 to-gray-800 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                             đã thành công cùng Shopiew
                         </span>
                     </h2>
@@ -155,7 +155,7 @@ export default function TestimonialsSection() {
                                 whileHover={{ y: -5 }}
                                 className="bg-white rounded-2xl p-6 text-center shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300"
                             >
-                                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl mb-4">
+                                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl mb-4">
                                     <Icon className="w-6 h-6 text-white" />
                                 </div>
                                 <div className="text-3xl font-bold text-gray-900 mb-2">{stat.number}</div>
@@ -176,13 +176,13 @@ export default function TestimonialsSection() {
                         >
                             <Card className="p-8 h-full bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
                                 {/* Background Quote */}
-                                <Quote className="absolute top-6 right-6 w-8 h-8 text-gray-200" />
+                                <Quote className="absolute top-6 right-6 w-8 h-8 text-blue-100" />
                                 
                                 <div className="space-y-6">
                                     {/* Header */}
                                     <div className="flex items-start justify-between">
                                         <div className="flex items-center gap-4">
-                                            <Avatar className="w-14 h-14 bg-gradient-to-r from-gray-500 to-gray-600">
+                                            <Avatar className="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-500">
                                                 <AvatarFallback className="text-white font-bold text-lg">
                                                     {testimonial.avatar}
                                                 </AvatarFallback>
@@ -208,7 +208,7 @@ export default function TestimonialsSection() {
                                             <div className="text-xs text-gray-500">Doanh thu/tháng</div>
                                         </div>
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-gray-600">{testimonial.growth}</div>
+                                            <div className="text-lg font-bold text-blue-600">{testimonial.growth}</div>
                                             <div className="text-xs text-gray-500">Tăng trưởng</div>
                                         </div>
                                         <div className="text-center">
@@ -219,7 +219,7 @@ export default function TestimonialsSection() {
 
                                     {/* Quote */}
                                     <blockquote className="text-gray-700 leading-relaxed italic">
-                                        {`"{testimonial.quote}"`}
+                                        {`"${testimonial.quote}"`}
                                     </blockquote>
 
                                     {/* Footer */}
@@ -228,7 +228,7 @@ export default function TestimonialsSection() {
                                             <CheckCircle2 className="w-4 h-4 text-green-500" />
                                             <span className="text-sm text-gray-600">{testimonial.products}</span>
                                         </div>
-                                        <Badge variant="secondary" className="bg-gray-50 text-gray-700">
+                                        <Badge variant="secondary" className="bg-blue-50 text-blue-700">
                                             Đã xác thực
                                         </Badge>
                                     </div>
