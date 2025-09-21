@@ -1,3 +1,9 @@
+## [0.5.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.4.1...v0.5.0) (2025-09-21)
+
+### 🚀 Features
+
+* add custom loader animation to loading component ([2e25ba5](https://github.com/TranXuanPhong25/shopiew/commit/2e25ba52126a97695a7f720f67e05c71f93be639))
+
 ## [0.4.1](https://github.com/TranXuanPhong25/shopiew/compare/v0.4.0...v0.4.1) (2025-09-21)
 
 ### 🐛 Bug Fixes
