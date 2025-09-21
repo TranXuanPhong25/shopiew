@@ -1,4 +1,4 @@
-import {ProductCardProps} from "@/types/product";
+import {ProductCardProps} from "@/features/products/types";
 import SearchFilter from "@/features/search/search-filters";
 import SearchResults from "@/features/search/search-results";
 

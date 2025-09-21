@@ -1,10 +1,10 @@
 "use client";
-import ProductCarousel from "@/features/products/product-carousel";
+import ProductCarousel from "@/features/homepage/product-carousel";
 import * as React from "react";
-import CompactFlashSaleProductCard from "@/features/products/card/compact-flash-sale-product-card";
+import CompactFlashSaleProductCard from "@/features/homepage/card/compact-flash-sale-product-card";
 import CountDownClock from "@/features/homepage/count-down-clock";
 import {ChevronRight} from "lucide-react";
-import { CompactDisplayFlashSaleProps } from "@/types/product";
+import { CompactDisplayFlashSaleProps } from "@/features/products/types";
 
 const products: CompactDisplayFlashSaleProps[] = [
     {

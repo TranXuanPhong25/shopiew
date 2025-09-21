@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 
 const nextConfig = {
     images: {
@@ -7,6 +6,10 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "placehold.co",
             },
+            {
+                protocol: "https",
+                hostname: "picsum.photos",
+            }
         ],
     },
     output: 'standalone',

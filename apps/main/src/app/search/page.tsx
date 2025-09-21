@@ -1,6 +1,6 @@
 import SearchFilter from "@/features/search/search-filters";
 import SearchResults from "@/features/search/search-results";
-import { ProductCardProps } from "@/types/product";
+import { ProductCardProps } from "@/features/products/types";
 import {Metadata} from "next";
 import {Suspense} from "react";
 

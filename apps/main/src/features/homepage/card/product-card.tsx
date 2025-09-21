@@ -1,7 +1,7 @@
 import Image from "next/image"
 import {MapPin, Star} from "lucide-react"
 import {Card, CardContent} from "@/components/ui/card"
-import {ProductCardProps} from "@/types/product";
+import {ProductCardProps} from "@/features/products/types";
 import {clsx} from "clsx";
 
 export default function ProductCard({product,compact=false}:{product:ProductCardProps,compact?:boolean}) {
