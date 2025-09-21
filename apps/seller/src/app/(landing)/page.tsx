@@ -1,5 +1,5 @@
 import HeroSection from "@/components/landing/hero-section";
-import FeaturesSection from "@/components/landing/features-section";
+import FeaturesSection from "@/components/landing/features-section-fixed";
 import TestimonialsSection from "@/components/landing/testimonials-section";
 import { PageZoomTransition, CircularReveal } from "@/components/effects";
 import IntroSection from "@/components/landing/intro-section";
@@ -15,34 +15,16 @@ export default function LandingPage() {
 
             <CircularReveal
                duration={1.5}
-               delay={0.3}
+               delay={0.2}
                triggerOnView={true}
                centerX={25}
                centerY={50}>
                <HeroSection />
             </CircularReveal>
 
-            <CircularReveal
-               duration={1.2}
-               delay={0.5}
-               triggerOnView={true}
-               centerX={25}
-               centerY={50}
-            >
-               <FeaturesSection />
-            </CircularReveal>
+            <FeaturesSection />
 
-            <CircularReveal
-               duration={1.0}
-               delay={0.2}
-               triggerOnView={true}
-               centerX={75}
-               centerY={50}
-            >
-               <TestimonialsSection />
-            </CircularReveal>
-
-
+            <TestimonialsSection />
          </div>
       </PageZoomTransition>
    );

@@ -113,9 +113,9 @@ export default function HeroSection() {
                         {/* Benefits */}
                         <div className="space-y-4">
                             {benefits.map((benefit, index) => (
-                                <motion.div
+                                <div
                                     key={index}
-                                    variants={itemVariants}
+                                    // variants={itemVariants}
                                     className="flex items-start gap-4 p-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-gray-200/50 hover:bg-white/80 transition-all duration-300"
                                 >
                                     <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
@@ -125,7 +125,7 @@ export default function HeroSection() {
                                         <h3 className="font-semibold text-gray-900 mb-1">{benefit.title}</h3>
                                         <p className="text-gray-600 text-sm">{benefit.description}</p>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
 
