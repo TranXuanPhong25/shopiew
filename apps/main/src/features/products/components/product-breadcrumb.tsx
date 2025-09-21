@@ -6,7 +6,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
-import { ProductDetail } from "@/types/product";
+import { ProductDetail } from "@/features/products/types";
 import Link from "next/link";
 
 export default function ProductBreadcrumb({ product }: { product: ProductDetail }) {
