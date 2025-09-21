@@ -1,9 +1,9 @@
 import React, { forwardRef, useImperativeHandle } from 'react'
-import { CheckCircle, Store, Mail, Phone, MapPin, Image } from 'lucide-react'
+import { CheckCircle, Store, Mail, Phone, MapPin, ImageIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useShopCreationStore } from '@/stores'
 import { useAuth } from '@/features/auth'
-
+import Image from 'next/image'
 export interface StepRef {
   submit: () => void
   isValid: boolean
@@ -55,7 +55,7 @@ export const FinishStep = forwardRef<StepRef, object>((props, ref) => {
           <Card>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center text-lg">
-                <Image className="w-5 h-5 mr-2 text-orange-600" />
+                <ImageIcon className="w-5 h-5 mr-2 text-orange-600" />
                 Visual Assets
               </CardTitle>
             </CardHeader>
@@ -64,7 +64,7 @@ export const FinishStep = forwardRef<StepRef, object>((props, ref) => {
                 <div>
                   <label className="text-sm font-medium text-gray-500 block mb-2">Logo</label>
                   <div className="inline-block">
-                    <img 
+                    <Image 
                       src={typeof shopData.logo === 'string' ? shopData.logo : URL.createObjectURL(shopData.logo)} 
                       alt="Shop logo"
                       className="w-16 h-16 object-cover rounded-lg border border-gray-200"
@@ -76,7 +76,7 @@ export const FinishStep = forwardRef<StepRef, object>((props, ref) => {
                 <div>
                   <label className="text-sm font-medium text-gray-500 block mb-2">Cover Image</label>
                   <div className="inline-block">
-                    <img 
+                    <Image 
                       src={typeof shopData.banner === 'string' ? shopData.banner : URL.createObjectURL(shopData.banner)} 
                       alt="Shop cover"
                       className="w-48 h-27 object-cover rounded-lg border border-gray-200"

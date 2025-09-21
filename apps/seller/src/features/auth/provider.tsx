@@ -20,7 +20,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const router = useRouter();
     const redirectUrl = useSearchParams().get('redirect') || '/dashboard';
-    
+    const loginWithRedirect = useCallback(async (redirectTo: string): Promise<void> => {
+        const dest = redirectTo ? '/auth/login?redirect=' + redirectTo : '/auth/login';
+        router.push(dest);
+    }, [router]);
     const checkAuthStatus = useCallback(async () => {
         let userData: LoginResponse;
         try {
@@ -42,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         }
         dispatch({ type: 'SET_AUTH_DATA', payload: { user: userData.userInfo, shop } });
-    }, [router]);
+    }, [router, loginWithRedirect]);
 
     // Update specific user details without replacing the entire user object
     const updateUserDetails = (details: Partial<User>) => {
@@ -52,10 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         dispatch({ type: 'SET_USER', payload: updatedUser });
     };
 
-    const loginWithRedirect = async (redirectTo: string) => {
-        const dest = redirectTo ? '/auth/login?redirect=' + redirectTo : '/auth/login';
-        router.push(dest);
-    };
+ 
 
     const logout = async () => {
         try {

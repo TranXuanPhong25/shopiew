@@ -39,7 +39,7 @@ export function ShopCreationPage() {
    const currentStepData = SHOP_CREATION_STEPS[currentStep]
 
    // Get current step ref
-   const getCurrentStepRef = () => {
+   const getCurrentStepRef = React.useCallback(() => {
       switch (currentStep) {
          case 0:
             return basicInfoRef
@@ -50,7 +50,7 @@ export function ShopCreationPage() {
          default:
             return null
       }
-   }
+   }, [currentStep])
 
    // Update validation state whenever step changes or validation changes
    useEffect(() => {
@@ -68,7 +68,7 @@ export function ShopCreationPage() {
       const interval = setInterval(checkValidation, 100)
 
       return () => clearInterval(interval)
-   }, [currentStep])
+   }, [currentStep, getCurrentStepRef])
 
    // Save current step data before navigation
    const saveCurrentStepData = () => {
