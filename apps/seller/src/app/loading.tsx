@@ -5,7 +5,7 @@ export default function Loading() {
         <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         <h2 className="text-2xl font-semibold text-primary">Shopiew</h2>
       </div>
-      <p className="text-muted-foreground">Loading your experience...</p>
+      <div className="loader"></div>
     </div>
   );
 }
