@@ -1,7 +1,7 @@
 import { useForm, DefaultValues, FieldValues, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ZodSchema } from 'zod'
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useShopCreationStore } from '@/stores'
 import { ShopData } from '../models'
 
@@ -28,9 +28,9 @@ export function useFormStep<T extends FieldValues>({
   const isInitialized = useRef(false)
 
   // Merge store data with default values
-  const getFormData = (): DefaultValues<T> => {
+  const getFormData = useCallback((): DefaultValues<T> => {
     return { ...defaultValues, ...shopData } as unknown as DefaultValues<T>
-  }
+  }, [defaultValues, shopData]);
 
   const form = useForm<T>({
     resolver: schema ? zodResolver(schema as any) : undefined,
