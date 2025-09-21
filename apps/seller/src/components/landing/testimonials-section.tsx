@@ -1,11 +1,16 @@
 "use client";
 
-import {motion, type Variants} from "framer-motion";
-import {useInView} from "react-intersection-observer";
-import {Card} from "@/components/ui/card";
-import {Badge} from "@/components/ui/badge";
-import {Avatar, AvatarFallback} from "@/components/ui/avatar";
-import {Award, CheckCircle2, Quote, ShoppingBag, Star, TrendingUp, Users} from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Award, CheckCircle2, Quote, ShoppingBag, Star, TrendingUp, Users } from "lucide-react";
+import LandingButton from "./landing-button";
+import Link from "next/link";
+import { Button } from "../ui/button";
+import SafeLinkButton from "./safe-link-button";
+import NavigationButton from "./navigation-button";
 
 const testimonials = [
     {
@@ -23,7 +28,7 @@ const testimonials = [
     {
         name: "Trần Văn Hùng",
         role: "Kinh doanh điện tử",
-        location: "TP.HCM", 
+        location: "TP.HCM",
         avatar: "TH",
         rating: 5,
         revenue: "200 triệu/tháng",
@@ -46,7 +51,7 @@ const testimonials = [
     },
     {
         name: "Phạm Đức Long",
-        role: "F&B Entrepreneur", 
+        role: "F&B Entrepreneur",
         location: "Hải Phòng",
         avatar: "PL",
         rating: 5,
@@ -130,7 +135,7 @@ export default function TestimonialsSection() {
                         <Award className="w-4 h-4" />
                         Câu chuyện thành công
                     </Badge>
-                    
+
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                         Hàng trăm nghìn seller
                         <br />
@@ -138,7 +143,7 @@ export default function TestimonialsSection() {
                             đã thành công cùng Shopiew
                         </span>
                     </h2>
-                    
+
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         Từ những cửa hàng nhỏ đến các doanh nghiệp lớn, Shopiew đã giúp họ tăng trưởng vượt bậc và đạt được ước mơ kinh doanh.
                     </p>
@@ -177,7 +182,7 @@ export default function TestimonialsSection() {
                             <Card className="p-8 h-full bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
                                 {/* Background Quote */}
                                 <Quote className="absolute top-6 right-6 w-8 h-8 text-blue-100" />
-                                
+
                                 <div className="space-y-6">
                                     {/* Header */}
                                     <div className="flex items-start justify-between">
@@ -193,7 +198,7 @@ export default function TestimonialsSection() {
                                                 <p className="text-sm text-gray-500">{testimonial.location}</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-center gap-1">
                                             {Array.from({ length: testimonial.rating }).map((_, i) => (
                                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -246,6 +251,20 @@ export default function TestimonialsSection() {
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                         Tham gia cùng cộng đồng seller Shopiew và bắt đầu hành trình kinh doanh thành công của bạn ngay hôm nay.
                     </p>
+                    
+                    <motion.div
+                        className="flex justify-center pt-4"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <NavigationButton 
+                            href="/auth/signup"
+                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold shadow-xl"
+                            size="lg"
+                        >
+                            Đăng ký ngay
+                        </NavigationButton>
+                    </motion.div>
                     
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
                         <div className="flex items-center gap-2 text-sm text-gray-500">
