@@ -14,7 +14,7 @@ export default function ChatDemoPage() {
         <h2 className="text-lg font-semibold">Features:</h2>
         <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
           <li>Switch between Conversations and AI Assistant tabs</li>
-          <li>{`Click "New Conversation" in AI Assistant tab to start AI chat`}</li>
+          <li>Click "New Conversation" in AI Assistant tab to start AI chat</li>
           <li>AI chat connects to localhost:8080/api/chat</li>
           <li>Real-time message interface with loading states</li>
           <li>Back navigation from AI chat to main view</li>
