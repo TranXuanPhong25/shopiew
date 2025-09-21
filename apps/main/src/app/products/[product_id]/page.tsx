@@ -7,19 +7,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
-<<<<<<<< Updated upstream:apps/main/src/app/product/[product]/page.tsx
-import Link from "next/link";
-import ProductImages from "@/features/product/detail/product-image";
-import RatingStars from "@/components/ui/rating-stars";
-import ProductAction from "@/features/product/detail/product-action";
-import ProductSpecifications from "@/features/product/detail/product-specifications";
-import CustomerReviews from "@/features/product/detail/customer-review/customer-reviews";
-import ProductDescription from "@/features/product/detail/product-description";
-import ShopInfoCard from "@/features/product/detail/shop-info-card";
 
-export default async function ProductPage({params}: { params: Promise<{ product: string }> }) {
-    const {product} = await params;
-========
 import ProductImages from "@/features/products/detail/product-image";
 import RatingStars from "@/components/ui/rating-stars";
 import ProductAction from "@/features/products/detail/product-action";
@@ -35,10 +23,7 @@ export default async function ProductPage({params}: { params: Promise<{ product_
         return notFound();
     }
     const product = await ProductService.getProductById(product_id);
->>>>>>>> Stashed changes:apps/main/src/app/products/[product_id]/page.tsx
-    if (!product) {
-        return notFound();
-    }
+
     console.log(product)
     return (
         <div className="max-w-7xl my-4 mx-auto">
