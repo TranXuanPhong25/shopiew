@@ -1,27 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { MemoizedMarkdown } from './memozied-markdown';
 import { ChatInput } from './chat-input';
 
-interface Message {
-   id: string;
-   role: 'user' | 'assistant';
-   content: string;
-   timestamp: Date;
-}
 
-interface AIChatInterfaceProps {
-   onBack: () => void;
-}
-
-export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
+export function AIChatInterface() {
    const { messages, sendMessage, status } = useChat({
       transport: new DefaultChatTransport({
          api: 'http://localhost:8080/api/chatbots',
@@ -29,24 +17,21 @@ export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
       }),
       experimental_throttle: 50,
    });
-
+   const starting = messages.slice(-1)[0]?.parts.length ==1 || (
+      messages.slice(-1)[0]?.parts.length ==2 && messages.slice(-1)[0]?.parts[1]?.type === "text" && messages.slice(-1)[0]?.parts[1]?.text === ""
+   );
+   console.log("Messages:", messages, "Starting:", starting);
    const handleSendMessage = async (message: string) => {
+      
       await sendMessage({
          parts: [{ type: 'text', text: message }]
       });
+
    };
    return (
       <div className="flex flex-col h-full">
          {/* Header */}
          <div className="flex items-center gap-3 p-4 border-b">
-            <Button
-               variant="ghost"
-               size="icon"
-               onClick={onBack}
-               className="h-8 w-8"
-            >
-               <ArrowLeft className="h-4 w-4" />
-            </Button>
             <div>
                <h2 className="text-lg font-semibold">AI Assistant</h2>
                <p className="text-xs text-muted-foreground">Ask me anything about your store</p>
@@ -78,17 +63,17 @@ export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
                   </div>
                )}
 
-               {messages.map((message, index) => {
-                  return (
+               { messages.map((message, index) => {
+                  return !(starting && messages.length -1 == index) &&  (
                      <div key={index} className="space-y-2">
                         <Card
-                           className={`max-w-[80%]  ${message.role === 'user'
+                           className={`max-w-[80%] w-fit ${message.role === 'user'
                               ? 'ml-auto bg-primary text-primary-foreground'
-                              : 'mr-auto'
+                              : 'mr-auto bg-muted'
                               }`}
                         >
                            <CardContent className="p-3">
-                              <div className="text-sm whitespace-pre-wrap">
+                              <div className="text-sm whitespace-pre-wrap max-w-md">
                                  {message.parts.map(part => {
                                     if (part.type === "text" && message.role === "assistant") {
                                        return (
@@ -112,7 +97,7 @@ export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
                   )
                })}
 
-               {status === "submitted" && (
+               {starting&& (
                   <Card className="max-w-[80%] mr-auto">
                      <CardContent className="p-3">
                         <div className="flex items-center space-x-2">
@@ -131,7 +116,7 @@ export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
 
          <ChatInput 
             onSendMessage={handleSendMessage}
-            isLoading={status !== "ready"}
+            isLoading={status === "submitted"}
             placeholder="Ask me anything about your store..."
          />
       </div>
