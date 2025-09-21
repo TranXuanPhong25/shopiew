@@ -7,24 +7,19 @@ import ShoppingCartPlus from "@/components/icon/shopping-cart-plus";
 import { Badge } from "@/components/ui/badge";
 import { ProductVariant, SelectedVariant, VariantPrice, VariantInventory } from "@/features/products/types";
 import { formatCurrency } from "@/lib/utils";
+import { useProductPageContext } from "../context";
 
-interface ProductActionProps {
-  selectedVariant: SelectedVariant
-  currentVariant: ProductVariant | null
-  currentPrice: VariantPrice
-  currentInventory: VariantInventory
-  isValid: boolean
-  onClearSelection: () => void
-}
+export default function ProductAction() {
+    const {
+        selectedVariant,
+        currentVariant,
+        currentPrice,
+        currentInventory,
+        isValid,
+        clearSelection: onClearSelection
+    }= useProductPageContext();
 
-export default function ProductAction({ 
-  selectedVariant,
-  currentVariant,
-  currentPrice,
-  currentInventory,
-  isValid,
-  onClearSelection
-}: ProductActionProps) {
+
   const hasVariants = Object.keys(selectedVariant).length > 0 || currentVariant !== null;
 
     return (

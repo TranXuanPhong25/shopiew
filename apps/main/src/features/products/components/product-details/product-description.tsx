@@ -1,4 +1,8 @@
-export default function ProductDescription({ description }: { description: string }) {
+import { useProductPageContext } from "../../context";
+
+export default function ProductDescription() {
+    const { product: { description } } = useProductPageContext();
+
     return (
         <div className="divide-y text-sm">
             <h2 className="text-lg font-medium p-4 bg-muted/50">Product Descriptions</h2>

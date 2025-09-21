@@ -6,10 +6,11 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
-import { ProductDetail } from "@/features/products/types";
 import Link from "next/link";
+import { useProductPageContext } from "../context";
 
-export default function ProductBreadcrumb({ product }: { product: ProductDetail }) {
+export default function ProductBreadcrumb() {
+   const { product } = useProductPageContext();
    return (
       <Breadcrumb className=" px-4 mb-4">
          <BreadcrumbList>

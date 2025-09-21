@@ -1,4 +1,10 @@
-export default  function ProductSpecifications({specs}:{specs: Record<string, string>}) {
+import { useProductPageContext } from "../../context";
+
+export default  function ProductSpecifications() {
+    const {product: { specs }} = useProductPageContext();
+    if (!specs || Object.keys(specs).length === 0) {
+        return null;
+    }
     return (
         <div className="overflow-hidden ">
             <h2 className="text-lg font-medium p-4 bg-muted/50">Product Specifications</h2>
