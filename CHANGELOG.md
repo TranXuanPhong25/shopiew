@@ -1,3 +1,23 @@
+## [0.4.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.3.0...v0.4.0) (2025-09-21)
+
+### 🚀 Features
+
+* add demo page and enhanced features section with animations and responsive design ([6aa9de1](https://github.com/TranXuanPhong25/shopiew/commit/6aa9de1333baee90764c6ebc7e38196d1578f666))
+* add Orb component with GLSL shader effects and integrate into landing section ([ae61c2c](https://github.com/TranXuanPhong25/shopiew/commit/ae61c2c264aeafe19d241ca5cb9edef5adc47c26))
+* add zoom effect demo with multiple animation types and center points ([0f7d46c](https://github.com/TranXuanPhong25/shopiew/commit/0f7d46c08ab3be5c9bd4cf2b9d8b6672e29e38ad))
+* auto scroll to new message ([dc4e3c9](https://github.com/TranXuanPhong25/shopiew/commit/dc4e3c9e73517e09da7493c65c67c4c1edb09ad4))
+* Implement product detail page with breadcrumb navigation, product images, specifications, and customer reviews ([92cd290](https://github.com/TranXuanPhong25/shopiew/commit/92cd29052ac568547889e4457a84b2b90e862efc))
+
+### 🐛 Bug Fixes
+
+* Correct type assertion for message parts in AIChatInterface ([74e7034](https://github.com/TranXuanPhong25/shopiew/commit/74e7034c162a833fdc4a4c925b42665214bb2664))
+* redirect to dashboard after login successfully ([4e41d4a](https://github.com/TranXuanPhong25/shopiew/commit/4e41d4a93b855311d05baacf23845879f7098f2e))
+
+### 🔨 Technical Changes
+
+* actively logout button ([2ef8b99](https://github.com/TranXuanPhong25/shopiew/commit/2ef8b9907de028e2cb80581670d4424c266e9abb))
+* Simplify AIChatInterface by removing unnecessary props and improving message handling ([50af68d](https://github.com/TranXuanPhong25/shopiew/commit/50af68dd66621defc8d634ddf1edcb49a204a54e))
+
 ## [0.3.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.2.6...v0.3.0) (2025-09-17)
 
 ### 🚀 Features
