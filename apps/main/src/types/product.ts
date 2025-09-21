@@ -4,9 +4,7 @@ interface Product {
     originalPrice: number;
 }
 
-interface ProductSpecifications {
-    [key: string]: string;
-}
+
 
 export interface ProductCardProps extends IDisplayable, Informative {
     salePrice: number;
@@ -31,7 +29,7 @@ export interface ProductDetail extends FlashSaleCardProps, ProductCardProps, Pro
     description: string;
     inStockQuantity: number;
     status: ProductStatus;
-    specifications: ProductSpecifications[];
+    specs: Record<string, string>;
 }
 
 type ProductStatus = "New" | "Used"
