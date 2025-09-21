@@ -1,22 +1,21 @@
 "use client";
 
-import {motion, type Variants} from "framer-motion";
-import {useInView} from "react-intersection-observer";
-import {Button} from "@/components/ui/button";
-import {Badge} from "@/components/ui/badge";
-import {Card} from "@/components/ui/card";
-import {Input} from "@/components/ui/input";
-import {ArrowRight, BarChart3, Mail, Shield, Sparkles, Users} from "lucide-react";
-import {useState} from "react";
-
+import { motion, type Variants } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { ArrowRight, BarChart3, Mail, Shield, Sparkles, Users } from "lucide-react";
+import { useState } from "react";
+import { SignupForm } from "@/features/auth/components/signup-form";
+import Link from "next/link";
+import Image from "next/image";
 export default function HeroSection() {
     const { ref, inView } = useInView({
         threshold: 0.1,
         triggerOnce: true,
     });
 
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -68,10 +67,10 @@ export default function HeroSection() {
     ];
 
     return (
-        <section className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-purple-50 relative overflow-hidden">
+        <section className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-purple-50 relative overflow-hidden" id="hero-section">
             {/* Background decorative elements */}
             <div className="absolute inset-0">
-                <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-gray-400/10 to-gray-600/10 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-gradient-to-br from-cyan-400/5 to-blue-400/5 rounded-full blur-3xl"></div>
             </div>
@@ -87,13 +86,13 @@ export default function HeroSection() {
                     {/* Left Content */}
                     <motion.div variants={itemVariants} className="space-y-8">
                         <div className="space-y-6">
-                            <Badge variant="outline" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200 text-gray-700">
+                            <Badge variant="outline" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 text-blue-700">
                                 <Sparkles className="w-4 h-4" />
                                 Nền tảng bán hàng #1 Việt Nam
                             </Badge>
 
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                                <span className="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 bg-clip-text text-transparent">
+                                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
                                     Phát triển
                                 </span>
                                 <br />
@@ -119,7 +118,7 @@ export default function HeroSection() {
                                     variants={itemVariants}
                                     className="flex items-start gap-4 p-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-gray-200/50 hover:bg-white/80 transition-all duration-300"
                                 >
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
                                         <benefit.icon className="w-6 h-6 text-white" />
                                     </div>
                                     <div>
@@ -134,7 +133,7 @@ export default function HeroSection() {
                         <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {stats.map((stat, index) => (
                                 <div key={index} className="text-center p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200/50">
-                                    <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-600 to-gray-800 bg-clip-text text-transparent">
+                                    <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                         {stat.number}
                                     </div>
                                     <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
@@ -146,75 +145,19 @@ export default function HeroSection() {
                     {/* Right Content - Registration Form */}
                     <motion.div variants={itemVariants} className="flex justify-center lg:justify-end">
                         <Card className="w-full max-w-md p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
-                            <div className="space-y-6">
-                                <div className="text-center space-y-2">
-                                    <h2 className="text-2xl font-bold text-gray-900">Đăng ký ngay</h2>
-                                    <p className="text-gray-600">Bắt đầu bán hàng miễn phí trong 5 phút</p>
-                                </div>
-
-                                <div className="space-y-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-700">Email</label>
-                                        <div className="relative">
-                                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                            <Input 
-                                                type="email"
-                                                placeholder="Email của bạn"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                className="pl-11 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-700">Số điện thoại</label>
-                                        <div className="relative">
-                                            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
-                                                <span className="text-sm text-gray-600">🇻🇳 +84</span>
-                                            </div>
-                                            <Input 
-                                                type="tel"
-                                                placeholder="Số điện thoại"
-                                                value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
-                                                className="pl-20 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <motion.div
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        <Button 
-                                            size="lg"
-                                            className="w-full h-12 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-                                            onClick={() => window.location.href = '/auth/signup'}
-                                        >
-                                            Bắt đầu bán hàng
-                                            <ArrowRight className="ml-2 w-5 h-5" />
-                                        </Button>
-                                    </motion.div>
-
-                                    <div className="text-center">
-                                        <p className="text-xs text-gray-500">
-                                            Bạn đã có tài khoản? 
-                                            <a href="/auth/login" className="text-gray-700 hover:text-gray-800 font-medium ml-1">
-                                                Đăng nhập
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="pt-4 border-t border-gray-200">
-                                    <p className="text-xs text-gray-500 leading-relaxed">
-                                        Tiếp tục nghĩa là bạn đồng ý với 
-                                        <a href="#" className="text-gray-700 hover:text-gray-800"> Điều khoản dịch vụ</a> và 
-                                        <a href="#" className="text-gray-700 hover:text-gray-800"> Chính sách quyền riêng tư</a> của chúng tôi.
-                                    </p>
-                                </div>
+                            <div className="flex justify-center gap-2 md:justify-start mx-auto w-fit mb-6">
+                                <Link href="/" className="flex items-center gap-2 font-bold text-xl text-sky-400">
+                                    <Image
+                                        src="/icon.png"
+                                        alt="Shopiew Logo"
+                                        width={40}
+                                        height={40}
+                                        className="rounded-full"
+                                    />
+                                    Shopiew Seller
+                                </Link>
                             </div>
+                            <SignupForm />
                         </Card>
                     </motion.div>
                 </div>

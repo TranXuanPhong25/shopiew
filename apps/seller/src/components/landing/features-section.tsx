@@ -125,7 +125,7 @@ export default function FeaturesSection() {
     return (
         <section className="py-20 px-4 bg-white relative overflow-hidden">
             <div className="absolute inset-0">
-                <div className="absolute top-40 right-20 w-72 h-72 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full blur-3xl opacity-50"></div>
+                <div className="absolute top-40 right-20 w-72 h-72 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full blur-3xl opacity-50"></div>
                 <div className="absolute bottom-40 left-20 w-96 h-96 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full blur-3xl opacity-50"></div>
             </div>
 
@@ -137,7 +137,7 @@ export default function FeaturesSection() {
                 animate={inView ? "visible" : "hidden"}
             >
                 <motion.div variants={itemVariants} className="text-center mb-16 space-y-6">
-                    <Badge variant="outline" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200 text-gray-700">
+                    <Badge variant="outline" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 text-blue-700">
                         <Sparkles className="w-4 h-4" />
                         Tính năng nổi bật
                     </Badge>
@@ -145,7 +145,7 @@ export default function FeaturesSection() {
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                         Mọi thứ bạn cần để{" "}
                         <br className="hidden md:block" />
-                        <span className="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
                             bán hàng thành công
                         </span>
                     </h2>
@@ -213,12 +213,12 @@ export default function FeaturesSection() {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="text-center mt-20">
-                    <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
+                    <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-200">
                         <Heart className="w-6 h-6 text-red-500" />
                         <span className="text-lg font-medium text-gray-700">
-                            Được tin tưởng bởi <span className="font-bold text-gray-700">500,000+</span> người bán trên toàn quốc
+                            Được tin tưởng bởi <span className="font-bold text-blue-600">500,000+</span> người bán trên toàn quốc
                         </span>
-                        <Globe className="w-6 h-6 text-gray-500" />
+                        <Globe className="w-6 h-6 text-blue-500" />
                     </div>
                 </motion.div>
             </motion.div>
