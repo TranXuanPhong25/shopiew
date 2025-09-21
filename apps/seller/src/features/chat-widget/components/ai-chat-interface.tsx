@@ -24,7 +24,7 @@ export function AIChatInterface() {
    const starting = messages.slice(-1)[0]?.parts.length ==1 || (
       messages.slice(-1)[0]?.parts.length ==2 && 
       messages.slice(-1)[0]?.parts[1]?.type === "text" && 
-      messages.slice(-1)[0]?.parts[1]?.text === ""
+      (messages.slice(-1)[0]?.parts[1] as { type: "text"; text?: string })?.text === ""
    );
    
    // Auto-scroll to bottom when messages change
