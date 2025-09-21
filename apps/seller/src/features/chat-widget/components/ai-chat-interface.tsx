@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
 import { useChat } from '@ai-sdk/react';
@@ -10,16 +10,35 @@ import { ChatInput } from './chat-input';
 
 
 export function AIChatInterface() {
+   const scrollAreaRef = useRef<HTMLDivElement>(null);
+   const messagesEndRef = useRef<HTMLDivElement>(null);
+   
    const { messages, sendMessage, status } = useChat({
       transport: new DefaultChatTransport({
-         api: 'http://localhost:8080/api/chatbots',
+         api: 'http://localhost:8080/api/chats',
 
       }),
       experimental_throttle: 50,
    });
+   
    const starting = messages.slice(-1)[0]?.parts.length ==1 || (
-      messages.slice(-1)[0]?.parts.length ==2 && messages.slice(-1)[0]?.parts[1]?.type === "text" && messages.slice(-1)[0]?.parts[1]?.text === ""
+      messages.slice(-1)[0]?.parts.length ==2 && 
+      messages.slice(-1)[0]?.parts[1]?.type === "text" && 
+      messages.slice(-1)[0]?.parts[1]?.text === ""
    );
+   
+   // Auto-scroll to bottom when messages change
+   useEffect(() => {
+      scrollToBottom();
+   }, [messages, starting]);
+
+   const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ 
+         behavior: 'smooth',
+         block: 'end'
+      });
+   };
+   
    console.log("Messages:", messages, "Starting:", starting);
    const handleSendMessage = async (message: string) => {
       
@@ -39,7 +58,7 @@ export function AIChatInterface() {
          </div>
 
          {/* Messages */}
-         <ScrollArea className="flex-1 p-4">
+         <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
             <div className="space-y-4">
                {messages.length === 0 && (
                   <div className="text-center text-muted-foreground py-8">
@@ -64,11 +83,11 @@ export function AIChatInterface() {
                )}
 
                { messages.map((message, index) => {
-                  return !(starting && messages.length -1 == index) &&  (
+                  return !(starting && messages.length - 1 == index && message.role == 'assistant') &&  (
                      <div key={index} className="space-y-2">
                         <Card
                            className={`max-w-[80%] w-fit ${message.role === 'user'
-                              ? 'ml-auto bg-primary text-primary-foreground'
+                              ? 'ml-auto bg-primary text-primary-foreground'  
                               : 'mr-auto bg-muted'
                               }`}
                         >
@@ -106,11 +125,13 @@ export function AIChatInterface() {
                               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                            </div>
-                           <span className="text-sm text-muted-foreground">AI is thinking...</span>
                         </div>
                      </CardContent>
                   </Card>
                )}
+               
+               {/* Invisible element to scroll to */}
+               <div ref={messagesEndRef} />
             </div>
          </ScrollArea>
 
