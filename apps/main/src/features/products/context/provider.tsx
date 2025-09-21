@@ -1,72 +1,25 @@
-"use client"
-
-import { useState, useEffect, useMemo, useCallback } from 'react'
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { notFound } from 'next/navigation'
-import ProductService from '@/features/products/service'
+import { useState, useEffect, useMemo, useCallback, memo } from 'react'
+import { ProductPageProviderProps } from './types'
+
+import React, { createContext, useContext, ReactNode } from 'react'
 import { 
   ProductVariant, 
   SelectedVariant, 
   VariantOption, 
-  VariantOptionValue,
   VariantPrice, 
-  VariantInventory 
+  VariantInventory, 
+  VariantOptionValue
 } from '@/features/products/types'
-
-// Product query keys for better cache management
-export const productKeys = {
-  all: ['products'],
-  lists: () => [...productKeys.all, 'list'],
-  list: (filters: string) => [...productKeys.lists(), { filters }],
-  details: () => [...productKeys.all, 'detail'],
-  detail: (id: string) => [...productKeys.details(), id],
-}
-
-// Hook for fetching a single product by ID
-export function useGetProduct(
-  productId: string | null,
-  options?: Omit<UseQueryOptions<any, Error, any, any[]>, 'queryKey' | 'queryFn'>
-) {
-  return useQuery({
-    queryKey: productKeys.detail(productId || ''),
-    queryFn: async () => {
-      if (!productId) {
-        throw new Error('Product ID is required')
-      }
-      
-      try {
-        const product = await ProductService.getProductById(productId)
-        if (!product) {
-          throw new Error('Product not found')
-        }
-        return product
-      } catch (error) {
-        console.error('Error fetching product:', error)
-        throw error
-      }
-    },
-    enabled: !!productId, // Only run query if productId exists
-    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
-    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
-    retry: (failureCount, error: any) => {
-      // Don't retry if it's a 404 error
-      if (error?.message?.includes('not found')) {
-        return false
-      }
-      return failureCount < 3
-    },
-    ...options,
-  })
-}
-
-// Hook for handling product page params and fetching with variant selection
-export function useProductPage(params: Promise<{ productId: string }>) {
+import { useGetProduct } from '../hooks/use-get-product'
+import { ProductPageContext } from './context'
+// Provider component
+export function ProductPageProvider({ children, params }: ProductPageProviderProps) {
   const [productId, setProductId] = useState<string | null>(null)
   const [isParamsResolved, setIsParamsResolved] = useState(false)
   
   // Variant selection state
   const [selectedVariant, setSelectedVariant] = useState<SelectedVariant>({})
-
   // Resolve params
   useEffect(() => {
     const resolveParams = async () => {
@@ -94,15 +47,15 @@ export function useProductPage(params: Promise<{ productId: string }>) {
       // Navigate to 404 if product not found
       if (error?.message?.includes('not found')) {
         notFound()
-        return false
       }
       return true
     }
   })
-
   const product = productQuery.data
   const variants = product?.variants || []
-
+  const maxPrice = useMemo(() => {
+      return Math.max(...variants.map((v: ProductVariant) => parseFloat(v.price || '0')), 0)
+    }, [variants])
   // Generate variant options from variants
   const options = useMemo((): VariantOption[] => {
     if (!variants || variants.length === 0) return []
@@ -130,7 +83,7 @@ export function useProductPage(params: Promise<{ productId: string }>) {
         }
       })
     })
-
+    
     return Object.entries(optionMap).map(([name, valueSet], index) => {
       const values: VariantOptionValue[] = Array.from(valueSet).map((value, valueIndex) => ({
         id: `${name}-${value}-${valueIndex}`,
@@ -174,7 +127,13 @@ export function useProductPage(params: Promise<{ productId: string }>) {
   // Calculate current price
   const currentPrice: VariantPrice = useMemo(() => {
     if (!currentVariant) {
-      return { originalPrice: 1500000, salePrice: 1500000 }
+      const prices = variants.map((v: ProductVariant) => parseFloat(v.price || '0'))
+      const lowestPrice = Math.min(...prices, prices[0])
+      console.log(prices)
+      return {
+        originalPrice: lowestPrice,
+        salePrice: lowestPrice
+      }
     }
 
     const price = parseFloat(currentVariant.price || '0')
@@ -182,12 +141,15 @@ export function useProductPage(params: Promise<{ productId: string }>) {
       originalPrice: price,
       salePrice: price
     }
-  }, [currentVariant])
+  }, [currentVariant, product])
 
   // Calculate current inventory
   const currentInventory: VariantInventory = useMemo(() => {
     if (!currentVariant) {
-      return { available: 332, reserved: 0, total: 332 }
+      const inStocks = variants.reduce((sum: number, v: ProductVariant) => {
+        return sum + parseInt(v.stockQuantity || '0')
+      }, 0)
+      return { available: inStocks, reserved: 0, total: inStocks }
     }
 
     const available = parseInt(currentVariant.stockQuantity || '0')
@@ -196,7 +158,7 @@ export function useProductPage(params: Promise<{ productId: string }>) {
       reserved: 0,
       total: available
     }
-  }, [currentVariant])
+  }, [currentVariant, variants])
 
   // Variant selection actions
   const selectVariant = useCallback((optionName: string, value: string) => {
@@ -209,8 +171,8 @@ export function useProductPage(params: Promise<{ productId: string }>) {
   const clearSelection = useCallback(() => {
     setSelectedVariant({})
   }, [])
-
-  return {
+  return (
+    <ProductPageContext.Provider value={{
     productId,
     isParamsResolved,
     product: productQuery.data,
@@ -226,8 +188,12 @@ export function useProductPage(params: Promise<{ productId: string }>) {
     options,
     isValid,
     currentPrice,
+    maxPrice,
     currentInventory,
     selectVariant,
     clearSelection
-  }
+  }}>
+      {children}
+    </ProductPageContext.Provider>
+  )
 }
