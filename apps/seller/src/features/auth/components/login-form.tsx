@@ -34,7 +34,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 
    return (
       <form className={cn("flex flex-col gap-4", className)} onSubmit={handleSubmit(onSubmit)} {...props}>
-         <h1 className="text-2xl font-semibold text-center ">Login </h1>
+         <h1 className="text-2xl font-semibold text-center ">Login to Your Account</h1>
          <div className="grid gap-6">
             <div className="grid gap-2">
                <Label htmlFor="email">Email</Label>
