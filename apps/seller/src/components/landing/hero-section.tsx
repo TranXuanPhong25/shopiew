@@ -144,21 +144,13 @@ export default function HeroSection() {
 
                     {/* Right Content - Registration Form */}
                     <motion.div variants={itemVariants} className="flex justify-center lg:justify-end">
-                        <Card className="w-full max-w-md p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
-                            <div className="flex justify-center gap-2 md:justify-start mx-auto w-fit mb-6">
-                                <Link href="/" className="flex items-center gap-2 font-bold text-xl text-sky-400">
-                                    <Image
-                                        src="/icon.png"
-                                        alt="Shopiew Logo"
-                                        width={40}
-                                        height={40}
-                                        className="rounded-full"
-                                    />
-                                    Shopiew Seller
-                                </Link>
-                            </div>
-                            <SignupForm />
-                        </Card>
+                        <Image
+                            src="/Google_AI_Studio_2025-09-21T08_38_07.363Z.png"
+                            alt="Shopiew Logo"
+                            width={600}
+                            height={600}
+                            className="rounded-full"
+                        />
                     </motion.div>
                 </div>
             </motion.div>
