@@ -1,3 +1,28 @@
+## [0.6.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.5.0...v0.6.0) (2025-09-22)
+
+### 🚀 Features
+
+* add custom loader animation to loading component ([9c81ba1](https://github.com/TranXuanPhong25/shopiew/commit/9c81ba1bf39dfe87fe8ca0df72af754d759a6dae))
+
+### 🐛 Bug Fixes
+
+* merge commit ([0088114](https://github.com/TranXuanPhong25/shopiew/commit/00881143551712bf93c6a592db8c8aa8db82ba57))
+* more safety id of variant ([2e22e87](https://github.com/TranXuanPhong25/shopiew/commit/2e22e8780468f977938eb0e88f6c6642144f8ab8))
+* temp fix coverImage ([75762d1](https://github.com/TranXuanPhong25/shopiew/commit/75762d1131a442ec829a70b83795c9c96f4a5c5f))
+* useCallback and missing deps error ([171eab9](https://github.com/TranXuanPhong25/shopiew/commit/171eab9e81f4da2c3c083b167d3104265c43dddf))
+
+### 🔨 Technical Changes
+
+* bring back global AuthProvider ([b61880a](https://github.com/TranXuanPhong25/shopiew/commit/b61880abcf5988c0339e0bde49f4952296abbe0a))
+* move AuthProvider, change landing page layout, create some safenavigation button ([801a65e](https://github.com/TranXuanPhong25/shopiew/commit/801a65e372a6d8f0d817a7651faf1e31e00e063a))
+* move AuthProvider, change landing page layout, create some safenavigation button ([5a48eb9](https://github.com/TranXuanPhong25/shopiew/commit/5a48eb9164c7189a0778ed0e7276c1e3fc9f114f))
+* move AuthProvider, change landing page layout, create some safenavigation button ([0b530e2](https://github.com/TranXuanPhong25/shopiew/commit/0b530e2ae8d59ea915df68151e2a6191ba059781))
+* refactor ChatWidget component and update import paths ([d846a87](https://github.com/TranXuanPhong25/shopiew/commit/d846a87a61569138d44f4ac6317beaaf91899216))
+* remove unnecessary class from LoadingBlock ([88093e8](https://github.com/TranXuanPhong25/shopiew/commit/88093e8270f24f3e5117d7ebf772f334952bd3bd))
+* remove unused Loading component and clean up imports in layout ([1c07d78](https://github.com/TranXuanPhong25/shopiew/commit/1c07d78240e84d2bf85218739254309c7bc04962))
+* remove unused Loading component and clean up imports in layout ([808f7ef](https://github.com/TranXuanPhong25/shopiew/commit/808f7ef2cbf0da49ea1b994df2018150bbcf5a82))
+* remove unused Loading component and clean up imports in layout ([dbcc118](https://github.com/TranXuanPhong25/shopiew/commit/dbcc1186d184552172937b655373d25b6dabd0b6))
+
 ## [0.5.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.4.1...v0.5.0) (2025-09-21)
 
 ### 🚀 Features
