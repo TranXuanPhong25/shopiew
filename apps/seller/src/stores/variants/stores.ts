@@ -31,7 +31,7 @@ const generateVariantCombinations = (options: ProductOption[]): Variant[] => {
   }, [] as Array<Array<{ name: string; value: string }>>)
 
   return combinations.map((combination, index) => ({
-    id: `variant-${index}`,
+    id: `variant-${combination.map(item => item.value).join(' / ')}-${index}`,
     name: combination.map(item => item.value).join(' / '),
     price: '',
     available: '',
