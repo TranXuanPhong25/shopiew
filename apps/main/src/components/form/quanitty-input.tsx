@@ -5,28 +5,29 @@ import {useState} from "react"
 import {Button} from "@/components/ui/button"
 
 interface QuantityInputProps {
-    initialValue?: number
+    value: number
     min?: number
     max?: number
-    availableText?: string
+    availableText?: string,
+    onChange: (value: number) => void
 }
 
 export default function QuantityInput({
-                                          initialValue = 1,
+                                          value,
                                           min = 1,
-                                          max = 999
+                                          max = 999,
+                                          onChange
                                       }: QuantityInputProps) {
-    const [quantity, setQuantity] = useState(initialValue)
 
     const increment = () => {
-        if (quantity < max) {
-            setQuantity(quantity + 1)
+        if (value < max) {
+            onChange(value + 1)
         }
     }
 
     const decrement = () => {
-        if (quantity > min) {
-            setQuantity(quantity - 1)
+        if (value > min) {
+            onChange(value - 1)
         }
     }
 
@@ -34,12 +35,13 @@ export default function QuantityInput({
         const value = Number.parseInt(e.target.value)
         if (!isNaN(value)) {
             if (value >= min&&value<=max) {
-                setQuantity(value)
+                onChange(value)
             }else if(value>=max){
-                setQuantity(max)
+                onChange(value)
             }
         }
     }
+
 
     return (
         <div className="flex items-center  space-x-4 my-2 ">
@@ -55,7 +57,7 @@ export default function QuantityInput({
 
                 <input
                     type="text"
-                    value={quantity}
+                    value={value}
                     onChange={handleChange}
                     className="h-8 w-10 text-center border-none focus:ring-0 focus:outline-none"
                     aria-label="Quantity"
