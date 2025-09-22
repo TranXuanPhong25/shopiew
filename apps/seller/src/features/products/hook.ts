@@ -13,6 +13,7 @@ const useCreateProduct = () => {
       mutationKey: ["createProduct"],
       mutationFn: async (data: CreateProductData) => {
          try {
+            
             const product = await ProductsService.createDraftProduct(data);
 
             if (!coverImage) {

@@ -14,7 +14,13 @@ import axios from "axios";
 export const ProductsService = {
    createDraftProduct: async (data: CreateProductData): Promise<CreateProductResponse> => {
       try {
-         const response = await axiosClient.post<CreateProductResponse>("/products", data);
+         const response = await axiosClient.post<CreateProductResponse>("/products", {
+            ...data,
+            product:{
+               ...data.product,
+               coverImage: "https%3A%2F%2Fplacehold.co%2F505x505.png&w=1080&q=75",
+            },
+         });
          return response.data;
       } catch (err) {
          if (axios.isAxiosError(err) && err.response) {

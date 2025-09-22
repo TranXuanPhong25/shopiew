@@ -10,7 +10,7 @@ export const ProtectedPage = ({ children }: { children: React.ReactNode }) => {
    }, [checkAuthStatus]);
 
    if (loading) {
-      return <LoadingBlock className="h-screen w-full mt-4" />;
+      return <LoadingBlock/>;
    }
 
    if (!user) {

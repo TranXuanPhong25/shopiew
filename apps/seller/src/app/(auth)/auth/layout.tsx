@@ -4,7 +4,6 @@ import Link from "next/link"
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
    return (
-      <AuthProvider>
          <div className="flex flex-col gap-4 p-6 md:p-10 h-screen">
             <Image
                src="/Google_AI_Studio_2025-09-21T03_57_07.490Z.png"
@@ -34,7 +33,6 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
 
          </div>
-      </AuthProvider>
    )
 }
 export default AuthLayout;
