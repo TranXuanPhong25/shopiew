@@ -1,10 +1,9 @@
-import { useProductPageContext } from "../../context";
+import { useVariantSelectionStore } from "../../../../stores/variant-selection-store";
 
 const SalePrice = () => {
    const {
-      selectedVariant,
       currentPrice,
-    } = useProductPageContext();
+    } = useVariantSelectionStore();
    const displayPrice = currentPrice.maxPrice == currentPrice.originalPrice ? currentPrice.originalPrice : `${currentPrice.originalPrice} - ${currentPrice.maxPrice}`
    if (!currentPrice) {
       return null;   

@@ -8,21 +8,34 @@ import { Badge } from "@/components/ui/badge";
 import { ProductVariant, SelectedVariant, VariantPrice, VariantInventory } from "@/features/products/types";
 import { formatCurrency } from "@/lib/utils";
 import { useProductPageContext } from "../context";
+import { useVariantSelectionStore } from "../../../stores/variant-selection-store";
 import React, { useEffect } from "react";
 
 export default function ProductAction() {
+    // Get product data from context (non-variant related)
+    const { product } = useProductPageContext();
+    
+    // Get variant selection state from store
     const {
         selectedVariant,
         currentVariants,
         currentPrice,
         currentInventory,
         isValid,
-        clearSelection: onClearSelection
-    } = useProductPageContext();
+        clearSelection: onClearSelection,
+        setVariants
+    } = useVariantSelectionStore();
+    console.log(formatCurrency(currentPrice.originalPrice * 2))
+    // Initialize store with variants when product loads
+    useEffect(() => {
+        if (product?.variants) {
+            setVariants(product.variants);
+        }
+    }, [product?.variants, setVariants]);
     const [quantity, setQuantity] = React.useState(1);
     useEffect(() => {
         if (currentInventory.available < quantity) {
-            setQuantity(currentInventory.available)
+            setQuantity(currentInventory.available||1)
         }
     }, [currentInventory.available, quantity]);
     const hasVariants = Object.keys(selectedVariant).length > 0 || currentVariants !== null;
@@ -104,11 +117,11 @@ export default function ProductAction() {
 
             {/* Price Display */}
             {
-                Object.keys(selectedVariant).length !== 0 && (
+                currentVariants.length == 1 && (
                     <div className="space-y-1">
                         <div className="flex items-baseline gap-2">
                             <span className="text-2xl font-bold text-red-500">
-                                {formatCurrency(currentPrice.salePrice * quantity)}
+                                {formatCurrency(currentPrice.originalPrice * quantity)}
                             </span>
                             {currentPrice.originalPrice > currentPrice.salePrice && (
                                 <>

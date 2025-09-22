@@ -12,19 +12,7 @@ export interface ProductPageContextType {
   isSuccess: boolean
   refetch: () => void
   isParamsResolved: boolean
-  // Variant data
-  variants: ProductVariant[]
-  selectedVariant: SelectedVariant
-  currentVariants: ProductVariant[]
-  options: VariantOption[]
-  isValid: boolean
-  
-  // Pricing and inventory
-  currentPrice: VariantPrice
-  currentInventory: VariantInventory
-  // Actions
-  selectVariant: (optionName: string, value: string) => void
-  clearSelection: () => void
+ 
 }
 
 // Provider props interface

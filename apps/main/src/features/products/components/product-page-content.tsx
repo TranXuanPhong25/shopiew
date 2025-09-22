@@ -26,7 +26,6 @@ export default function ProductPageContent() {
             </div>
         );
     }
-
     // Error state
     if (isError) {
         return (
