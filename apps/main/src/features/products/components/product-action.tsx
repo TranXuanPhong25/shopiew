@@ -1,13 +1,14 @@
 "use client"
 
 import QuantityInput from "@/components/form/quanitty-input";
-import {MapPin, AlertCircle, Truck, X} from "lucide-react";
-import {Button} from "@/components/ui/button";
+import { MapPin, AlertCircle, Truck, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import ShoppingCartPlus from "@/components/icon/shopping-cart-plus";
 import { Badge } from "@/components/ui/badge";
 import { ProductVariant, SelectedVariant, VariantPrice, VariantInventory } from "@/features/products/types";
 import { formatCurrency } from "@/lib/utils";
 import { useProductPageContext } from "../context";
+import React, { useEffect } from "react";
 
 export default function ProductAction() {
     const {
@@ -17,15 +18,19 @@ export default function ProductAction() {
         currentInventory,
         isValid,
         clearSelection: onClearSelection
-    }= useProductPageContext();
-
-  const hasVariants = Object.keys(selectedVariant).length > 0 || currentVariants !== null;
-
+    } = useProductPageContext();
+    const [quantity, setQuantity] = React.useState(1);
+    useEffect(() => {
+        if (currentInventory.available < quantity) {
+            setQuantity(currentInventory.available)
+        }
+    }, [currentInventory.available, quantity]);
+    const hasVariants = Object.keys(selectedVariant).length > 0 || currentVariants !== null;
     return (
         <div className="space-y-4">
             {/* Delivery info */}
             <div className="flex items-center gap-2 text-sm text-gray-600">
-                <MapPin className="size-4"/>
+                <MapPin className="size-4" />
                 <span>Delivery to <span className="font-medium text-gray-800">Hanoi</span></span>
             </div>
 
@@ -78,7 +83,7 @@ export default function ProductAction() {
                         Out of stock
                     </Badge>
                 )}
-                
+
                 {/* Fast delivery badge */}
                 {currentInventory.available > 0 && (
                     <Badge variant="outline" className="text-orange-600 border-orange-200">
@@ -90,53 +95,54 @@ export default function ProductAction() {
 
             {/* Quantity Selection */}
             {currentInventory.available > 0 && isValid && (
-                <QuantityInput 
-                    initialValue={1} 
+                <QuantityInput
+                    value={quantity}
                     max={Math.min(currentInventory.available, 99)}
+                    onChange={setQuantity}
                 />
             )}
 
             {/* Price Display */}
-           {
-             Object.keys(selectedVariant).length !== 0 && (
-                <div className="space-y-1">
-                <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-red-500">
-                        {formatCurrency(currentPrice.salePrice)}
-                    </span>
-                    {currentPrice.originalPrice > currentPrice.salePrice && (
-                        <>
-                            <span className="text-lg text-gray-400 line-through">
-                                {formatCurrency(currentPrice.originalPrice)}
+            {
+                Object.keys(selectedVariant).length !== 0 && (
+                    <div className="space-y-1">
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-2xl font-bold text-red-500">
+                                {formatCurrency(currentPrice.salePrice * quantity)}
                             </span>
-                            <Badge variant="destructive" className="text-xs">
-                                -{Math.round(((currentPrice.originalPrice - currentPrice.salePrice) / currentPrice.originalPrice) * 100)}%
-                            </Badge>
-                        </>
-                    )}
-                </div>
-                
-            </div>
-             )
-           }
+                            {currentPrice.originalPrice > currentPrice.salePrice && (
+                                <>
+                                    <span className="text-lg text-gray-400 line-through">
+                                        {formatCurrency(currentPrice.originalPrice * quantity)}
+                                    </span>
+                                    <Badge variant="destructive" className="text-xs">
+                                        -{Math.round(((currentPrice.originalPrice - currentPrice.salePrice) / currentPrice.originalPrice) * 100)}%
+                                    </Badge>
+                                </>
+                            )}
+                        </div>
+
+                    </div>
+                )
+            }
 
             {/* Action Buttons */}
             <div className="space-y-2">
-                <Button 
-                    className="w-full bg-red-500/90 hover:bg-red-500" 
+                <Button
+                    className="w-full bg-red-500/90 hover:bg-red-500"
                     disabled={hasVariants && !isValid || currentInventory.available === 0}
                     size="lg"
                 >
                     {hasVariants && !isValid ? "Select variant" : "Buy now"}
                 </Button>
-                
-                <Button 
-                    className="w-full border-orange-500 text-orange-600 hover:text-orange-700 hover:bg-orange-50" 
+
+                <Button
+                    className="w-full border-orange-500 text-orange-600 hover:text-orange-700 hover:bg-orange-50"
                     variant="outline"
                     disabled={hasVariants && !isValid || currentInventory.available === 0}
                     size="lg"
                 >
-                    <ShoppingCartPlus className="w-4 h-4 mr-2 fill-current"/>
+                    <ShoppingCartPlus className="w-4 h-4 mr-2 fill-current" />
                     Add to cart
                 </Button>
             </div>
