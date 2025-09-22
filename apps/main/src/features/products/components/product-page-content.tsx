@@ -1,4 +1,4 @@
-import { useProductPageContext } from "../products/context";
+import { useProductPageContext } from "../context";
 import ProductAction from "@/features/products/components/product-action";
 import ProductSpecifications from "@/features/products/components/product-details/product-specifications";
 import CustomerReviews from "@/features/products/components/customer-review/customer-reviews";
@@ -14,7 +14,6 @@ export default function ProductPageContent() {
         error,
         isSuccess,
     } = useProductPageContext();
-
     // Loading state
     if (isLoading) {
         return (

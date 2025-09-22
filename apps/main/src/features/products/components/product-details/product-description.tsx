@@ -8,7 +8,7 @@ export default function ProductDescription() {
         <div className="divide-y text-sm">
             <h2 className="text-lg font-medium p-4 bg-muted/50">Product Descriptions</h2>
 
-            <div className="p-4">
+            <div className="p-4 max-w-4xl mx-auto">
                 <ExpandableParagraph text={description || 'No description available.'} />
             </div>
         </div>

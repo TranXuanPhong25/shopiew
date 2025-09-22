@@ -53,9 +53,7 @@ export function ProductPageProvider({ children, params }: ProductPageProviderPro
   })
   const product = productQuery.data
   const variants = product?.variants || []
-  const maxPrice = useMemo(() => {
-      return Math.max(...variants.map((v: ProductVariant) => parseFloat(v.price || '0')), 0)
-    }, [variants])
+
   // Generate variant options from variants
   const options = useMemo((): VariantOption[] => {
     if (!variants || variants.length === 0) return []
@@ -105,60 +103,59 @@ export function ProductPageProvider({ children, params }: ProductPageProviderPro
     })
   }, [variants])
 
-  // Find current variant based on selected options
-  const currentVariant = useMemo(() => {
-    if (Object.keys(selectedVariant).length === 0) return null
+
+  const currentVariants = useMemo(() => {
+    if (Object.keys(selectedVariant).length === 0) return variants
     
-    return variants.find((variant: ProductVariant) => {
+    return variants.filter((variant: ProductVariant) => {
       if (!variant.attributes) return false
       return Object.entries(selectedVariant).every(([key, value]) =>
         variant.attributes![key] === value
       )
-    }) || null
+    }) || []
   }, [variants, selectedVariant])
-
   // Check if selection is valid
   const isValid = useMemo(() => {
     return options.length > 0 &&
       options.every(option => selectedVariant[option.name] !== undefined) &&
-      currentVariant !== null
-  }, [options, selectedVariant, currentVariant])
+      currentVariants.length !== 0
+  }, [options, selectedVariant, currentVariants])
 
   // Calculate current price
-  const currentPrice: VariantPrice = useMemo(() => {
-    if (!currentVariant) {
+  const currentPrice: VariantPrice = useMemo(() => {  
+    const maxPrice = Math.max(...currentVariants.map((v: ProductVariant) => parseFloat(v.price || '0')), 0)
+    if (!currentVariants.length) {
       const prices = variants.map((v: ProductVariant) => parseFloat(v.price || '0'))
       const lowestPrice = Math.min(...prices, prices[0])
-      console.log(prices)
       return {
         originalPrice: lowestPrice,
-        salePrice: lowestPrice
+        salePrice: lowestPrice,
+        maxPrice
       }
     }
-
-    const price = parseFloat(currentVariant.price || '0')
+    const price = parseFloat(currentVariants[0].price || '0')
     return {
       originalPrice: price,
-      salePrice: price
+      salePrice: price,
+      maxPrice
     }
-  }, [currentVariant, product])
-
+  }, [currentVariants])
   // Calculate current inventory
   const currentInventory: VariantInventory = useMemo(() => {
-    if (!currentVariant) {
-      const inStocks = variants.reduce((sum: number, v: ProductVariant) => {
-        return sum + parseInt(v.stockQuantity || '0')
-      }, 0)
+    const inStocks = currentVariants.reduce((sum: number, v: ProductVariant) => {
+      return sum + parseInt(v.stockQuantity || '0')
+    }, 0)
+    if (!currentVariants.length) {
       return { available: inStocks, reserved: 0, total: inStocks }
     }
 
-    const available = parseInt(currentVariant.stockQuantity || '0')
+    const available = inStocks
     return {
       available,
       reserved: 0,
       total: available
     }
-  }, [currentVariant, variants])
+  }, [currentVariants])
 
   // Variant selection actions
   const selectVariant = useCallback((optionName: string, value: string) => {
@@ -184,11 +181,10 @@ export function ProductPageProvider({ children, params }: ProductPageProviderPro
     variants,
     // Variant selection state and actions
     selectedVariant,
-    currentVariant,
+    currentVariants,
     options,
     isValid,
     currentPrice,
-    maxPrice,
     currentInventory,
     selectVariant,
     clearSelection
