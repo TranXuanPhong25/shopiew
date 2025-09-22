@@ -15,14 +15,13 @@ export interface ProductPageContextType {
   // Variant data
   variants: ProductVariant[]
   selectedVariant: SelectedVariant
-  currentVariant: ProductVariant | null
+  currentVariants: ProductVariant[]
   options: VariantOption[]
   isValid: boolean
   
   // Pricing and inventory
   currentPrice: VariantPrice
   currentInventory: VariantInventory
-  maxPrice: number
   // Actions
   selectVariant: (optionName: string, value: string) => void
   clearSelection: () => void

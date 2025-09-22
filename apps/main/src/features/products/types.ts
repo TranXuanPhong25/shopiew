@@ -1,44 +1,51 @@
 export interface IDisplayable {
-    id: number;
-    imageUrl: string;
+   id: number;
+   imageUrl: string;
 }
 
 export interface Informative {
-    name: string;
-    rating: number;
-    originalPrice: number;
+   name: string;
+   rating: number;
+   originalPrice: number;
 }
 interface Types {
-    originalPrice: number;
+   originalPrice: number;
 }
 
 
 
 export interface ProductCardProps extends IDisplayable, Informative {
-    salePrice: number;
-    soldQuantity: number;
-    soldAddress: string;
+   salePrice: number;
+   soldQuantity: number;
+   soldAddress: string;
 }
 
 export interface CompactDisplayFlashSaleProps extends IDisplayable, Types {
-    flashSalePrice: number;
-    flashSaleSoldQuantity: number;
-    flashSaleAvailableQuantity: number;
+   flashSalePrice: number;
+   flashSaleSoldQuantity: number;
+   flashSaleAvailableQuantity: number;
 }
 
 export interface FlashSaleCardProps extends Informative, CompactDisplayFlashSaleProps {
-    flashSaleStartAt: string;
-    flashSaleEndAt: string;
+   flashSaleStartAt: string;
+   flashSaleEndAt: string;
 }
 
+export type ProductCategory = {
+   id: string;
+   name: string;
+   slug: string;
+   parentId?: string;
+}
 export interface ProductDetail extends FlashSaleCardProps, ProductCardProps, Types {
-    ratingCount: number;
-    category: string;
-    description: string;
-    inStockQuantity: number;
-    status: ProductStatus;
-    specs: Record<string, string>;
-    variants: ProductVariant[];
+   ratingCount: number;
+   category: string;
+   description: string;
+   inStockQuantity: number;
+   status: ProductStatus;
+   specs: Record<string, string>;
+   variants: ProductVariant[];
+   categoryPath: ProductCategory[];
 }
 
 type ProductStatus = "New" | "Used"
@@ -60,7 +67,7 @@ export type RawProductVariant = {
 
 
 export type ProductVariant = RawProductVariant & {
-   images:string[]
+   images: string[]
    coverImage: string
    id: string
 }
@@ -92,6 +99,7 @@ export type VariantPrice = {
       percentage: number
       amount: number
    }
+   maxPrice: number
 }
 
 export type VariantInventory = {

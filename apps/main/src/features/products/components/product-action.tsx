@@ -12,15 +12,14 @@ import { useProductPageContext } from "../context";
 export default function ProductAction() {
     const {
         selectedVariant,
-        currentVariant,
+        currentVariants,
         currentPrice,
         currentInventory,
         isValid,
         clearSelection: onClearSelection
     }= useProductPageContext();
 
-
-  const hasVariants = Object.keys(selectedVariant).length > 0 || currentVariant !== null;
+  const hasVariants = Object.keys(selectedVariant).length > 0 || currentVariants !== null;
 
     return (
         <div className="space-y-4">
@@ -48,9 +47,9 @@ export default function ProductAction() {
                                     </div>
                                 ))}
                             </div>
-                            {currentVariant?.sku && (
+                            {selectedVariant?.sku && (
                                 <p className="text-xs text-gray-500 mt-2">
-                                    SKU: {currentVariant.sku}
+                                    SKU: {selectedVariant.sku}
                                 </p>
                             )}
                         </div>
@@ -98,7 +97,9 @@ export default function ProductAction() {
             )}
 
             {/* Price Display */}
-            <div className="space-y-1">
+           {
+             Object.keys(selectedVariant).length !== 0 && (
+                <div className="space-y-1">
                 <div className="flex items-baseline gap-2">
                     <span className="text-2xl font-bold text-red-500">
                         {formatCurrency(currentPrice.salePrice)}
@@ -115,13 +116,9 @@ export default function ProductAction() {
                     )}
                 </div>
                 
-                {/* Variant info */}
-                {currentVariant && (
-                    <p className="text-xs text-gray-500">
-                        SKU: {currentVariant.sku}
-                    </p>
-                )}
             </div>
+             )
+           }
 
             {/* Action Buttons */}
             <div className="space-y-2">

@@ -3,6 +3,7 @@ import ProductImages from "../product-image"
 import RatingStars from "@/components/ui/rating-stars"
 import VariantsSelection from "../variants/variants-selection"
 import { useProductPageContext } from "../../context"
+import SalePrice from "./sale-price"
 
 const SaleInformations = () => {
    const { 
@@ -12,7 +13,6 @@ const SaleInformations = () => {
       selectVariant: onVariantChange,
       clearSelection: onClearSelection,
       currentPrice,
-      maxPrice
     } = useProductPageContext();
    return (
       <div className=" bg-white rounded-2xl shadow-sm p-4">
@@ -39,12 +39,7 @@ const SaleInformations = () => {
                      className="ml-2 font-sans  text-sm">352 sold</span>
                </div>
 
-
-               <div className="flex items-center space-x-2 bg-orange-50 p-2 rounded-md mb-4">
-                  <span className="text-3xl font-bold text-red-400">{selectedVariant ? currentPrice.originalPrice : `${currentPrice.originalPrice} - ${maxPrice}`}đ</span>
-                  <span className="text-gray-500 line-through">{currentPrice.salePrice}đ</span>
-                  <span className="text-red-500">-25%</span>
-               </div>
+               <SalePrice/>
                <div className="flex items-center mb-4">
                   <h2>
                      Shop coupons
