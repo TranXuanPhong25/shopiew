@@ -8,11 +8,6 @@ import SalePrice from "./sale-price"
 const SaleInformations = () => {
    const { 
       product,
-      options,
-      selectedVariant,
-      selectVariant: onVariantChange,
-      clearSelection: onClearSelection,
-      currentPrice,
     } = useProductPageContext();
    return (
       <div className=" bg-white rounded-2xl shadow-sm p-4">
@@ -58,12 +53,7 @@ const SaleInformations = () => {
                </div>
 
                {/* Product Variants Selection */}
-               <VariantsSelection
-                  options={options}
-                  selectedVariant={selectedVariant}
-                  onVariantChange={onVariantChange}
-                  onClearSelection={onClearSelection}
-               />
+               <VariantsSelection />
             </div>
          </div>
       </div>

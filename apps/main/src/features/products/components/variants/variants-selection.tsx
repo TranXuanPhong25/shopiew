@@ -7,24 +7,32 @@ import { cn } from '@/lib/utils'
 import { Check, ChevronDown, X } from 'lucide-react'
 import Image from 'next/image'
 import { VariantOption, VariantOptionValue, SelectedVariant } from '@/features/products/types'
+import { useVariantSelectionStore } from '../../../../stores/variant-selection-store'
 
 interface VariantsSelectionProps {
-  options: VariantOption[]
-  selectedVariant: SelectedVariant
-  onVariantChange: (optionName: string, value: string) => void
-  onClearSelection?: () => void
   disabled?: boolean
   compact?: boolean
+  onClearSelection?: () => void
 }
 
 export default function VariantsSelection({
-  options,
-  selectedVariant,
-  onVariantChange,
-  onClearSelection,
   disabled = false,
-  compact = false
+  compact = false,
+  onClearSelection
 }: VariantsSelectionProps) {
+  // Get variant selection state from store
+  const {
+    options,
+    selectedVariant,
+    selectVariant,
+    clearSelection
+  } = useVariantSelectionStore();
+  
+  const handleClearSelection = () => {
+    clearSelection();
+    onClearSelection?.();
+  };
+
   if (!options || options.length === 0) {
     return null
   }
@@ -40,7 +48,7 @@ export default function VariantsSelection({
           key={value.id}
           variant="ghost"
           size={compact ? "sm" : "default"}
-          onClick={() => !isDisabled && onVariantChange(option.name, value.value)}
+          onClick={() => !isDisabled && selectVariant(option.name, value.value)}
           disabled={isDisabled}
           className={cn(
             "relative flex items-center gap-2 p-2 h-auto border-2 transition-all",
@@ -86,7 +94,7 @@ export default function VariantsSelection({
           key={value.id}
           variant="ghost"
           size={compact ? "sm" : "default"}
-          onClick={() => !isDisabled && onVariantChange(option.name, value.value)}
+          onClick={() => !isDisabled && selectVariant(option.name, value.value)}
           disabled={isDisabled}
           className={cn(
             "relative border-2 font-semibold transition-all min-w-[3rem]",
@@ -123,7 +131,7 @@ export default function VariantsSelection({
             isDisabled && "opacity-50 cursor-not-allowed",
             compact && "text-xs px-2 py-1"
           )}
-          onClick={() => !isDisabled && onVariantChange(option.name, value.value)}
+          onClick={() => !isDisabled && selectVariant(option.name, value.value)}
         >
           {value.value}
           {isSelected && <Check className="ml-1 w-3 h-3" />}
@@ -137,13 +145,13 @@ export default function VariantsSelection({
         key={value.id}
         variant={isSelected ? "default" : "outline"}
         size={compact ? "sm" : "default"}
-        onClick={() => !isDisabled && onVariantChange(option.name, value.value)}
+        onClick={() => !isDisabled && selectVariant(option.name, value.value)}
         disabled={isDisabled}
         className={cn(
           "transition-all",
-          "hover:border-orange-300 hover:bg-orange-50",
+          "hover:border-sky-300 hover:bg-sky-50",
           isSelected 
-            ? "bg-orange-500 text-white border-orange-500 hover:bg-orange-500" 
+            ? "bg-sky-500 text-white border-sky-500 hover:bg-sky-500" 
             : "text-gray-700 border-gray-200",
           isDisabled && "opacity-50 cursor-not-allowed"
         )}
@@ -169,16 +177,14 @@ export default function VariantsSelection({
               ))}
             </div>
           </div>
-          {onClearSelection && (
             <Button
               variant="ghost"
               size="sm"
-              onClick={onClearSelection}
+              onClick={handleClearSelection}
               className="h-6 px-2 text-gray-500 hover:text-gray-700"
             >
               <X className="w-3 h-3" />
             </Button>
-          )}
         </div>
       )}
 
