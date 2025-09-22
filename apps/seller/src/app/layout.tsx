@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import AjaxProgressBarProvider from "@/features/ajax-progress-bar/provider";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/features/react-query/provider";
+import LoadingBlock from "@/components/ui/loading-block";
+import { AuthProvider } from "@/features/auth";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -32,12 +34,16 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
             >
                 {/* Suspense boundary for AuthProvider, uses loading.tsx automatically as fallback */}
-                <ReactQueryProvider>
-                    <AjaxProgressBarProvider>
-                        {children}
-                        {/* <BackToTopButton /> */}
-                    </AjaxProgressBarProvider>
-                </ReactQueryProvider>r
+                <Suspense fallback={<LoadingBlock />}>
+                    <AuthProvider>
+                        <ReactQueryProvider>
+                            <AjaxProgressBarProvider>
+                                {children}
+                                {/* <BackToTopButton /> */}
+                            </AjaxProgressBarProvider>
+                        </ReactQueryProvider>
+                    </AuthProvider>
+                </Suspense>
                 <Toaster />
             </body>
         </html>
