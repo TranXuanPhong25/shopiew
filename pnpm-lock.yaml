@@ -162,6 +162,9 @@ importers:
       embla-carousel-react:
         specifier: ^8.5.2
         version: 8.6.0(react@19.1.1)
+      interweave:
+        specifier: ^13.1.1
+        version: 13.1.1(react@19.1.1)
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.1.1)
@@ -3797,6 +3800,9 @@ packages:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
     engines: {node: '>=6'}
 
+  escape-html@1.0.3:
+    resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
+
   escape-string-regexp@1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
@@ -4430,6 +4436,11 @@ packages:
   internmap@2.0.3:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
+
+  interweave@13.1.1:
+    resolution: {integrity: sha512-5GdAavzK1i2BeeLTPzj0o6/zJMfLqQZq/2Q4c3ALT8ByEWf1syzl2MlQMTUoWzETy1x1/cAkZjiqOlulaoDRxw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   into-stream@7.0.0:
     resolution: {integrity: sha512-2dYz766i9HprMBasCMvHMuazJ7u4WzhJwo5kb3iPSiW/iRYV6uPari3zHoqZlnuaR7V1bEiNMxikhp37rdBXbw==}
@@ -10618,6 +10629,8 @@ snapshots:
 
   escalade@3.2.0: {}
 
+  escape-html@1.0.3: {}
+
   escape-string-regexp@1.0.5: {}
 
   escape-string-regexp@2.0.0: {}
@@ -11340,6 +11353,11 @@ snapshots:
       side-channel: 1.1.0
 
   internmap@2.0.3: {}
+
+  interweave@13.1.1(react@19.1.1):
+    dependencies:
+      escape-html: 1.0.3
+      react: 19.1.1
 
   into-stream@7.0.0:
     dependencies:

@@ -81,7 +81,7 @@ export type VariantOption = {
    id: string
    name: string
    label: string
-   type: 'color' | 'size' | 'text'
+   type: string
    values: VariantOptionValue[]
 }
 

@@ -1,4 +1,5 @@
 import { useProductPageContext } from "../../context";
+import ExpandableParagraph from "./expandable-paragraph";
 
 export default function ProductDescription() {
     const { product: { description } } = useProductPageContext();
@@ -8,9 +9,7 @@ export default function ProductDescription() {
             <h2 className="text-lg font-medium p-4 bg-muted/50">Product Descriptions</h2>
 
             <div className="p-4">
-                {description.split('\n').map((line, index) => (
-                    <p key={index} className="mb-2">{line}</p>
-                ))}
+                <ExpandableParagraph text={description || 'No description available.'} />
             </div>
         </div>
     )
