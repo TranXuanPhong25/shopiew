@@ -1,4 +1,6 @@
 'use client';
+import { Response } from '@/components/ai-elements/response';
+
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -29,7 +31,24 @@ export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
       }),
       experimental_throttle: 50,
    });
+   
+   const starting = messages.slice(-1)[0]?.parts.length ==1 || (
+      messages.slice(-1)[0]?.parts.length ==2 && 
+      messages.slice(-1)[0]?.parts[1]?.type === "text" && 
+      (messages.slice(-1)[0]?.parts[1] as { type: "text"; text?: string })?.text === ""
+   );
+   
+   // Auto-scroll to bottom when messages change
+   useEffect(() => {
+      scrollToBottom();
+   }, [messages, starting]);
 
+   const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ 
+         behavior: 'smooth',
+         block: 'end'
+      });
+   };
    const handleSendMessage = async (message: string) => {
       await sendMessage({
          parts: [{ type: 'text', text: message }]
@@ -88,15 +107,13 @@ export function AIChatInterface({ onBack }: AIChatInterfaceProps) {
                               }`}
                         >
                            <CardContent className="p-3">
-                              <div className="text-sm whitespace-pre-wrap">
+                              <div className=" text-sm   max-w-md">
                                  {message.parts.map(part => {
                                     if (part.type === "text" && message.role === "assistant") {
                                        return (
-                                          <MemoizedMarkdown
-                                             key={`${message.id}-text`}
-                                             id={message.id}
-                                             content={part.text}
-                                          />
+                                          <Response key={`${message.id}-${index}-response`}>
+                                             {part.text}
+                                          </Response>
                                        );
                                     } else if (part.type === "text") {
                                        return <div key={`${message.id}-text`}>{part.text}</div>;
