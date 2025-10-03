@@ -1,11 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useCartData } from "@/stores/cart";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 const CartIndicator = () => {
-   const { totalQuantity } = useCartData();
+   const totalQuantity = 3; // Replace with actual cart quantity from state or context
    return (
       <div className="relative">
          <Link href="/carts">

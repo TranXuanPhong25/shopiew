@@ -1,9 +1,7 @@
 import ShoppingCartPlus from "@/components/icon/shopping-cart-plus";
 import { Button } from "@/components/ui/button";
-import { useCartActions } from "@/stores/cart";
 import { useVariantSelectionStore } from "@/stores/variant-selection-store";
 import { useProductPageContext } from "../context";
-import CartService from "@/features/carts/service";
 import { useAddItemToCart } from "@/features/carts/hooks/use-add-item-to-cart";
 const AddToCartBtn = ({quantity}:{quantity:number}) => {
    const {
