@@ -10,7 +10,7 @@ interface QuantityInputProps {
     min?: number
     max?: number
     frontText?: string,
-    onChangeAction: (value: number) => void
+    onChangeAction?: (value: number) => void
     onChange: (value: number) => void
     debounceMs?: number
 }
@@ -26,7 +26,7 @@ export default function QuantityInput({
 }: QuantityInputProps) {
     
     // Use the custom debounce hook
-    const debouncedAction = useDebounce(onChangeAction, debounceMs)
+    const debouncedAction = useDebounce(onChangeAction ? onChangeAction : () => {}, 0)
     
     const increment = () => {
         if (value < max) {
