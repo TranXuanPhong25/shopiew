@@ -1,3 +1,51 @@
+## [0.7.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.6.0...v0.7.0) (2025-10-03)
+
+### 🚀 Features
+
+* add custom loader animation to loading component ([7455d7c](https://github.com/TranXuanPhong25/shopiew/commit/7455d7c10717cce8ec1288c868fbea7a6909b08d))
+* add demo page and enhanced features section with animations and responsive design ([a105b18](https://github.com/TranXuanPhong25/shopiew/commit/a105b18b02b159b4ff7e8d2a7d44d7e54759671a))
+* add Orb component with GLSL shader effects and integrate into landing section ([1a1cbc7](https://github.com/TranXuanPhong25/shopiew/commit/1a1cbc74b192a80c1133eb9083f7e159bef25211))
+* add zoom effect demo with multiple animation types and center points ([889986f](https://github.com/TranXuanPhong25/shopiew/commit/889986f4e9997b094a2cfbc461d3f72a11fbb504))
+* auto scroll to new message ([adb2d45](https://github.com/TranXuanPhong25/shopiew/commit/adb2d45bc7cf84863eef9c05fb24621d1745d663))
+* cartstores, cart component, integrated with backend ([106d4de](https://github.com/TranXuanPhong25/shopiew/commit/106d4de1518d73fb3ad6ee0621c8b7c8337b3506))
+* html parser description ([2acfbc3](https://github.com/TranXuanPhong25/shopiew/commit/2acfbc3ccc234370aebff3ac44a22c7ef4d09d63))
+* implement delete functionality for cart items and refactor update logic ([3f93fcb](https://github.com/TranXuanPhong25/shopiew/commit/3f93fcbc3797a06578bdd589ba01b6ac38497984))
+* Implement product detail page with breadcrumb navigation, product images, specifications, and customer reviews ([94f97b1](https://github.com/TranXuanPhong25/shopiew/commit/94f97b1e48a510d61c7b2fff0ae03b3e808aaa74))
+* implement product page context and refactor components to use context ([6ed2309](https://github.com/TranXuanPhong25/shopiew/commit/6ed2309c4fee835e239ea0f678c0495cd62e20d2))
+* partial integrate real data to products detail page ([8b67c6b](https://github.com/TranXuanPhong25/shopiew/commit/8b67c6bd6d9fa392fa0453b69f0970b1025b2695))
+* quantity price handle ([020d814](https://github.com/TranXuanPhong25/shopiew/commit/020d814aceb20fa4e6e293146cf86d4313314e84))
+* refactor product page components and integrate new sale price component ([f8b797b](https://github.com/TranXuanPhong25/shopiew/commit/f8b797bb19afa8c7c5902a08682317b03a45099e))
+* refactor product variant selection and pricing logic ([635d5a4](https://github.com/TranXuanPhong25/shopiew/commit/635d5a49fcbbdeb01e37872bad31ab0aa98325db))
+* **seller:** use ai-element comps ([3d23929](https://github.com/TranXuanPhong25/shopiew/commit/3d23929c2c2028922ca587a386232d8bcb365b05))
+* update cart with throttle ([ef66166](https://github.com/TranXuanPhong25/shopiew/commit/ef66166ad3ac212f5bcbfd360c444a12ce7b976c))
+
+### 🐛 Bug Fixes
+
+* Correct type assertion for message parts in AIChatInterface ([90d1543](https://github.com/TranXuanPhong25/shopiew/commit/90d154334d2fae705a89ce2182f3457e56fe3271))
+* merge failure ([0a2cbcc](https://github.com/TranXuanPhong25/shopiew/commit/0a2cbcc378df093094ef69f6f5ffb4a1560f61f5))
+* reinit pnpm-lock ([2e74dbc](https://github.com/TranXuanPhong25/shopiew/commit/2e74dbc3572a9ad53a1b8d6c0782b79df6cb6e72))
+* set onChangeAction param of quantity-input to optional ([a72f4e9](https://github.com/TranXuanPhong25/shopiew/commit/a72f4e997ec294450c7bb726e66b3add3bfc6883))
+* useCallback and missing deps error ([ce7f7c2](https://github.com/TranXuanPhong25/shopiew/commit/ce7f7c25fc68f6c925f3b62434ab98bb13a0836c))
+
+### 📝 Documentation
+
+* update Copilot onboarding instructions for clarity and structure ([eded891](https://github.com/TranXuanPhong25/shopiew/commit/eded891deebf2bcd33f98860ac722889470540fd))
+
+### 🔨 Technical Changes
+
+* cart page modularization ([a28ea4b](https://github.com/TranXuanPhong25/shopiew/commit/a28ea4b97720790340175a8d82635ab45061d3ec))
+* change directory of categoires and products ([48e67c5](https://github.com/TranXuanPhong25/shopiew/commit/48e67c5be6c6a48a4d36f89b9feddfbabf4fb7a5))
+* change directory of categories  and products ([d10d555](https://github.com/TranXuanPhong25/shopiew/commit/d10d555384d3dd5adf55d36c24b53f60edb60f9c))
+* move AuthProvider, change landing page layout, create some safenavigation button ([f126741](https://github.com/TranXuanPhong25/shopiew/commit/f126741e66472d7dad24e0a5f20cd4e8c4566a54))
+* prepare cart store integration ([06ea102](https://github.com/TranXuanPhong25/shopiew/commit/06ea102f68e986d44f0aede20fedd8e957404939))
+* product ([fd507c8](https://github.com/TranXuanPhong25/shopiew/commit/fd507c8d201ada33dfa31119deb2cff8fcc85f30))
+* product ([f56c202](https://github.com/TranXuanPhong25/shopiew/commit/f56c202c0890ceae3ebd5895fc85ca7263650ce7))
+* refactor ChatWidget component and update import paths ([a8217e5](https://github.com/TranXuanPhong25/shopiew/commit/a8217e513997c17706a358378eb9d2154e0c6758))
+* remove cartstore ([11c87c1](https://github.com/TranXuanPhong25/shopiew/commit/11c87c19ffd98ccdd28b62cbd09da29e8f16d251))
+* remove unused Loading component and clean up imports in layout ([aabbc5f](https://github.com/TranXuanPhong25/shopiew/commit/aabbc5f16e6af6f445f73431904401924fb1f8fd))
+* Simplify AIChatInterface by removing unnecessary props and improving message handling ([836b8ef](https://github.com/TranXuanPhong25/shopiew/commit/836b8efa066a02fc46c8e2a57596e4ad89899728))
+* update ProductPage to use product_id and clean up imports ([9fc3c77](https://github.com/TranXuanPhong25/shopiew/commit/9fc3c77267a426be72e6eb5a903fa7bf89d11a73))
+
 ## [0.6.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.5.0...v0.6.0) (2025-09-22)
 
 ### 🚀 Features
