@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import CartService from '@/features/carts/service';
-import { CartItem } from '../components';
 import { apiErrorHandler } from '@/lib/apiErrorHandler';
-import { CartItemPayload } from '../types';
+import { CartItem, CartItemPayload } from '../types';
 
 export const useAddItemToCart = () => {
    const queryClient = useQueryClient();

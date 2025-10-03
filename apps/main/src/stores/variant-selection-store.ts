@@ -67,11 +67,11 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
         newCurrentVariants.length !== 0
 
       // Calculate new price
-      const maxPrice = Math.max(...newCurrentVariants.map((v: ProductVariant) => parseFloat(v.price || '0')), 0)
+      const maxPrice = Math.max(...newCurrentVariants.map((v: ProductVariant) => v.price), 0)
       let newCurrentPrice: VariantPrice
       
       if (!newCurrentVariants.length) {
-        const prices = state.variants.map((v: ProductVariant) => parseFloat(v.price || '0'))
+        const prices = state.variants.map((v: ProductVariant) => v.price)
         const lowestPrice = Math.min(...prices, prices[0] || 0)
         newCurrentPrice = {
           originalPrice: lowestPrice,
@@ -79,7 +79,7 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
           maxPrice
         }
       } else {
-        const price = parseFloat(newCurrentVariants[0].price || '0')
+        const price = newCurrentVariants[0].price 
         newCurrentPrice = {
           originalPrice: price,
           salePrice: price,
@@ -89,7 +89,7 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
 
       // Calculate new inventory
       const inStocks = newCurrentVariants.reduce((sum: number, v: ProductVariant) => {
-        return sum + parseInt(v.stockQuantity || '0')
+        return sum + v.stockQuantity
       }, 0)
       
       const newCurrentInventory: VariantInventory = {
@@ -113,7 +113,7 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
       const newCurrentVariants = state.variants
       
       // Calculate price for all variants
-      const prices = state.variants.map((v: ProductVariant) => parseFloat(v.price || '0'))
+      const prices = state.variants.map((v: ProductVariant) => v.price)
       const lowestPrice = Math.min(...prices, prices[0] || 0)
       const maxPrice = Math.max(...prices, 0)
       
@@ -125,7 +125,7 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
 
       // Calculate inventory for all variants
       const inStocks = state.variants.reduce((sum: number, v: ProductVariant) => {
-        return sum + parseInt(v.stockQuantity || '0')
+        return sum + v.stockQuantity
       }, 0)
       
       const newCurrentInventory: VariantInventory = {
@@ -192,7 +192,7 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
       })
 
       // Calculate initial price and inventory
-      const prices = variants.map((v: ProductVariant) => parseFloat(v.price || '0'))
+      const prices = variants.map((v: ProductVariant) => v.price)
       const lowestPrice = Math.min(...prices, prices[0] || 0)
       const maxPrice = Math.max(...prices, 0)
       
@@ -203,7 +203,7 @@ export const useVariantSelectionStore = create<VariantSelectionState>((set, get)
       }
 
       const inStocks = variants.reduce((sum: number, v: ProductVariant) => {
-        return sum + parseInt(v.stockQuantity || '0')
+        return sum + v.stockQuantity
       }, 0)
       
       const newCurrentInventory: VariantInventory = {
