@@ -3,7 +3,7 @@ import { CartItem } from "../types"
 
 
 
-const useCartSelection = (originalItems: CartItem[]) => {
+const useCartAction = (originalItems: CartItem[]) => {
    const [items, setItems] = useState<CartItem[]>([])
    useEffect(() => {
       setItems(originalItems)
@@ -42,16 +42,17 @@ const useCartSelection = (originalItems: CartItem[]) => {
    )
 
    const totalAfterDiscount = items.reduce((sum, item) =>
-      selectedItems.includes(item.productVariant.id) ? sum + (/*item.productVariant.price */ 42 * item.quantity) : sum, 0
+      selectedItems.includes(item.productVariant.id) ? sum + (item.productVariant.price * item.quantity) : sum, 0
    )
-    
 
-    const handleQuantityChange = (itemId: string, newQuantity: number) => {
-        if (newQuantity < 1) return
-        setItems(items.map(item =>
-            item.productVariant.id === itemId ? { ...item, quantity: newQuantity } : item
-        ))
-    }
+
+   const handleQuantityChange = (itemId: string, newQuantity: number) => {
+      if (newQuantity < 1) return
+      setItems(items.map(item =>
+         item.productVariant.id === itemId ? { ...item, quantity: newQuantity } : item
+      ))
+   }
+
    return {
       selectedItems,
       handleSelectAll,
@@ -68,5 +69,5 @@ const useCartSelection = (originalItems: CartItem[]) => {
 }
 
 export {
-   useCartSelection
+   useCartAction
 }

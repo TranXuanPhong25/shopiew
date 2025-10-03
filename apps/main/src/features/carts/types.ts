@@ -3,8 +3,8 @@ import { ProductVariant, Shop } from "../products/types";
 export type CartItem = {
    productVariant: ProductVariant;
    quantity: number;
-   shopId: string;
-   };
+   shopID: string;
+};
 
 export type CartSummaryResponse = {
    totalItems: number;

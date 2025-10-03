@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import QuantityInput from '@/components/form/quanitty-input'
 import { CartItem } from '../types'
+import { useUpdateCartItem } from '../hooks/use-update-cart';
 
 
 interface CartItemComponentProps {
@@ -23,7 +24,13 @@ export function CartItemComponent({
 }: CartItemComponentProps) {
   const totalPrice = item.productVariant.price * item.quantity
   const discount = ((item.productVariant.price + 69 - item.productVariant.price) / item.productVariant.price) * 100
-
+  const {
+    mutate: updateCartItem,
+  } = useUpdateCartItem({
+    productVariantID: item.productVariant.id,
+    quantity: item.quantity,
+    shopID: item.shopID
+  })
   return (
     <div className="flex items-center gap-4 py-4 border-b last:border-b-0">
       <Checkbox
@@ -66,6 +73,8 @@ export function CartItemComponent({
         {/* Quantity Controls */}
         <div className="min-w-[120px] flex justify-center">
           <QuantityInput
+            debounceMs={300}
+            onChangeAction={() => updateCartItem()}
             frontText=""
             value={item.quantity}
             onChange={onQuantityChange}

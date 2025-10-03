@@ -3,13 +3,16 @@
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Minus, Plus } from "lucide-react"
+import { useDebounce } from "@/lib/hooks/use-debounce"
 
 interface QuantityInputProps {
     value: number
     min?: number
     max?: number
     frontText?: string,
+    onChangeAction: (value: number) => void
     onChange: (value: number) => void
+    debounceMs?: number
 }
 
 export default function QuantityInput({
@@ -17,26 +20,38 @@ export default function QuantityInput({
     min = 1,
     max = 999,
     onChange,
-    frontText = ""
+    onChangeAction,
+    frontText = "",
+    debounceMs = 500
 }: QuantityInputProps) {
+    
+    // Use the custom debounce hook
+    const debouncedAction = useDebounce(onChangeAction, debounceMs)
+    
     const increment = () => {
         if (value < max) {
-            onChange(value + 1)
+            const newValue = value + 1
+            onChange(newValue)
+            debouncedAction(newValue)
         }
     }
     const decrement = () => {
         if (value > min) {
-            onChange(value - 1)
+            const newValue = value - 1
+            onChange(newValue)
+            debouncedAction(newValue)
         }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number.parseInt(e.target.value)
-        if (!isNaN(value)) {
-            if (value >= min && value <= max) {
-                onChange(value)
-            } else if (value >= max) {
-                onChange(value)
+        const newValue = Number.parseInt(e.target.value)
+        if (!isNaN(newValue)) {
+            if (newValue >= min && newValue <= max) {
+                onChange(newValue)
+                debouncedAction(newValue)
+            } else if (newValue >= max) {
+                onChange(newValue)
+                debouncedAction(newValue)
             }
         }
     }
