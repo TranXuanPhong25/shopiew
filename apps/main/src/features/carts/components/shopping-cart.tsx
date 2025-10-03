@@ -3,8 +3,8 @@
 import { CartHeader } from "./cart-header"
 import { ShopSection } from "./shop-section"
 import { CartSummary } from "./cart-summary"
-import { useCartSelection } from "../hooks/use-cart-selection"
 import useCartPage from "../hooks/use-cart-page"
+import LoadingBlock from '../../../../../seller/src/components/ui/loading-block';
 
 export default function ShoppingCart() {
     const shopName = "NewShop Official"
@@ -19,10 +19,14 @@ export default function ShoppingCart() {
         totalOriginal,
         totalAfterDiscount,
         items,
-        handleQuantityChange
+        handleQuantityChange,
+        isLoading,
+        error
     } = useCartPage();
+    if (isLoading) return <LoadingBlock />;
+    if (error) return <div>Error loading cart: {error.message}</div>;
     return (
-        <div className="max-w-7xl mx-auto my-4">
+        <div className="max-w-7xl mx-auto my-4 min-h-[60vh]">
             <div className="flex flex-col lg:flex-row gap-4">
                 {/* Cart Items */}
                 <div className="flex-1">

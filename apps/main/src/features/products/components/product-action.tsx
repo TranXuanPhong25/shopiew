@@ -5,11 +5,11 @@ import { MapPin, AlertCircle, Truck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ShoppingCartPlus from "@/components/icon/shopping-cart-plus";
 import { Badge } from "@/components/ui/badge";
-import { ProductVariant, SelectedVariant, VariantPrice, VariantInventory } from "@/features/products/types";
 import { formatCurrency } from "@/lib/utils";
 import { useProductPageContext } from "../context";
 import { useVariantSelectionStore } from "../../../stores/variant-selection-store";
 import React, { useEffect } from "react";
+import AddToCartBtn from "./add-to-cart-btn";
 
 export default function ProductAction() {
     // Get product data from context (non-variant related)
@@ -149,15 +149,7 @@ export default function ProductAction() {
                     {hasVariants && !isValid ? "Select variant" : "Buy now"}
                 </Button>
 
-                <Button
-                    className="w-full border-orange-500 text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                    variant="outline"
-                    disabled={hasVariants && !isValid || currentInventory.available === 0}
-                    size="lg"
-                >
-                    <ShoppingCartPlus className="w-4 h-4 mr-2 fill-current" />
-                    Add to cart
-                </Button>
+                <AddToCartBtn quantity={quantity}/>
             </div>
 
             {/* Additional info */}

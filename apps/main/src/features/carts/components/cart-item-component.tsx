@@ -34,7 +34,7 @@ export function CartItemComponent({
       <div className="relative">
         <Image
           src={item.productVariant.coverImage || "/placeholder.svg"}
-          alt={item.name}
+          alt={item.productVariant.name+' image'}
           width={80}
           height={80}
           className="w-20 h-20 object-cover rounded-lg"
@@ -47,7 +47,7 @@ export function CartItemComponent({
       </div>
 
       <div className="flex-1 min-w-0">
-        <h3 className="text-sm font-medium line-clamp-2 mb-1">{item.name}</h3>
+        <h3 className="text-sm font-medium line-clamp-2 mb-1">{item.productVariant.name}</h3>
       </div>
 
       <div className="flex item.productVariants-center gap-8">
@@ -68,8 +68,8 @@ export function CartItemComponent({
           <QuantityInput
             frontText=""
             value={item.quantity}
-            onChange={(newQuantity) => onQuantityChange(newQuantity)}
-            max={5}
+            onChange={onQuantityChange}
+            max={item.productVariant.stockQuantity}
           />
         </div>
 
