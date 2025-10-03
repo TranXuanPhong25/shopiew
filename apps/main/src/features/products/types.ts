@@ -46,6 +46,7 @@ export interface ProductDetail extends FlashSaleCardProps, ProductCardProps, Typ
    specs: Record<string, string>;
    variants: ProductVariant[];
    categoryPath: ProductCategory[];
+   shopId: string;
 }
 
 type ProductStatus = "New" | "Used"
@@ -57,9 +58,18 @@ export type Brand = {
    logo?: string
 }
 
+export type Shop = {
+   id: string
+   name: string
+   location?: string
+   logo?: string
+   rating?: number
+   verified?: boolean
+}
+
 export type RawProductVariant = {
-   price: string
-   stockQuantity: string
+   price: number
+   stockQuantity: number
    images?: string[]
    sku?: string
    attributes?: Record<string, string | number | boolean>
@@ -70,6 +80,7 @@ export type ProductVariant = RawProductVariant & {
    images: string[]
    coverImage: string
    id: string
+   name: string
 }
 
 // Variant selection types

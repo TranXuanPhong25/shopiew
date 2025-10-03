@@ -3,7 +3,7 @@ import CartService from '../service';
 import { useAuth } from '@/features/auth';
 import { GetCartResponse } from '../types';
 const useGetCart = () => {
-   const { user } = useAuth();
+   const { user , loading} = useAuth();
    const { data, error, isLoading, refetch } = useQuery({
       queryKey: ['cart','mine'],
       queryFn: async (): Promise<GetCartResponse> => {
@@ -17,7 +17,7 @@ const useGetCart = () => {
 
    return {
       cartData: data,
-      isLoading,
+      isLoading: isLoading || loading,
       error,
       refetch,
    };

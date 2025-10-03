@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CartItem } from "../types"
 
 
 
 const useCartSelection = (originalItems: CartItem[]) => {
-   const [items, setItems] = useState<CartItem[]>(originalItems)
+   const [items, setItems] = useState<CartItem[]>([])
+   useEffect(() => {
+      setItems(originalItems)
+   }, [originalItems])
    // Group items by shop (for now all items are from the same shop)
    const [selectedItems, setSelectedItems] = useState<string[]>([])
 

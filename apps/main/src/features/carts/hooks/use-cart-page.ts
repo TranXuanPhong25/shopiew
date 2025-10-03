@@ -77,4 +77,4 @@ const useCartPage = () => {
    }
 }
 
-export default useCartPage;``
+export default useCartPage;

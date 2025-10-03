@@ -1,3 +1,4 @@
+"use client"
 import { notFound } from 'next/navigation'
 import { useState, useEffect, memo } from 'react'
 import { ProductPageProviderProps } from './types'

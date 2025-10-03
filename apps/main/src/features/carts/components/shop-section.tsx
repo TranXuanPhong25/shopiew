@@ -36,11 +36,11 @@ export function ShopSection({
         isSelected={isShopSelected}
         onToggleSelect={handleShopToggle}
       />
-      
+
       <div className="mt-4 space-y-2">
         {items.map((item) => (
           <CartItemComponent
-            key={item.productVariant.id}
+            key={"cart-item-" + item.productVariant.id}
             item={item}
             isSelected={selectedItems.includes(item.productVariant.id)}
             onToggleSelect={(checked) => onToggleItemSelect(item.productVariant.id, checked)}

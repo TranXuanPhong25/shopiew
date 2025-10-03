@@ -1,30 +1,29 @@
 "use client"
 
 import type React from "react"
-import {useState} from "react"
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
+import { Minus, Plus } from "lucide-react"
 
 interface QuantityInputProps {
     value: number
     min?: number
     max?: number
-    availableText?: string,
+    frontText?: string,
     onChange: (value: number) => void
 }
 
 export default function QuantityInput({
-                                          value,
-                                          min = 1,
-                                          max = 999,
-                                          onChange
-                                      }: QuantityInputProps) {
-
+    value,
+    min = 1,
+    max = 999,
+    onChange,
+    frontText = ""
+}: QuantityInputProps) {
     const increment = () => {
         if (value < max) {
             onChange(value + 1)
         }
     }
-
     const decrement = () => {
         if (value > min) {
             onChange(value - 1)
@@ -34,9 +33,9 @@ export default function QuantityInput({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number.parseInt(e.target.value)
         if (!isNaN(value)) {
-            if (value >= min&&value<=max) {
+            if (value >= min && value <= max) {
                 onChange(value)
-            }else if(value>=max){
+            } else if (value >= max) {
                 onChange(value)
             }
         }
@@ -45,14 +44,19 @@ export default function QuantityInput({
 
     return (
         <div className="flex items-center  space-x-4 my-2 ">
-            <span className="">Quantity: </span>
+            {
+                frontText &&
+                <span className="">{frontText} </span>
+
+            }
             <div className="flex border border-gray-300 rounded-md overflow-hidden justify-around">
                 <Button
                     variant="ghost"
                     className="h-8 w-8 rounded-none border-r border-gray-300 flex items-center justify-center p-0"
                     onClick={decrement}
+                    disabled={value <= min}
                 >
-                    <span className="text-lg font-medium">-</span>
+                    <Minus />
                 </Button>
 
                 <input
@@ -67,8 +71,9 @@ export default function QuantityInput({
                     variant="ghost"
                     className="h-8 w-8 rounded-none border-l border-gray-300 flex items-center justify-center p-0"
                     onClick={increment}
+                    disabled={value >= max}
                 >
-                    <span className="text-lg font-medium">+</span>
+                    <Plus />
                 </Button>
             </div>
         </div>
