@@ -1,4 +1,6 @@
 'use client';
+import { Response } from '@/components/ai-elements/response';
+
 
 import { useState, useEffect, useRef } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -38,8 +40,6 @@ export function AIChatInterface() {
          block: 'end'
       });
    };
-   
-   console.log("Messages:", messages, "Starting:", starting);
    const handleSendMessage = async (message: string) => {
       
       await sendMessage({
@@ -92,15 +92,13 @@ export function AIChatInterface() {
                               }`}
                         >
                            <CardContent className="p-3">
-                              <div className="text-sm whitespace-pre-wrap max-w-md">
+                              <div className=" text-sm   max-w-md">
                                  {message.parts.map(part => {
                                     if (part.type === "text" && message.role === "assistant") {
                                        return (
-                                          <MemoizedMarkdown
-                                             key={`${message.id}-text`}
-                                             id={message.id}
-                                             content={part.text}
-                                          />
+                                          <Response key={`${message.id}-${index}-response`}>
+                                             {part.text}
+                                          </Response>
                                        );
                                     } else if (part.type === "text") {
                                        return <div key={`${message.id}-text`}>{part.text}</div>;

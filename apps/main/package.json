@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
+    "interweave": "^13.1.1",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.7",
     "next": "15.1.7",
@@ -31,7 +32,8 @@
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.0.5"
+    "zod": "^4.0.5",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

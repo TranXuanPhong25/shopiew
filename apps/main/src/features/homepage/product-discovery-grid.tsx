@@ -1,5 +1,5 @@
-import {ProductCardProps} from "@/types/product";
-import ProductGrid from "@/features/product/product-grid";
+import {ProductCardProps} from "@/features/products/types";
+import ProductGrid from "@/features/homepage/product-grid";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 

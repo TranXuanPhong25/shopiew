@@ -7,7 +7,8 @@ import Footer from "@/components/layout/footer";
 import AjaxProgressBarProvider from "@/features/ajax-progress-bar/provider";
 import { BackToTopButton } from "@/components/ui/back-to-top-btn";
 import { AuthProvider } from "@/features/auth";
-import {Toaster} from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
+import ReactQueryProvider from "@/features/react-query/provider";
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
@@ -33,15 +34,17 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}
             >
-                <AuthProvider>
-                    <AjaxProgressBarProvider>
+                <ReactQueryProvider>
+                    <AuthProvider>
+                        <AjaxProgressBarProvider>
 
-                        <NavigationBar />
-                        {children}
-                        <Footer />
-                        <BackToTopButton />
-                    </AjaxProgressBarProvider>
-                </AuthProvider>
+                            <NavigationBar />
+                            {children}
+                            <Footer />
+                            <BackToTopButton />
+                        </AjaxProgressBarProvider>
+                    </AuthProvider>
+                </ReactQueryProvider>
                 <Toaster/>
             </body>
         </html>
