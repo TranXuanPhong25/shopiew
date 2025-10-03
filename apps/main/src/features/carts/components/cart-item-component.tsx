@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import QuantityInput from '@/components/form/quanitty-input'
 import { CartItem } from '../types'
 import { useUpdateCartItem } from '../hooks/use-update-cart';
+import { useDeleteCartItem } from '../hooks/use-delete-cart-items'
 
 
 interface CartItemComponentProps {
@@ -26,11 +27,14 @@ export function CartItemComponent({
   const discount = ((item.productVariant.price + 69 - item.productVariant.price) / item.productVariant.price) * 100
   const {
     mutate: updateCartItem,
-  } = useUpdateCartItem({
-    productVariantID: item.productVariant.id,
-    quantity: item.quantity,
-    shopID: item.shopID
-  })
+  } = useUpdateCartItem()
+  const {
+    mutate: deleteCartItem,
+  } = useDeleteCartItem()
+  const handleRemove = () => {
+    deleteCartItem([item.productVariant.id+""]);
+    onRemove();
+  }
   return (
     <div className="flex items-center gap-4 py-4 border-b last:border-b-0">
       <Checkbox
@@ -61,7 +65,8 @@ export function CartItemComponent({
         {/* Price */}
         <div className="text-right min-w-[80px]">
           <div className="text-red-500 font-medium">
-            {item.productVariant.price.toLocaleString()}đ
+            {/* {item.productVariant.price.toLocaleString()}đ */}
+            {item.productVariant.id}
           </div>
           {item.productVariant.price < item.productVariant.price + 68 && (
             <div className="text-sm text-gray-500 line-through">
@@ -74,7 +79,11 @@ export function CartItemComponent({
         <div className="min-w-[120px] flex justify-center">
           <QuantityInput
             debounceMs={300}
-            onChangeAction={() => updateCartItem()}
+            onChangeAction={() => updateCartItem({
+              productVariantID: item.productVariant.id + '',
+              quantity: item.quantity,
+              shopID: item.shopID + ''
+            })}
             frontText=""
             value={item.quantity}
             onChange={onQuantityChange}
@@ -91,7 +100,7 @@ export function CartItemComponent({
         <Button
           variant="ghost"
           size="icon"
-          onClick={onRemove}
+          onClick={handleRemove}
           className="text-gray-400 hover:text-red-500"
         >
           <Trash2 className="h-4 w-4" />

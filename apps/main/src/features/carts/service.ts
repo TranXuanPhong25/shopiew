@@ -33,9 +33,9 @@ class CartService {
       });
       return response.data;
    }
-   async removeCartItem(cartItem: CartItemPayload) {
+   async deleteCartItem(cartItemIDs: string[]) {
       const response = await axios.delete(`http://localhost:8080/api/carts/mine/items`, {
-         data: cartItem,
+         data: { ids: cartItemIDs },
          headers: {
             "X-User-Id": "e8959523-d510-45da-916a-76f9f46f280c"
          }

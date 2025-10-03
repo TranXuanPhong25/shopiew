@@ -18,6 +18,6 @@ export type GetCartResponse = {
 
 export type CartItemPayload = {
    productVariantID: string;
-   quantity: number;
+   quantity?: number;
    shopID: string;
 }

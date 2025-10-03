@@ -4,12 +4,11 @@ import CartService from '@/features/carts/service';
 import { apiErrorHandler } from '@/lib/apiErrorHandler';
 import { CartItem, CartItemPayload } from '../types';
 
-export const useUpdateCartItem = () => {
+export const useDeleteCartItem = () => {
    const queryClient = useQueryClient();
    return useMutation({
-      mutationFn: async (payload: CartItemPayload) => {
-         payload.productVariantID += '';
-         return await CartService.updateCartItem(payload);
+      mutationFn: async (ids: string[]) => {
+         return await CartService.deleteCartItem(ids);
       },
       onSuccess: (data) => {
          // // Update local cart state         
@@ -26,11 +25,11 @@ export const useUpdateCartItem = () => {
          // Invalidate cart queries to refetch
          queryClient.invalidateQueries({ queryKey: ['cart'] });
          // Show success message
-         toast.success(`Updated successfully`);
+         toast.success(`Deleted successfully`);
       },
       onError: (error) => {
          apiErrorHandler(error);
-         toast.error('Failed to update item in cart');
+         toast.error('Failed to delete item from cart');
       }
    });
 };

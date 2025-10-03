@@ -5,6 +5,7 @@ import { CartItem } from "../types"
 
 const useCartAction = (originalItems: CartItem[]) => {
    const [items, setItems] = useState<CartItem[]>([])
+   
    useEffect(() => {
       setItems(originalItems)
    }, [originalItems])
