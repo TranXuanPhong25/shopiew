@@ -6,9 +6,9 @@ import { CartSummary } from "./cart-summary"
 import useCartPage from "../hooks/use-cart-page"
 
 export default function ShoppingCart() {
-    const shopName = "NewShop Official"
 
     const {
+        shops,
         selectedItems,
         handleSelectAll,
         handleShopToggle,
@@ -22,7 +22,7 @@ export default function ShoppingCart() {
         isLoading,
         error
     } = useCartPage();
-    if (isLoading) return <div className="min-h-[60vh]"/>;
+    if (isLoading) return <div className="min-h-[60vh]" />;
     if (error) return <div>Error loading cart: {error.message}</div>;
     return (
         <div className="max-w-7xl mx-auto my-4 min-h-[60vh]">
@@ -37,15 +37,24 @@ export default function ShoppingCart() {
                             onSelectAll={handleSelectAll}
                         />
 
-                        <ShopSection
-                            shopName={shopName}
-                            items={items}
-                            selectedItems={selectedItems}
-                            onToggleShopSelect={handleShopToggle}
-                            onToggleItemSelect={handleItemToggle}
-                            onQuantityChange={handleQuantityChange}
-                            onRemoveItem={handleRemoveItem}
-                        />
+                        {
+                            items.length != 0 ? (
+                                shops.map(shop => (
+                                    <ShopSection
+                                        shopName={shop.name}
+                                        key={shop.id}
+                                        items={items.filter(item => item.shopID === shop.id)}
+                                        selectedItems={selectedItems}
+                                        onToggleShopSelect={handleShopToggle}
+                                        onToggleItemSelect={handleItemToggle}
+                                        onQuantityChange={handleQuantityChange}
+                                        onRemoveItem={handleRemoveItem}
+                                    />
+                                ))
+                            ) : (
+                                <div>Your cart is empty</div>
+                            )
+                        }
                     </div>
                 </div>
 

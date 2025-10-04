@@ -26,7 +26,7 @@ export default function QuantityInput({
 }: QuantityInputProps) {
     
     // Use the custom debounce hook
-    const debouncedAction = useDebounce(onChangeAction ? onChangeAction : () => {}, 0)
+    const debouncedAction = useDebounce(onChangeAction ? onChangeAction : () => {}, debounceMs)
     
     const increment = () => {
         if (value < max) {

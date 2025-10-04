@@ -1,4 +1,3 @@
-import { CartItem } from "../types";
 import { useCartAction } from "./use-cart-action"
 import useGetCart from "./use-get-cart"
 const useCartPage = () => {
@@ -30,7 +29,8 @@ const useCartPage = () => {
       totalAfterDiscount,
       items,
       setItems,
-      handleQuantityChange
+      handleQuantityChange,
+      shops: cartData?.shops || []
    }
 }
 
