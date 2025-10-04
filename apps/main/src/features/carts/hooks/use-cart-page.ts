@@ -1,5 +1,5 @@
 import { CartItem } from "../types";
-import { useCartAction } from "./use-cart-selection"
+import { useCartAction } from "./use-cart-action"
 import useGetCart from "./use-get-cart"
 const useCartPage = () => {
    const { cartData, isLoading, error } = useGetCart();
@@ -15,7 +15,7 @@ const useCartPage = () => {
       items,
       setItems,
       handleQuantityChange
-   } = useCartAction(cartData?.items || [])
+   } = useCartAction(cartData?.items)
    return {
       cartData,
       isLoading,
