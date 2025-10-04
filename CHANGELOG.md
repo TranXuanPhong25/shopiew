@@ -1,3 +1,14 @@
+## [0.8.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.7.0...v0.8.0) (2025-10-04)
+
+### 🚀 Features
+
+* cartitem group by shops ([1f13741](https://github.com/TranXuanPhong25/shopiew/commit/1f137418684b5672bc056ef6f1dfbb9390c5bcea))
+
+### 🐛 Bug Fixes
+
+* pass empty array as props cause deps change ([c898235](https://github.com/TranXuanPhong25/shopiew/commit/c898235a2149d646017c388e01cb42f811bd18ab))
+* remove import from seller app ([0c97659](https://github.com/TranXuanPhong25/shopiew/commit/0c976590bbb850577b0ece3583e32bb966861668))
+
 ## [0.7.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.6.0...v0.7.0) (2025-10-03)
 
 ### 🚀 Features
