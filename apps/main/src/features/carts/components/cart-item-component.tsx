@@ -78,7 +78,7 @@ export function CartItemComponent({
         {/* Quantity Controls */}
         <div className="min-w-[120px] flex justify-center">
           <QuantityInput
-            debounceMs={300}
+            debounceMs={400}
             onChangeAction={() => updateCartItem({
               productVariantID: item.productVariant.id + '',
               quantity: item.quantity,

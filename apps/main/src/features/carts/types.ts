@@ -12,8 +12,7 @@ export type CartSummaryResponse = {
 
 export type GetCartResponse = {
    items: CartItem[];
-   createdAt: string;
-   updatedAt: string;
+   shops: Shop[];
 }
 
 export type CartItemPayload = {

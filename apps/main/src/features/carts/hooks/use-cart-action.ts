@@ -3,11 +3,11 @@ import { CartItem } from "../types"
 
 
 
-const useCartAction = (originalItems: CartItem[]) => {
+const useCartAction = (originalItems: CartItem[] | undefined) => {
    const [items, setItems] = useState<CartItem[]>([])
    
    useEffect(() => {
-      setItems(originalItems)
+      setItems(originalItems || [])
    }, [originalItems])
    // Group items by shop (for now all items are from the same shop)
    const [selectedItems, setSelectedItems] = useState<string[]>([])
