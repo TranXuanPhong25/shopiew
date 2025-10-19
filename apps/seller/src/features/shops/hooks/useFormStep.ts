@@ -44,8 +44,11 @@ export function useFormStep<T extends FieldValues>({
       // First time initialization
       const currentFormData = getFormData()
       form.reset(currentFormData)
-      // Trigger validation immediately on mount to check required fields
-      form.trigger()
+      // Trigger validation after reset completes to check required fields
+      // Use setTimeout to defer validation until after the reset is complete
+      setTimeout(() => {
+        form.trigger()
+      }, 0)
       isInitialized.current = true
     }
   }, [form, getFormData])
@@ -55,8 +58,11 @@ export function useFormStep<T extends FieldValues>({
     if (isInitialized.current) {
       const currentFormData = getFormData()
       form.reset(currentFormData)
-      // Trigger validation after reset to validate the new step's fields
-      form.trigger()
+      // Trigger validation after reset completes to validate the new step's fields
+      // Use setTimeout to defer validation until after the reset is complete
+      setTimeout(() => {
+        form.trigger()
+      }, 0)
     }
   }, [currentStep]) // eslint-disable-line react-hooks/exhaustive-deps
 
