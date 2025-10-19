@@ -35,7 +35,7 @@ export function useFormStep<T extends FieldValues>({
   const form = useForm<T>({
     resolver: schema ? zodResolver(schema as any) : undefined,
     defaultValues: getFormData(),
-    mode: 'onChange', // Validate on change for better UX
+    mode: 'all', // Validate on change, blur, and submit for better UX
   })
 
   // Reset form with store data when component mounts or step changes
@@ -44,6 +44,11 @@ export function useFormStep<T extends FieldValues>({
       // First time initialization
       const currentFormData = getFormData()
       form.reset(currentFormData)
+      // Trigger validation after reset completes to check required fields
+      // Use setTimeout to defer validation until after the reset is complete
+      setTimeout(() => {
+        form.trigger()
+      }, 0)
       isInitialized.current = true
     }
   }, [form, getFormData])
@@ -53,6 +58,11 @@ export function useFormStep<T extends FieldValues>({
     if (isInitialized.current) {
       const currentFormData = getFormData()
       form.reset(currentFormData)
+      // Trigger validation after reset completes to validate the new step's fields
+      // Use setTimeout to defer validation until after the reset is complete
+      setTimeout(() => {
+        form.trigger()
+      }, 0)
     }
   }, [currentStep]) // eslint-disable-line react-hooks/exhaustive-deps
 

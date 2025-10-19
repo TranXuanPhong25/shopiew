@@ -15,8 +15,9 @@ export const basicInfoSchema = z.object({
 
 // Contact Step Schema
 export const contactSchema = z.object({
-  email: z.email('Please enter a valid email address')
-    .min(1, 'Email is required'),
+  email: z.string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address'),
   phone: z.string()
     .min(1, 'Phone number is required')
     .regex(/^[+]?[\d\s\-\(\)]{10,}$/, 'Please enter a valid phone number'),
