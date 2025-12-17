@@ -107,22 +107,32 @@ export const UploadService = {
          throw err;
       }
    },
-   upload(file: File, presignedUrl: string): Promise<string> {
-      return new Promise((resolve, reject) => {
-         const xhr = new XMLHttpRequest();
-         xhr.open("PUT", presignedUrl, true);
-         xhr.setRequestHeader("Content-Type", file.type);
-         console.log(presignedUrl, file.type);
-         xhr.onload = () => {
-            if (xhr.status === 200) {
-               resolve(presignedUrl.split("?")[0]); // Return the URL without query params
-            } else {
-               reject(new Error(`Failed to upload file: ${xhr.statusText}`));
-            }
-         };
-         xhr.onerror = () => reject(new Error("Network error"));
-         xhr.send(file);
-      });
+   upload: async (file: File, presignedUrl: string): Promise<string> => {
+      try {
+         // In browsers File implements Stream (file.stream()) which can be sent directly.
+         // Under the hood the browser will use the best transport (including HTTP/2 if available).
+         const body: BodyInit = (file as any).stream ? (file as any).stream() : file;
+
+         const response = await fetch(presignedUrl, {
+            method: "PUT",
+            headers: {
+               "Content-Type": file.type,
+            },
+            body,
+            // keepalive can help with background uploads in some browsers
+            // keepalive: true,
+         });
+
+         if (!response.ok) {
+            const text = await response.text().catch(() => response.statusText);
+            throw new Error(`Failed to upload file: ${response.status} ${text}`);
+         }
+
+         // Return the URL without query params
+         return presignedUrl.split("?")[0];
+      } catch (err) {
+         throw err;
+      }
    },
    uploadFile: async(file: File, fileName: string): Promise<string> => {
       try {

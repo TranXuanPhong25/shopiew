@@ -2,3 +2,5 @@
 node_modules
 .env
 .idea
+data/
+shopiew_data/
