@@ -27,7 +27,7 @@ export function CartHeader({ selectedItemsCount, totalItemsCount, onSelectAll }:
         <span>Đơn giá</span>
         <span>Số lượng</span>
         <span>Thành tiền</span>
-        <Trash2 className="h-4 w-4" />
+        <span/>
       </div>
     </div>
   )

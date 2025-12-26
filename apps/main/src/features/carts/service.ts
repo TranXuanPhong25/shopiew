@@ -5,40 +5,21 @@ import { CartItemPayload } from "./types";
 class CartService {
    async getMyCart() {
 
-      // const response = await axiosClient.get(`/carts/mine/`);
-      const response = await axios.get(`http://localhost:8080/api/carts/mine`, {
-         withCredentials: true,
-         headers: {
-            "X-User-Id": "e8959523-d510-45da-916a-76f9f46f280c"
-         }
-      });
+      const response = await axiosClient.get(`http://localhost:8000/api/carts/mine`);
       return response.data;
    }
    async addToCart(cartItem: CartItemPayload) {
-      const response = await axios.post(`http://localhost:8080/api/carts/mine/items`,
-         cartItem, 
-         {
-            headers: {
-               "X-User-Id": "e8959523-d510-45da-916a-76f9f46f280c"
-            }
-         }
-      );
+      const response = await axiosClient.post(`http://localhost:8000/api/carts/mine/items`,
+         cartItem);
       return response.data;
    }
    async updateCartItem(cartItem: CartItemPayload) {
-      const response = await axios.put(`http://localhost:8080/api/carts/mine/items`, cartItem, {
-         headers: {
-            "X-User-Id": "e8959523-d510-45da-916a-76f9f46f280c"
-         }
-      });
+      const response = await axiosClient.put(`http://localhost:8000/api/carts/mine/items`, cartItem);
       return response.data;
    }
    async deleteCartItem(cartItemIDs: string[]) {
-      const response = await axios.delete(`http://localhost:8080/api/carts/mine/items`, {
-         data: { ids: cartItemIDs },
-         headers: {
-            "X-User-Id": "e8959523-d510-45da-916a-76f9f46f280c"
-         }
+      const response = await axiosClient.delete(`http://localhost:8000/api/carts/mine/items`, {
+         data: { ids: cartItemIDs }
       });
       return response.data;
    }

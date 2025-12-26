@@ -80,7 +80,7 @@ export function CartItemComponent({
           <QuantityInput
             debounceMs={400}
             onChangeAction={() => updateCartItem({
-              productVariantID: item.productVariant.id + '',
+              productVariantID: Number.parseInt(item.productVariant.id), 
               quantity: item.quantity,
               shopID: item.shopID + ''
             })}

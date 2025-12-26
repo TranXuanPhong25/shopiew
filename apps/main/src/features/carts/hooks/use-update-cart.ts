@@ -8,7 +8,6 @@ export const useUpdateCartItem = () => {
    const queryClient = useQueryClient();
    return useMutation({
       mutationFn: async (payload: CartItemPayload) => {
-         payload.productVariantID += '';
          return await CartService.updateCartItem(payload);
       },
       onSuccess: (data) => {
