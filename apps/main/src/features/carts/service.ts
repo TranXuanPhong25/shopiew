@@ -23,6 +23,10 @@ class CartService {
       });
       return response.data;
    }
+   async getCartItemCount() {
+      const response = await axiosClient.get(`http://localhost:8000/api/carts/mine/total-items`);
+      return response.data;
+   }
 }
 
 export default new CartService();   

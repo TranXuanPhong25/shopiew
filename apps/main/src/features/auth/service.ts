@@ -13,7 +13,7 @@ export const AuthService = {
             const response = await axiosClient.get(`/auth/me`);
             return response.data;
         } catch (error: any) {
-            // throw error;
+            throw error;
         }
     },
 
