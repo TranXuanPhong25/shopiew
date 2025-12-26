@@ -12,7 +12,7 @@ const SaleInformations = () => {
    return (
       <div className=" bg-white rounded-2xl shadow-sm p-4">
          <div className="sm:flex ">
-            <ProductImages />
+            <ProductImages images={[product.coverImage, ...product.images].map(image => ({src: image, alt: product.name}))}/>
             <div className={"flex-1 sm:ml-4"}>
                <h1 className="text-lg">
                   {product.name}

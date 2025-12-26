@@ -6,53 +6,19 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import {ChevronLeft, ChevronRight} from "lucide-react";
+import { useVariantSelectionStore } from "@/stores/variant-selection-store";
 
-const images = [
-    {
-        src: "https://placehold.co/500x500.png",
-        alt: "Mountain camp",
-        title: "Mountain Retreat",
-    },
-    {
-        src: "https://placehold.co/501x501.png",
-        alt: "Beach camp",
-        title: "Coastal Getaway",
-    },
-    {
-        src: "https://placehold.co/502x502.png",
-        alt: "Forest camp",
-        title: "Forest Adventure",
-    },
-    {
-        src: "https://placehold.co/503x503.png",
-        alt: "Desert camp",
-        title: "Desert Expedition",
-    },
-    {
-        src: "https://placehold.co/504x504.png",
-        alt: "Desert camp",
-        title: "Desert Expedition",
-    },
-    {
-        src: "https://placehold.co/505x505.png",
-        alt: "Desert camp",
-        title: "Desert Expedition",
-    },
-    {
-        src: "https://placehold.co/506x506.png",
-        alt: "Desert camp",
-        title: "Desert Expedition",
-    },
-]
-
-
-export default function ProductImages() {
+interface Props {
+    src: string;
+    alt: string;
+}
+export default function ProductImages({images}: {images: Props[]}) {
     const [selectedImage, setSelectedImage] = useState(images[0])
     const [emblaRef, emblaApi] = useEmblaCarousel({loop:true}, [Autoplay({
         delay: 5000,
     })])
     const [selectedIndex, setSelectedIndex] = useState(0)
-
+    const variantsImages = useVariantSelectionStore((state) => state.variantsImages);
     const scrollPrev = useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev()
     }, [emblaApi]);
