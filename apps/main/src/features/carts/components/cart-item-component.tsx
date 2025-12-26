@@ -32,7 +32,7 @@ export function CartItemComponent({
     mutate: deleteCartItem,
   } = useDeleteCartItem()
   const handleRemove = () => {
-    deleteCartItem([item.productVariant.id+""]);
+    deleteCartItem([item.productVariant.id]);
     onRemove();
   }
   return (
@@ -66,7 +66,7 @@ export function CartItemComponent({
         <div className="text-right min-w-[80px]">
           <div className="text-red-500 font-medium">
             {/* {item.productVariant.price.toLocaleString()}đ */}
-            {item.productVariant.id}
+            {item.productVariant.price}
           </div>
           {item.productVariant.price < item.productVariant.price + 68 && (
             <div className="text-sm text-gray-500 line-through">
