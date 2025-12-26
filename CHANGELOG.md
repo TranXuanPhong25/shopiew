@@ -1,3 +1,15 @@
+## [0.9.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.8.0...v0.9.0) (2025-12-26)
+
+### 🚀 Features
+
+* **main:** cart ([b5e7fd9](https://github.com/TranXuanPhong25/shopiew/commit/b5e7fd9aee913c4738798bebfff91a3f3751ddc4))
+* **seller:** update upload func ([fee463b](https://github.com/TranXuanPhong25/shopiew/commit/fee463b2aa9ac23792c31a2bbc8e002684c7857f))
+
+### 🐛 Bug Fixes
+
+* cart typing ([70a0329](https://github.com/TranXuanPhong25/shopiew/commit/70a0329d36eccac0dbfc48533f2576ecc736c261))
+* **main:** convert ids to ints ([0b94ea3](https://github.com/TranXuanPhong25/shopiew/commit/0b94ea3671737a66c243911f0a5273a1e57796b8))
+
 ## [0.8.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.7.0...v0.8.0) (2025-10-04)
 
 ### 🚀 Features
