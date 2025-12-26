@@ -18,7 +18,7 @@ export const ProductsService = {
             ...data,
             product:{
                ...data.product,
-               coverImage: "https%3A%2F%2Fplacehold.co%2F505x505.png&w=1080&q=75",
+               coverImage: "https://picsum.photos/seed/9947c0eb-7c54-404d-80c8-d1f110e754d8-0/640/480",
             },
          });
          return response.data;
