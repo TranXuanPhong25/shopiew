@@ -33,7 +33,7 @@ export function ProductPageProvider({ children, params }: ProductPageProviderPro
   }, [params])
 
   // Fetch product data using React Query
-  const productQuery = useGetProduct(productId, {
+  const productQuery= useGetProduct(productId, {
     throwOnError: (error: any) => {
       // Navigate to 404 if product not found
       if (error?.message?.includes('not found')) {
