@@ -32,7 +32,8 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
          reset()
          // redirect("/auth/signup/verify")
       } catch (error) {
-         toast.error("Register failed. Please check your credentials.")
+
+         toast.error("Register failed. Reason: " + (error as Error))
       }
    }
 

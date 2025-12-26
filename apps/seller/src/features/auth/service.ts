@@ -47,7 +47,7 @@ export const AuthService = {
             return response.data;
         } catch (error: any) {
             console.error('Register action failed:', error.response?.data || error.message);
-            throw error;
+            throw error.response.data.error;
         }
     },
 
@@ -67,11 +67,7 @@ export const AuthService = {
 
     getShop: async (userId: string): Promise<Shop> => {
         try {
-            const response = await axiosClient.get(`/shops`, {
-                params: { 
-                    owner_id: userId
-                }
-            });
+            const response = await axiosClient.get(`/shops/owners/${userId}`);
             return response.data;
         } catch (error: any) {
             console.error('Get shop action failed:', error.response?.data || error.message);

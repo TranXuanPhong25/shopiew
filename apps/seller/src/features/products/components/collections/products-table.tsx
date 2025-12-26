@@ -251,7 +251,7 @@ export function ProductsTable({
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className="text-center h-16">
-                    No products found. <Link href="/products/new" className="text-blue-600">Create a new product</Link> to get started.
+                    No products found. <Link href="/products/create" className="text-blue-600">Create a new product</Link> to get started.
                   </TableCell>
                 </TableRow>
               )}

@@ -21,7 +21,7 @@ const AddToCartBtn = ({quantity}:{quantity:number}) => {
          variant="outline"
          disabled={hasVariants && !isValid || currentInventory.available === 0}
          size="lg"
-         onClick={() => addToCart({ productVariantID: "" + currentVariants[0].id, quantity, shopID: shopId })}
+         onClick={() => addToCart({ productVariantID: Number.parseInt(currentVariants[0].id), quantity, shopID: shopId })}
       >
          <ShoppingCartPlus className="w-4 h-4 mr-2 fill-current" />
          Add to cart
