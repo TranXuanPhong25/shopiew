@@ -9,6 +9,7 @@ import { BackToTopButton } from "@/components/ui/back-to-top-btn";
 import { AuthProvider } from "@/features/auth";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/features/react-query/provider";
+import { ChatWidget } from "@/features/chat-widget/components";
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
@@ -41,7 +42,8 @@ export default function RootLayout({
                             <NavigationBar />
                             {children}
                             <Footer />
-                            <BackToTopButton />
+                            {/* <BackToTopButton /> */}
+                            <ChatWidget />
                         </AjaxProgressBarProvider>
                     </AuthProvider>
                 </ReactQueryProvider>
