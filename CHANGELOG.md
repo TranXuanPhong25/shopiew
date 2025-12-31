@@ -1,3 +1,9 @@
+## [0.10.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.9.0...v0.10.0) (2025-12-31)
+
+### 🚀 Features
+
+* **main:** categories fining ([1041d64](https://github.com/TranXuanPhong25/shopiew/commit/1041d647e900bd12625676d2d8d6e07aae84dbfc))
+
 ## [0.9.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.8.0...v0.9.0) (2025-12-26)
 
 ### 🚀 Features
