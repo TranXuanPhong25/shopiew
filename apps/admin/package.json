@@ -17,6 +17,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vicons/antd": "^0.13.0",
     "axios": "^1.10.0",
     "naive-ui": "^2.41.0",
     "pinia": "^3.0.1",

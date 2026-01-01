@@ -1,7 +1,5 @@
 <template>
-  <div class="flex w-full">
-    :D
-  </div>
+  <RouterView />
 </template>
 
 <script setup lang="ts">
