@@ -1,20 +1,18 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+import Link from "next/link";
 import MoveBackCarouselBtn from "@/components/carousel/move-back-carousel-btn";
 import MoveNextCarouselBtn from "@/components/carousel/move-next-carousel-btn";
 import { ProductCategory } from "../../product-categories/types";
-import { useGetProductCategoriesCatalog } from "../hooks/use-get-product-categories-catalog";
 
 const CategoryItem = ({ category }: { category: ProductCategory }) => (
 	<Link href="/categories">
 		<div className="flex flex-col items-center gap-1 text-center transition-colors hover:text-primary">
-			<div
-				className={`flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg `}>
+			<div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg">
 				<Image
 					src={category.imageUrl || "/purple_cry_face.png"}
 					alt={category.name}
@@ -100,20 +98,24 @@ function CategoryNav({ categories }: { categories: ProductCategory[] }) {
 		</>
 	);
 }
-const placeholderCategories: ProductCategory[] = Array.from({ length: 20 }).map(
-	(_, index) => ({
+
+// Client component chỉ handle UI interactions
+export function CategoriesClient({
+	categories,
+}: {
+	categories: ProductCategory[];
+}) {
+	const placeholderCategories: ProductCategory[] = Array.from({
+		length: 20,
+	}).map((_, index) => ({
+		id: index + 1,
 		name: ``,
 		imageUrl: "/purple_cry_face.png",
-	})
-);
-export default function CategoriesGrid() {
-	const { data: categories } = useGetProductCategoriesCatalog();
+	}));
 
 	return (
-		<div className="w-full bg-white py-4 shadow-sm rounded-2xl">
-			<div className="container mx-auto px-4 relative">
-				<CategoryNav categories={categories || placeholderCategories} />
-			</div>
-		</div>
+		<CategoryNav
+			categories={categories.length ? categories : placeholderCategories}
+		/>
 	);
 }
