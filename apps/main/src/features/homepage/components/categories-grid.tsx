@@ -7,8 +7,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import MoveBackCarouselBtn from "@/components/carousel/move-back-carousel-btn";
 import MoveNextCarouselBtn from "@/components/carousel/move-next-carousel-btn";
-import { ProductCategory } from "../product-categories/types";
-import { useGetProductCategoriesCatalog } from "./hooks/use-get-product-categories-catalog";
+import { ProductCategory } from "../../product-categories/types";
+import { useGetProductCategoriesCatalog } from "../hooks/use-get-product-categories-catalog";
 
 const CategoryItem = ({ category }: { category: ProductCategory }) => (
 	<Link href="/categories">

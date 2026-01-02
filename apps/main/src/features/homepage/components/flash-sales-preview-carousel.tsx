@@ -1,8 +1,8 @@
 "use client";
-import ProductCarousel from "@/features/homepage/product-carousel";
+import ProductCarousel from "@/features/homepage/components/product-carousel";
 import * as React from "react";
-import CompactFlashSaleProductCard from "@/features/homepage/card/compact-flash-sale-product-card";
-import CountDownClock from "@/features/homepage/count-down-clock";
+import CompactFlashSaleProductCard from "@/features/homepage/components/card/compact-flash-sale-product-card";
+import CountDownClock from "@/features/homepage/components/count-down-clock";
 import { ChevronRight } from "lucide-react";
 import { CompactDisplayFlashSaleProps } from "@/features/products/types";
 
