@@ -58,6 +58,16 @@ export class PromotionService {
 			throw handleApiError(error);
 		}
 	}
+	static async getActivePromoBars(): Promise<PromoBar[]> {
+		try {
+			const response = await axiosClient.get(
+				`${this.BASE_URL}/bars?active_only=true`
+			);
+			return response.data.map(this.transformPromoBar);
+		} catch (error) {
+			throw handleApiError(error);
+		}
+	}
 	static async getAllPromoBars(): Promise<PromoBar[]> {
 		try {
 			const response = await axiosClient.get(`${this.BASE_URL}/bars`);

@@ -100,17 +100,19 @@ function CategoryNav({ categories }: { categories: ProductCategory[] }) {
 		</>
 	);
 }
-
+const placeholderCategories: ProductCategory[] = Array.from({ length: 20 }).map(
+	(_, index) => ({
+		name: ``,
+		imageUrl: "/purple_cry_face.png",
+	})
+);
 export default function CategoriesGrid() {
 	const { data: categories } = useGetProductCategoriesCatalog();
 
-	if (!categories || categories.length === 0) {
-		return null; // or a loading indicator / placeholder
-	}
 	return (
 		<div className="w-full bg-white py-4 shadow-sm rounded-2xl">
 			<div className="container mx-auto px-4 relative">
-				<CategoryNav categories={categories} />
+				<CategoryNav categories={categories || placeholderCategories} />
 			</div>
 		</div>
 	);
