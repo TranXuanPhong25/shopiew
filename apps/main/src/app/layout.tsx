@@ -11,44 +11,42 @@ import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/features/react-query/provider";
 import { ChatWidget } from "@/features/chat-widget/components";
 const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
+	variable: "--font-geist-sans",
+	subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+	variable: "--font-geist-mono",
+	subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-    title: "Shopiew | Miscellaneous land",
-    description: "A strange shopping sanctuary",
+	title: "Shopiew | Miscellaneous land",
+	description: "A strange shopping sanctuary",
 };
 
 export default function RootLayout({
-    children,
+	children,
 }: Readonly<{
-    children: ReactNode;
+	children: ReactNode;
 }>) {
-    return (
-        <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}
-            >
-                <ReactQueryProvider>
-                    <AuthProvider>
-                        <AjaxProgressBarProvider>
-
-                            <NavigationBar />
-                            {children}
-                            <Footer />
-                            {/* <BackToTopButton /> */}
-                            <ChatWidget />
-                        </AjaxProgressBarProvider>
-                    </AuthProvider>
-                </ReactQueryProvider>
-                <Toaster/>
-            </body>
-        </html>
-    );
+	return (
+		<html lang="en">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}>
+				<ReactQueryProvider>
+					<AuthProvider>
+						<AjaxProgressBarProvider>
+							<NavigationBar />
+							{children}
+							<Footer />
+							{/* <BackToTopButton /> */}
+							<ChatWidget />
+						</AjaxProgressBarProvider>
+					</AuthProvider>
+				</ReactQueryProvider>
+				<Toaster />
+			</body>
+		</html>
+	);
 }

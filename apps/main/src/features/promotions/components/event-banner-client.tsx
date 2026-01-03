@@ -9,13 +9,13 @@ import Autoplay from "embla-carousel-autoplay";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useGetEventBanners } from "../hooks/use-get-event-banner";
 import { EventBanner, POSITION_OPTIONS } from "../types";
 
-export function EventBannerCarousel() {
-	const { events } = useGetEventBanners();
+// Client component chỉ handle UI interactions
+export function EventBannerClient({ events }: { events: EventBanner[] }) {
 	const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 	const [selectedIndex, setSelectedIndex] = React.useState(0);
+
 	const scrollPrev = React.useCallback(() => {
 		if (emblaApi) emblaApi.scrollPrev();
 	}, [emblaApi]);
@@ -23,6 +23,7 @@ export function EventBannerCarousel() {
 	const scrollNext = React.useCallback(() => {
 		if (emblaApi) emblaApi.scrollNext();
 	}, [emblaApi]);
+
 	React.useEffect(() => {
 		if (!emblaApi) return;
 		const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
@@ -32,15 +33,21 @@ export function EventBannerCarousel() {
 			emblaApi.off("select", onSelect);
 		};
 	}, [emblaApi]);
+
 	const mainEvents = events.filter(
-		(event) => event.position == POSITION_OPTIONS[0].value
+		(event) =>
+			event.position === "main" ||
+			event.position === POSITION_OPTIONS?.[0]?.value
 	);
 	const sideEvents = events.filter(
-		(event) => event.position == POSITION_OPTIONS[1].value
+		(event) =>
+			event.position === "side" ||
+			event.position === POSITION_OPTIONS?.[1]?.value
 	);
+
 	return (
-		<div className="relative flex my-4 px-4 bg-white rounded-2xl shadow-sm ">
-			<div className="relative flex-1 group ">
+		<>
+			<div className="relative flex-1 group">
 				<div className="overflow-hidden relative rounded-lg" ref={emblaRef}>
 					<div className="flex rounded-lg">
 						{mainEvents.map((event, index) => (
@@ -49,7 +56,7 @@ export function EventBannerCarousel() {
 									<div className="relative aspect-[16/7]">
 										<Image
 											src={event.imageUrl}
-											alt={"event-" + index}
+											alt={event.title || "event-" + index}
 											fill
 											className="object-cover rounded-lg"
 										/>
@@ -66,7 +73,7 @@ export function EventBannerCarousel() {
 								variant="ghost"
 								size="icon"
 								className={cn(
-									" rounded-full  hover:bg-custom-1/100 transition-all duration-300 h-2 ease-in-out border ",
+									" rounded-full hover:bg-custom-1/100 transition-all duration-300 h-2 ease-in-out border ",
 									index === selectedIndex
 										? "bg-custom-1/90 h-2 w-6"
 										: "bg-custom-1/30 w-4 "
@@ -86,7 +93,7 @@ export function EventBannerCarousel() {
 				<Button
 					variant="outline"
 					size="icon"
-					className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm  hidden group-hover:flex"
+					className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm hidden group-hover:flex"
 					onClick={scrollNext}>
 					<ChevronRight className="h-4 w-4" />
 				</Button>
@@ -97,7 +104,7 @@ export function EventBannerCarousel() {
 					<div key={index} className="mb-4">
 						<Image
 							src={event.imageUrl}
-							alt={"side-banner-" + index}
+							alt={event.title || "side-banner-" + index}
 							width={440}
 							height={160}
 							style={{ height: "160px", width: "440px" }}
@@ -106,6 +113,6 @@ export function EventBannerCarousel() {
 					</div>
 				))}
 			</div>
-		</div>
+		</>
 	);
 }

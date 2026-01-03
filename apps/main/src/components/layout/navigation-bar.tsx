@@ -6,13 +6,13 @@ import { DroppableSearch } from "@/components/layout/droppable-search";
 import AccountButton from "@/components/layout/account-button";
 import AddressIndicator from "./nav/address-indicator";
 import CartIndicator from "./nav/cart-indicator";
-import PromoTopBar from "@/features/promotions/components/promo-top-bar";
+import PromoTopBarServer from "@/features/promotions/components/promo-top-bar-server";
 
 const NavigationBar = () => {
 	return (
 		<div className="w-full ">
 			{/*promotion banner*/}
-			<PromoTopBar />
+			<PromoTopBarServer />
 
 			{/* Main header */}
 			<div className="w-full px-2 sm:px-4  border-b bg-white">

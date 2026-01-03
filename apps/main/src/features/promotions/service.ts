@@ -5,15 +5,6 @@ import type { EventBanner, PromoBar, ActivePromotionsResponse } from "./types";
 export class PromotionService {
 	private static readonly BASE_URL = "/promotions";
 
-	static async getAllEventBanners(): Promise<EventBanner[]> {
-		try {
-			const response = await axiosClient.get(`${this.BASE_URL}/banners`);
-			return response.data.map(this.transformEventBanner);
-		} catch (error) {
-			throw handleApiError(error);
-		}
-	}
-
 	static async getEventBannerById(id: string): Promise<EventBanner> {
 		try {
 			const response = await axiosClient.get(
@@ -35,43 +26,25 @@ export class PromotionService {
 			throw handleApiError(error);
 		}
 	}
-
-	static async getEventBannersByPosition(
-		position: string
-	): Promise<EventBanner[]> {
-		try {
-			const response = await axiosClient.get(
-				`${this.BASE_URL}/banners/position/${position}`
-			);
-			return response.data.map(this.transformEventBanner);
-		} catch (error) {
-			throw handleApiError(error);
-		}
-	}
 	static async getActiveEventBanners(): Promise<EventBanner[]> {
 		try {
-			const response = await axiosClient.get(
-				`${this.BASE_URL}/banners?active_only=true`
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API}/promotions/banners?active_only=true`
 			);
-			return response.data.map(this.transformEventBanner);
+			return (await response.json()).map(this.transformEventBanner);
 		} catch (error) {
 			throw handleApiError(error);
 		}
 	}
 	static async getActivePromoBars(): Promise<PromoBar[]> {
 		try {
-			const response = await axiosClient.get(
-				`${this.BASE_URL}/bars?active_only=true`
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API}/promotions/bars?active_only=true`,
+				{
+					next: { revalidate: 3600 },
+				}
 			);
-			return response.data.map(this.transformPromoBar);
-		} catch (error) {
-			throw handleApiError(error);
-		}
-	}
-	static async getAllPromoBars(): Promise<PromoBar[]> {
-		try {
-			const response = await axiosClient.get(`${this.BASE_URL}/bars`);
-			return response.data.map(this.transformPromoBar);
+			return (await response.json()).map(this.transformPromoBar);
 		} catch (error) {
 			throw handleApiError(error);
 		}
