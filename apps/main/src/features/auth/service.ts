@@ -35,6 +35,28 @@ export const AuthService = {
 			throw error;
 		}
 	},
+	/**
+	 * Register a new user
+	 */
+	register: async (
+		email: string,
+		password: string
+	): Promise<RegisterResponse> => {
+		try {
+			const response = await axiosClient.post(`/auth/register`, {
+				email,
+				password,
+			});
+
+			return response.data;
+		} catch (error: any) {
+			console.error(
+				"Register action failed:",
+				error.response?.data || error.message
+			);
+			throw error.response.data.error;
+		}
+	},
 
 	/**
 	 * Logout the current user
