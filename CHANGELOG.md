@@ -1,3 +1,20 @@
+## [0.11.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.10.0...v0.11.0) (2026-01-07)
+
+### 🚀 Features
+
+* **main:** integration promo bar ([dc32885](https://github.com/TranXuanPhong25/shopiew/commit/dc32885be34da876da4b71d37f42dd94e860b8c6))
+* **main:** isr render promotions ([cdda158](https://github.com/TranXuanPhong25/shopiew/commit/cdda158de9e0528c4a71ff9e57a8ecaa27823e48))
+* **main:** render categories grid on server ([4463845](https://github.com/TranXuanPhong25/shopiew/commit/4463845de055da31a5bf4ddf91c9b85ba53e4bf2))
+
+### 🐛 Bug Fixes
+
+* take back register function ([8c3af97](https://github.com/TranXuanPhong25/shopiew/commit/8c3af9749ab7754a7264b76bd84909cee168c32e))
+
+### 🔨 Technical Changes
+
+* integrate promo and refactor modules ([a76bd68](https://github.com/TranXuanPhong25/shopiew/commit/a76bd68c505ed640169974cf12cf3217880fd73b))
+* remove unused ai-sdk components ([3426853](https://github.com/TranXuanPhong25/shopiew/commit/34268538f99e8c1cc50454f256a238002e70e7a2))
+
 ## [0.10.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.9.0...v0.10.0) (2025-12-31)
 
 ### 🚀 Features
