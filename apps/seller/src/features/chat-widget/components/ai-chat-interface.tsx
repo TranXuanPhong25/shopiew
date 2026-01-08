@@ -1,5 +1,5 @@
 "use client";
-import { Response } from "@/components/ai-elements/response";
+import { MemoizedMarkdown } from "@/components/ai-elements/response";
 
 import { useState, useEffect, useRef } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -105,11 +105,15 @@ export function AIChatInterface() {
 														message.role === "assistant"
 													) {
 														return (
-															<Response
-																key={`${message.id}-${index}-response`}
-															>
-																{part.text}
-															</Response>
+															// <Response
+															// 	key={`${message.id}-${index}-response`}
+															// >
+															// 	{part.text}
+															// </Response>
+															<MemoizedMarkdown
+																content={part.text || ""}
+																id={`${message.id}-${index}-response`}
+															/>
 														);
 													} else if (part.type === "text") {
 														return (

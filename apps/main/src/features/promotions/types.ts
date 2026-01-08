@@ -16,8 +16,8 @@ export interface EventBanner {
 		| "seasonal"
 		| "other";
 	position: "main" | "sidebar" | "popup";
-	createdAt: string;
-	updatedAt: string;
+	createdAt?: string;
+	updatedAt?: string;
 }
 
 export interface PromoBar {
@@ -31,8 +31,8 @@ export interface PromoBar {
 	isActive: boolean;
 	priority: number;
 	isCloseable: boolean;
-	createdAt: string;
-	updatedAt: string;
+	createdAt?: string;
+	updatedAt?: string;
 }
 
 export interface ActivePromotionsResponse {
