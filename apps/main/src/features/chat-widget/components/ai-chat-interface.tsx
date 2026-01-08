@@ -26,17 +26,17 @@ export function AIChatInterface() {
 			(messages.slice(-1)[0]?.parts[1] as { type: "text"; text?: string })
 				?.text === "");
 
-	// Auto-scroll to bottom when messages change
-	useEffect(() => {
-		scrollToBottom();
-	}, [messages, starting]);
-
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({
 			behavior: "smooth",
 			block: "end",
 		});
 	};
+	// Auto-scroll to bottom when messages change
+	useEffect(() => {
+		scrollToBottom();
+	}, [messages, starting]);
+
 	const handleSendMessage = async (message: string) => {
 		await sendMessage({
 			parts: [{ type: "text", text: message }],

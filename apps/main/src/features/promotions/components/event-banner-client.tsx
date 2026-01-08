@@ -41,7 +41,7 @@ export function EventBannerClient({ events }: { events: EventBanner[] }) {
 	);
 	const sideEvents = events.filter(
 		(event) =>
-			event.position === "side" ||
+			event.position === "sidebar" ||
 			event.position === POSITION_OPTIONS?.[1]?.value
 	);
 
@@ -87,14 +87,16 @@ export function EventBannerClient({ events }: { events: EventBanner[] }) {
 					variant="outline"
 					size="icon"
 					className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm hidden group-hover:flex "
-					onClick={scrollPrev}>
+					onClick={scrollPrev}
+				>
 					<ChevronLeft className="h-4 w-4" />
 				</Button>
 				<Button
 					variant="outline"
 					size="icon"
 					className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm hidden group-hover:flex"
-					onClick={scrollNext}>
+					onClick={scrollNext}
+				>
 					<ChevronRight className="h-4 w-4" />
 				</Button>
 			</div>
