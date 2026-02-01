@@ -22,12 +22,12 @@ const NavigationBar = () => {
 						<Button variant="ghost" className="lg:hidden p-1">
 							<Menu className="w-5 h-5" />
 						</Button>
-
 						{/* Logo */}
 						<Link
 							href={"/"}
-							className="text-blue-500 font-bold text-xl sm:text-3xl">
-							Shopiew
+							className="text-blue-500 font-bold text-xl sm:text-3xl"
+						>
+							<span className="pb-2">Shopiew</span>
 							<div className="text-[10px] sm:text-xs font-normal mt-1">
 								Good and goods
 							</div>
