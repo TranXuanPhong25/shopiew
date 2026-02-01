@@ -1,228 +1,282 @@
-import { create } from 'zustand'
-import { 
-  ProductVariant, 
-  SelectedVariant, 
-  VariantOption, 
-  VariantPrice, 
-  VariantInventory, 
-  VariantOptionValue 
-} from '../features/products/types'
+import { create } from "zustand";
+import {
+	ProductVariant,
+	SelectedVariant,
+	VariantOption,
+	VariantPrice,
+	VariantInventory,
+	VariantOptionValue,
+} from "../features/products/types";
 
 interface VariantSelectionState {
-  // State
-  selectedVariant: SelectedVariant
-  variants: ProductVariant[]
-  options: VariantOption[]
-  
-  // Computed values
-  currentVariants: ProductVariant[]
-  isValid: boolean
-  currentPrice: VariantPrice
-  currentInventory: VariantInventory
-  
-  // Actions
-  selectVariant: (optionName: string, value: string) => void
-  clearSelection: () => void
-  setVariants: (variants: ProductVariant[]) => void
-  reset: () => void
+	// State
+	selectedVariant: SelectedVariant;
+	variants: ProductVariant[];
+	options: VariantOption[];
+
+	// Computed values
+	currentVariants: ProductVariant[];
+	isValid: boolean;
+	currentPrice: VariantPrice;
+	currentInventory: VariantInventory;
+
+	// Actions
+	selectVariant: (optionName: string, value: string) => void;
+	clearSelection: () => void;
+	setVariants: (variants: ProductVariant[]) => void;
+	reset: () => void;
 }
 
 const initialState = {
-  selectedVariant: {},
-  variants: [],
-  options: [],
-  currentVariants: [],
-  isValid: false,
-  currentPrice: {
-    originalPrice: 0,
-    salePrice: 0,
-    maxPrice: 0
-  },
-  currentInventory: {
-    available: 0,
-    reserved: 0,
-    total: 0
-  }
-}
+	selectedVariant: {},
+	variants: [],
+	options: [],
+	currentVariants: [],
+	isValid: false,
+	currentPrice: {
+		originalPrice: 0,
+		salePrice: 0,
+		maxPrice: 0,
+	},
+	currentInventory: {
+		available: 0,
+		reserved: 0,
+		total: 0,
+	},
+};
 
-export const useVariantSelectionStore = create<VariantSelectionState>((set, get) => ({
-  ...initialState,
+export const useVariantSelectionStore = create<VariantSelectionState>(
+	(set, get) => ({
+		...initialState,
 
-  selectVariant: (optionName: string, value: string) => {
-    set((state) => {
-      const newSelectedVariant = {
-        ...state.selectedVariant,
-        [optionName]: value
-      }
-      
-      const newCurrentVariants = state.variants.filter((variant: ProductVariant) => {
-        if (!variant.attributes) return false
-        return Object.entries(newSelectedVariant).every(([key, value]) =>
-          variant.attributes![key] === value
-        )
-      })
+		selectVariant: (optionName: string, value: string) => {
+			set((state) => {
+				const newSelectedVariant = {
+					...state.selectedVariant,
+					[optionName]: value,
+				};
 
-      const newIsValid = state.options.length > 0 &&
-        state.options.every(option => newSelectedVariant[option.name] !== undefined) &&
-        newCurrentVariants.length !== 0
+				const newCurrentVariants = state.variants.filter(
+					(variant: ProductVariant) => {
+						if (!variant.attributes) return false;
+						return Object.entries(newSelectedVariant).every(
+							([key, value]) => variant.attributes![key] === value,
+						);
+					},
+				);
 
-      // Calculate new price
-      const maxPrice = Math.max(...newCurrentVariants.map((v: ProductVariant) => v.price), 0)
-      let newCurrentPrice: VariantPrice
-      
-      if (!newCurrentVariants.length) {
-        const prices = state.variants.map((v: ProductVariant) => v.price)
-        const lowestPrice = Math.min(...prices, prices[0] || 0)
-        newCurrentPrice = {
-          originalPrice: lowestPrice,
-          salePrice: lowestPrice,
-          maxPrice
-        }
-      } else {
-        const price = newCurrentVariants[0].price 
-        newCurrentPrice = {
-          originalPrice: price,
-          salePrice: price,
-          maxPrice
-        }
-      }
+				const newIsValid =
+					state.options.length > 0 &&
+					state.options.every(
+						(option) => newSelectedVariant[option.name] !== undefined,
+					) &&
+					newCurrentVariants.length !== 0;
 
-      // Calculate new inventory
-      const inStocks = newCurrentVariants.reduce((sum: number, v: ProductVariant) => {
-        return sum + v.stockQuantity
-      }, 0)
-      
-      const newCurrentInventory: VariantInventory = {
-        available: inStocks,
-        reserved: 0,
-        total: inStocks
-      }
+				// Calculate new price
+				const maxPrice = Math.max(
+					...newCurrentVariants.map(
+						(v: ProductVariant) => v.originalPrice,
+					),
+					0,
+				);
+				let newCurrentPrice: VariantPrice;
 
-      return {
-        selectedVariant: newSelectedVariant,
-        currentVariants: newCurrentVariants,
-        isValid: newIsValid,
-        currentPrice: newCurrentPrice,
-        currentInventory: newCurrentInventory
-      }
-    })
-  },
+				if (!newCurrentVariants.length) {
+					const originalPrices = state.variants.map(
+						(v: ProductVariant) => v.originalPrice,
+					);
+					const salePrices = state.variants.map(
+						(v: ProductVariant) => v.salePrice,
+					);
+					const lowestOriginal = Math.min(
+						...originalPrices,
+						originalPrices[0] || 0,
+					);
+					const lowestSale = Math.min(...salePrices, salePrices[0] || 0);
+					newCurrentPrice = {
+						originalPrice: lowestOriginal,
+						salePrice: lowestSale,
+						maxPrice,
+					};
+				} else {
+					const variant = newCurrentVariants[0];
+					newCurrentPrice = {
+						originalPrice: variant.originalPrice,
+						salePrice: variant.salePrice,
+						maxPrice,
+					};
+				}
 
-  clearSelection: () => {
-    set((state) => {
-      const newCurrentVariants = state.variants
-      
-      // Calculate price for all variants
-      const prices = state.variants.map((v: ProductVariant) => v.price)
-      const lowestPrice = Math.min(...prices, prices[0] || 0)
-      const maxPrice = Math.max(...prices, 0)
-      
-      const newCurrentPrice: VariantPrice = {
-        originalPrice: lowestPrice,
-        salePrice: lowestPrice,
-        maxPrice
-      }
+				// Calculate new inventory
+				const inStocks = newCurrentVariants.reduce(
+					(sum: number, v: ProductVariant) => {
+						return sum + v.stockQuantity;
+					},
+					0,
+				);
 
-      // Calculate inventory for all variants
-      const inStocks = state.variants.reduce((sum: number, v: ProductVariant) => {
-        return sum + v.stockQuantity
-      }, 0)
-      
-      const newCurrentInventory: VariantInventory = {
-        available: inStocks,
-        reserved: 0,
-        total: inStocks
-      }
+				const newCurrentInventory: VariantInventory = {
+					available: inStocks,
+					reserved: 0,
+					total: inStocks,
+				};
 
-      return {
-        selectedVariant: {},
-        currentVariants: newCurrentVariants,
-        isValid: false,
-        currentPrice: newCurrentPrice,
-        currentInventory: newCurrentInventory
-      }
-    })
-  },
+				return {
+					selectedVariant: newSelectedVariant,
+					currentVariants: newCurrentVariants,
+					isValid: newIsValid,
+					currentPrice: newCurrentPrice,
+					currentInventory: newCurrentInventory,
+				};
+			});
+		},
 
-  setVariants: (variants: ProductVariant[]) => {
-    set((state) => {
-      // Generate variant options from variants
-      const optionMap: Record<string, Set<string>> = {}
-      const optionImages: Record<string, Record<string, string[]>> = {}
+		clearSelection: () => {
+			set((state) => {
+				const newCurrentVariants = state.variants;
 
-      variants.forEach((variant: ProductVariant) => {
-        if (!variant.attributes) return
+				// Calculate price for all variants
+				const originalPrices = state.variants.map(
+					(v: ProductVariant) => v.originalPrice,
+				);
+				const salePrices = state.variants.map(
+					(v: ProductVariant) => v.salePrice,
+				);
+				const lowestOriginal = Math.min(
+					...originalPrices,
+					originalPrices[0] || 0,
+				);
+				const lowestSale = Math.min(...salePrices, salePrices[0] || 0);
+				const maxPrice = Math.max(...originalPrices, 0);
 
-        Object.entries(variant.attributes).forEach(([key, value]) => {
-          const stringValue = String(value)
-          
-          if (!optionMap[key]) {
-            optionMap[key] = new Set()
-            optionImages[key] = {}
-          }
-          optionMap[key].add(stringValue)
-          
-          if (!optionImages[key][stringValue]) {
-            optionImages[key][stringValue] = []
-          }
-          if (variant.images && variant.images.length > 0) {
-            optionImages[key][stringValue].push(...variant.images)
-          }
-        })
-      })
-      
-      const newOptions: VariantOption[] = Object.entries(optionMap).map(([name, valueSet], index) => {
-        const values: VariantOptionValue[] = Array.from(valueSet).map((value, valueIndex) => ({
-          id: `${name}-${value}-${valueIndex}`,
-          value,
-          label: value,
-          images: optionImages[name][value] || [],
-          available: true,
-          disabled: false
-        }))
+				const newCurrentPrice: VariantPrice = {
+					originalPrice: lowestOriginal,
+					salePrice: lowestSale,
+					maxPrice,
+				};
 
-        return {
-          id: `option-${name}-${index}`,
-          name,
-          label: name,
-          type: name.toLowerCase() === 'color' ? 'color' : 
-                name.toLowerCase() === 'size' ? 'size' : 'text',
-          values
-        }
-      })
+				// Calculate inventory for all variants
+				const inStocks = state.variants.reduce(
+					(sum: number, v: ProductVariant) => {
+						return sum + v.stockQuantity;
+					},
+					0,
+				);
 
-      // Calculate initial price and inventory
-      const prices = variants.map((v: ProductVariant) => v.price)
-      const lowestPrice = Math.min(...prices, prices[0] || 0)
-      const maxPrice = Math.max(...prices, 0)
-      
-      const newCurrentPrice: VariantPrice = {
-        originalPrice: lowestPrice,
-        salePrice: lowestPrice,
-        maxPrice
-      }
+				const newCurrentInventory: VariantInventory = {
+					available: inStocks,
+					reserved: 0,
+					total: inStocks,
+				};
 
-      const inStocks = variants.reduce((sum: number, v: ProductVariant) => {
-        return sum + v.stockQuantity
-      }, 0)
-      
-      const newCurrentInventory: VariantInventory = {
-        available: inStocks,
-        reserved: 0,
-        total: inStocks
-      }
+				return {
+					selectedVariant: {},
+					currentVariants: newCurrentVariants,
+					isValid: false,
+					currentPrice: newCurrentPrice,
+					currentInventory: newCurrentInventory,
+				};
+			});
+		},
 
-      return {
-        variants,
-        options: newOptions,
-        currentVariants: variants,
-        currentPrice: newCurrentPrice,
-        currentInventory: newCurrentInventory,
-        selectedVariant: {},
-        isValid: false
-      }
-    })
-  },
+		setVariants: (variants: ProductVariant[]) => {
+			set((state) => {
+				// Generate variant options from variants
+				const optionMap: Record<string, Set<string>> = {};
+				const optionImages: Record<string, Record<string, string[]>> = {};
 
-  reset: () => set(initialState)
-}))
+				variants.forEach((variant: ProductVariant) => {
+					if (!variant.attributes) return;
+
+					Object.entries(variant.attributes).forEach(([key, value]) => {
+						const stringValue = String(value);
+
+						if (!optionMap[key]) {
+							optionMap[key] = new Set();
+							optionImages[key] = {};
+						}
+						optionMap[key].add(stringValue);
+
+						if (!optionImages[key][stringValue]) {
+							optionImages[key][stringValue] = [];
+						}
+						if (variant.images && variant.images.length > 0) {
+							optionImages[key][stringValue].push(...variant.images);
+						}
+					});
+				});
+
+				const newOptions: VariantOption[] = Object.entries(optionMap).map(
+					([name, valueSet], index) => {
+						const values: VariantOptionValue[] = Array.from(valueSet).map(
+							(value, valueIndex) => ({
+								id: `${name}-${value}-${valueIndex}`,
+								value,
+								label: value,
+								images: optionImages[name][value] || [],
+								available: true,
+								disabled: false,
+							}),
+						);
+
+						return {
+							id: `option-${name}-${index}`,
+							name,
+							label: name,
+							type:
+								name.toLowerCase() === "color"
+									? "color"
+									: name.toLowerCase() === "size"
+										? "size"
+										: "text",
+							values,
+						};
+					},
+				);
+
+				// Calculate initial price and inventory
+				const originalPrices = variants.map(
+					(v: ProductVariant) => v.originalPrice,
+				);
+				const salePrices = variants.map((v: ProductVariant) => v.salePrice);
+				const lowestOriginal = Math.min(
+					...originalPrices,
+					originalPrices[0] || 0,
+				);
+				const lowestSale = Math.min(...salePrices, salePrices[0] || 0);
+				const maxPrice = Math.max(...originalPrices, 0);
+
+				const newCurrentPrice: VariantPrice = {
+					originalPrice: lowestOriginal,
+					salePrice: lowestSale,
+					maxPrice,
+				};
+
+				const inStocks = variants.reduce(
+					(sum: number, v: ProductVariant) => {
+						return sum + v.stockQuantity;
+					},
+					0,
+				);
+
+				const newCurrentInventory: VariantInventory = {
+					available: inStocks,
+					reserved: 0,
+					total: inStocks,
+				};
+
+				return {
+					variants,
+					options: newOptions,
+					currentVariants: variants,
+					currentPrice: newCurrentPrice,
+					currentInventory: newCurrentInventory,
+					selectedVariant: {},
+					isValid: false,
+				};
+			});
+		},
+
+		reset: () => set(initialState),
+	}),
+);

@@ -25,8 +25,7 @@ export interface CompactDisplayFlashSaleProps extends IDisplayable, Types {
 }
 
 export interface FlashSaleCardProps
-	extends Informative,
-		CompactDisplayFlashSaleProps {
+	extends Informative, CompactDisplayFlashSaleProps {
 	flashSaleStartAt: string;
 	flashSaleEndAt: string;
 }
@@ -38,9 +37,7 @@ export type ProductCategory = {
 	parentId?: string;
 };
 export interface ProductDetail
-	extends FlashSaleCardProps,
-		ProductCardProps,
-		Types {
+	extends FlashSaleCardProps, ProductCardProps, Types {
 	ratingCount: number;
 	category: string;
 	description: string;
@@ -73,7 +70,8 @@ export type Shop = {
 };
 
 export type RawProductVariant = {
-	price: number;
+	originalPrice: number;
+	salePrice: number;
 	stockQuantity: number;
 	images?: string[];
 	sku?: string;
