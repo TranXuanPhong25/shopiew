@@ -11,14 +11,14 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { Bell, LogOut, ShoppingBag, ShoppingCart, User } from "lucide-react";
 import Modal from "../ui/modal";
 import { AuthForms } from "@/features/auth/components/auth-forms";
 import { useAuth } from "@/features/auth";
 
 const AccountButton = () => {
 	const [open, setOpen] = useState(false);
-	const { user, logout } = useAuth();
+	const { user, logout, loading } = useAuth();
 
 	const displayName = useMemo(() => {
 		if (!user) return "";
@@ -38,7 +38,7 @@ const AccountButton = () => {
 				<Button
 					variant="ghost"
 					className={open ? "bg-gray-100" : ""}
-					onClick={() => !!user && setOpen(true)}
+					onClick={() => !loading && setOpen(true)}
 				>
 					<User className="w-5 h-5 mr-2 sm:mr-2" />
 					<span className="hidden sm:inline">Tài khoản</span>
@@ -76,15 +76,18 @@ const AccountButton = () => {
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
-					<Link href="/orders" className="flex items-center gap-2 w-full">
-						<ShoppingBag className="h-4 w-4" />
-						<span>Đơn hàng của tôi</span>
+					<Link
+						href="/notifications"
+						className="flex items-center gap-2 w-full"
+					>
+						<Bell className="h-4 w-4" />
+						<span>Thông báo của tôi</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
-					<Link href="/carts" className="flex items-center gap-2 w-full">
-						<ShoppingCart className="h-4 w-4" />
-						<span>Giỏ hàng</span>
+					<Link href="/orders" className="flex items-center gap-2 w-full">
+						<ShoppingBag className="h-4 w-4" />
+						<span>Đơn hàng của tôi</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
