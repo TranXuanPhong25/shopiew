@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Loader2, Package } from "lucide-react";
 import Link from "next/link";
-import { ORDER_STATUS_INFO, OrderDTO, OrderStatus } from "../types";
+import { ORDER_STATUS_INFO, OrderDTO, OrderStatus } from "../../types";
 import { formatCurrency } from "@/lib/utils";
 
 export type PaymentInfo = {

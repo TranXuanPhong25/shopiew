@@ -7,7 +7,7 @@ import {
 	ORDER_STATUS_INFO,
 	OrderStatus,
 	type OrderListItemDTO,
-} from "../types";
+} from "../../types";
 import { formatCurrency } from "@/lib/utils";
 
 interface OrderCardProps {
@@ -26,14 +26,12 @@ export function OrderCard({ order, formatDateTime }: OrderCardProps) {
 	};
 
 	return (
-		<div className="bg-white border-b-8 border-gray-100 last:border-b-0 rounded-xl">
+		<div className="bg-white shadow-md rounded-xl">
 			{/* Shop Header */}
 			<div className="flex items-center justify-between p-4 pb-2">
 				<div className="flex items-center gap-2">
 					<Store className="h-4 w-4 text-gray-600" />
-					<span className="text-sm font-medium">
-						{order.shopName || "Shop"}
-					</span>
+					<span className="text-sm font-medium">{"Shop"}</span>
 					<Badge
 						variant="outline"
 						className="bg-orange-100 text-orange-700 border-orange-200 text-xs px-2 py-0"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/lib/utils";
-import { OrderDTO } from "../types";
+import { OrderDTO } from "../../types";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface OrderPaymentSummaryProps {

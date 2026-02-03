@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Truck, User, Phone, MapPin, CreditCard } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { ORDER_STATUS_INFO, OrderDTO, OrderStatus } from "../types";
+import { ORDER_STATUS_INFO, OrderDTO, OrderStatus } from "../../types";
 import { Separator } from "@/components/ui/separator";
 
 interface OrderDetailInfoProps {
