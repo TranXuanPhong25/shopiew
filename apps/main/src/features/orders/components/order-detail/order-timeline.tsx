@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, Copy, Check } from "lucide-react";
-import { OrderDTO } from "../types";
+import { OrderDTO } from "../../types";
 import { useState } from "react";
 import { createCopyHandler } from "@/utils/clipboard";
 

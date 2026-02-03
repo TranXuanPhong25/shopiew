@@ -111,10 +111,10 @@ export interface OrderListItemDTO {
 }
 
 // Response after creating an order
-export interface CreateOrderResponse {
+export type CreateOrderResponse = {
 	order: OrderDTO;
 	message: string;
-}
+};
 
 // Order status enum
 export type OrderStatus =

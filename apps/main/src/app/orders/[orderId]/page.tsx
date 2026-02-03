@@ -15,7 +15,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useOrderStore } from "@/stores/order-store";
 import { Card } from "@/components/ui/card";
-import { OrderActions } from "@/features/orders/components/order-actions";
+import { OrderActions } from "@/features/orders/components/order-detail/order-actions";
 
 interface OrderPageProps {
 	params: Promise<{ orderId: string }>;

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { CartItem } from "../types";
 
+const CHECKOUT_STORAGE_KEY = "checkout_items";
+
 const useCartAction = (originalItems: CartItem[] | undefined) => {
+	const router = useRouter();
 	const [items, setItems] = useState<CartItem[]>([]);
 	const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
@@ -38,7 +42,34 @@ const useCartAction = (originalItems: CartItem[] | undefined) => {
 
 	const handleCheckout = () => {
 		if (selectedItems.length === 0) return;
-		setIsCheckoutOpen(true);
+
+		// Get selected cart items
+		const selectedCartItems = items.filter((item) =>
+			selectedItems.includes(item.productVariant.id),
+		);
+
+		// Calculate totals
+		const totalOriginal = selectedCartItems.reduce(
+			(sum, item) => sum + item.productVariant.originalPrice * item.quantity,
+			0,
+		);
+
+		const totalAfterDiscount = selectedCartItems.reduce(
+			(sum, item) => sum + item.productVariant.salePrice * item.quantity,
+			0,
+		);
+
+		// Save to localStorage
+		const checkoutData = {
+			items: selectedCartItems,
+			totalOriginal,
+			totalAfterDiscount,
+			selectedCount: selectedCartItems.length,
+		};
+		localStorage.setItem(CHECKOUT_STORAGE_KEY, JSON.stringify(checkoutData));
+
+		// Navigate to checkout page
+		router.push("/checkout");
 	};
 
 	// Get selected cart items for order creation

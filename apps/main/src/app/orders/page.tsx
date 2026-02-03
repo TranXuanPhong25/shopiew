@@ -14,7 +14,7 @@ import {
 
 export default function OrdersPage() {
 	const [page, setPage] = useState(0);
-	const [size] = useState(5);
+	const [size] = useState(6);
 	const [statusFilter, setStatusFilter] = useState<OrderStatus | "ALL">("ALL");
 	const { data, isLoading, error, refetch } = useGetOrders({ page, size });
 

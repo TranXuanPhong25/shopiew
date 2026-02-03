@@ -1,4 +1,4 @@
-import { OrderStatus } from "../types";
+import { OrderStatus } from "../../types";
 
 interface OrdersTabFiltersProps {
 	activeFilter: OrderStatus | "ALL";

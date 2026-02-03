@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
-import { ORDER_STATUS_INFO, type OrderResponse } from "../types";
+import { ORDER_STATUS_INFO, type OrderDTO } from "@/features/orders/types";
+
 import {
 	CheckCircle2,
 	Clock,
@@ -11,7 +12,7 @@ import {
 } from "lucide-react";
 
 interface OrderStatusBannerProps {
-	order: OrderResponse;
+	order: OrderDTO;
 }
 
 const STATUS_ICONS = {
