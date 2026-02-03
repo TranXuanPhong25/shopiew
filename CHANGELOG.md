@@ -1,3 +1,40 @@
+## [0.12.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.11.0...v0.12.0) (2026-02-03)
+
+### 🚀 Features
+
+* **admin:** voucher ([4be6783](https://github.com/TranXuanPhong25/shopiew/commit/4be67831a1bb34900ba283839575cabe7c9281e7))
+* **main:** footer layout ([79b0206](https://github.com/TranXuanPhong25/shopiew/commit/79b0206535bfcd580eeab1d85ff2035b78938212))
+* **main:** orders ([69ff0d3](https://github.com/TranXuanPhong25/shopiew/commit/69ff0d383f86aeea3e527749ceffbe0a7b93935e))
+* **main:** search, checkout, orders refc ([1d599ce](https://github.com/TranXuanPhong25/shopiew/commit/1d599ce0ec101b94ff9645dfce37664515a7dba7))
+
+### 🐛 Bug Fixes
+
+* **main:** account -button guard ([83126f2](https://github.com/TranXuanPhong25/shopiew/commit/83126f225133bce4a9d1e5eda6c382efb55f558e))
+* side event banner gap, static data ([78e5388](https://github.com/TranXuanPhong25/shopiew/commit/78e5388f4bd076c55dc537765fd72fe8eb6de6fc))
+
+### 🔨 Technical Changes
+
+* remove streamdown and fix some type error ([2e07bad](https://github.com/TranXuanPhong25/shopiew/commit/2e07bad54b567cd272df2fc40c791fa5d67c6593))
+* **seller:** price to orignal and sale ([b5ed87c](https://github.com/TranXuanPhong25/shopiew/commit/b5ed87c1fe025a0da5e875fec9a1528b7ffe8b84))
+* upgrade to nextjs16 ([a675533](https://github.com/TranXuanPhong25/shopiew/commit/a675533f1269e682d567ee2bb1fb87cb3998d97c))
+
+## [0.11.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.10.0...v0.11.0) (2026-01-07)
+
+### 🚀 Features
+
+* **main:** integration promo bar ([dc32885](https://github.com/TranXuanPhong25/shopiew/commit/dc32885be34da876da4b71d37f42dd94e860b8c6))
+* **main:** isr render promotions ([cdda158](https://github.com/TranXuanPhong25/shopiew/commit/cdda158de9e0528c4a71ff9e57a8ecaa27823e48))
+* **main:** render categories grid on server ([4463845](https://github.com/TranXuanPhong25/shopiew/commit/4463845de055da31a5bf4ddf91c9b85ba53e4bf2))
+
+### 🐛 Bug Fixes
+
+* take back register function ([8c3af97](https://github.com/TranXuanPhong25/shopiew/commit/8c3af9749ab7754a7264b76bd84909cee168c32e))
+
+### 🔨 Technical Changes
+
+* integrate promo and refactor modules ([a76bd68](https://github.com/TranXuanPhong25/shopiew/commit/a76bd68c505ed640169974cf12cf3217880fd73b))
+* remove unused ai-sdk components ([3426853](https://github.com/TranXuanPhong25/shopiew/commit/34268538f99e8c1cc50454f256a238002e70e7a2))
+
 ## [0.10.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.9.0...v0.10.0) (2025-12-31)
 
 ### 🚀 Features
