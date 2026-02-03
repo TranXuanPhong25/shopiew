@@ -225,23 +225,23 @@ const formLoading = ref(false)
 const filters = ref({
   search: '',
   status: null as string | null,
-  closeable: null as boolean | null,
+  closeable: null as string | null,
 })
 
 // Filter options
 const statusFilterOptions = [
-  { label: 'Tất cả', value: null },
+  { label: 'Tất cả', value: null as string | null },
   { label: 'Đang hoạt động', value: 'active' },
   { label: 'Chưa bắt đầu', value: 'upcoming' },
   { label: 'Đã kết thúc', value: 'expired' },
   { label: 'Tắt', value: 'inactive' },
-]
+] as any
 
 const closeableFilterOptions = [
-  { label: 'Tất cả', value: null },
-  { label: 'Có thể đóng', value: true },
-  { label: 'Không thể đóng', value: false },
-]
+  { label: 'Tất cả', value: null as string | null },
+  { label: 'Có thể đóng', value: 'true' },
+  { label: 'Không thể đóng', value: 'false' },
+] as any
 
 // Computed
 const formModalTitle = computed(() => {
@@ -288,7 +288,8 @@ const filteredBars = computed(() => {
 
   // Closeable filter
   if (filters.value.closeable !== null) {
-    result = result.filter((bar) => bar.isCloseable === filters.value.closeable)
+    const closeableValue = filters.value.closeable === 'true'
+    result = result.filter((bar) => bar.isCloseable === closeableValue)
   }
 
   return result

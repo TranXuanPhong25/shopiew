@@ -108,6 +108,7 @@ import {
   NSpace,
   NButton,
   NIcon,
+  useMessage,
   type FormInst,
   type FormRules,
 } from 'naive-ui'
@@ -131,6 +132,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emits>()
+const message = useMessage()
 
 const formRef = ref<FormInst | null>(null)
 
@@ -234,12 +236,12 @@ const handleSubmit = async () => {
     await formRef.value.validate()
 
     if (!startTimeValue.value || !endTimeValue.value) {
-      window.$message?.error('Vui lòng chọn thời gian bắt đầu và kết thúc')
+      message.error('Vui lòng chọn thời gian bắt đầu và kết thúc')
       return
     }
 
     if (startTimeValue.value >= endTimeValue.value) {
-      window.$message?.error('Thời gian kết thúc phải sau thời gian bắt đầu')
+      message.error('Thời gian kết thúc phải sau thời gian bắt đầu')
       return
     }
 

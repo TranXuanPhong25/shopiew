@@ -11,7 +11,7 @@
          <n-form ref="formRef" :model="formData" :rules="rules" size="large" @submit.prevent="handleLogin">
             <div class="form-fields">
                <n-form-item path="email" :show-label="false">
-                  <n-input v-model:value="formData.email" type="email" placeholder="Email"
+                  <n-input v-model:value="formData.email" type="text" placeholder="Email"
                      :disabled="authStore.isLoading">
                      <template #prefix>
                         <n-icon :component="MailOutline" />

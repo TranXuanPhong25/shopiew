@@ -249,17 +249,17 @@ const filters = ref({
 })
 
 // Filter options
-const eventTypeFilterOptions = [{ label: 'Tất cả', value: null }, ...EVENT_TYPE_OPTIONS]
+const eventTypeFilterOptions = [{ label: 'Tất cả', value: null as string | null }, ...EVENT_TYPE_OPTIONS] as any
 
-const positionFilterOptions = [{ label: 'Tất cả', value: null }, ...POSITION_OPTIONS]
+const positionFilterOptions = [{ label: 'Tất cả', value: null as string | null }, ...POSITION_OPTIONS] as any
 
 const statusFilterOptions = [
-  { label: 'Tất cả', value: null },
+  { label: 'Tất cả', value: null as string | null },
   { label: 'Đang hoạt động', value: 'active' },
   { label: 'Chưa bắt đầu', value: 'upcoming' },
   { label: 'Đã kết thúc', value: 'expired' },
   { label: 'Tắt', value: 'inactive' },
-]
+] as any
 
 // Computed
 const formModalTitle = computed(() => {

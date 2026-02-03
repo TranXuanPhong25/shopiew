@@ -15,7 +15,7 @@ export function useCreateOrder() {
 		onSuccess: (data) => {
 			toast.success("Đặt hàng thành công!");
 			// Set pending order ID before redirect so the order page knows this is a fresh redirect
-			setPendingOrderId(data.order.id);
+			setPendingOrderId(String(data.order.id));
 			// Redirect to order detail page
 			router.push(`/orders/${data.order.id}`);
 		},
