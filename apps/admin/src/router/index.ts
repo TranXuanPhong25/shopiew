@@ -71,6 +71,12 @@ const router = createRouter({
           component: () => import('@/views/analytics/AnalyticsView.vue'),
           meta: { requiresAuth: true, title: 'Thống kê' },
         },
+        {
+          path: 'vouchers',
+          name: 'vouchers',
+          component: () => import('@/views/voucher/VoucherView.vue'),
+          meta: { requiresAuth: true, title: 'Quản lý Voucher' },
+        },
       ],
     },
 

@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { ref, h } from 'vue'
 import { NIcon, type MenuOption } from 'naive-ui'
-import { BookmarkOutline, CaretDownOutline } from '@vicons/ionicons5'
+import { BookmarkOutline, CaretDownOutline, TicketOutline } from '@vicons/ionicons5'
 import { NotificationOutlined } from '@vicons/antd'
 import AvatarDropdown from '@/components/ui/AvatarDropdown.vue'
 import NotificationDropdown from '@/components/ui/NotificationDropdown.vue'
@@ -77,6 +77,12 @@ const menuOptions: MenuOption[] = [
          },
       ],
    },
+   {
+      label: 'Vouchers',
+      key: 'vouchers',
+      href: '/vouchers',
+      icon: renderIcon(TicketOutline),
+   }
 ]
 
 const renderMenuLabel = (option: MenuOption) => {
