@@ -1,3 +1,9 @@
+## [0.12.1](https://github.com/TranXuanPhong25/shopiew/compare/v0.12.0...v0.12.1) (2026-02-03)
+
+### 🐛 Bug Fixes
+
+* build ([e513132](https://github.com/TranXuanPhong25/shopiew/commit/e513132c72b91d7b1a29ae604780460fe622e603))
+
 ## [0.12.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.11.0...v0.12.0) (2026-02-03)
 
 ### 🚀 Features
