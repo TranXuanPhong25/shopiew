@@ -37,12 +37,12 @@ export function EventBannerClient({ events }: { events: EventBanner[] }) {
 	const mainEvents = events.filter(
 		(event) =>
 			event.position === "main" ||
-			event.position === POSITION_OPTIONS?.[0]?.value
+			event.position === POSITION_OPTIONS?.[0]?.value,
 	);
 	const sideEvents = events.filter(
 		(event) =>
 			event.position === "sidebar" ||
-			event.position === POSITION_OPTIONS?.[1]?.value
+			event.position === POSITION_OPTIONS?.[1]?.value,
 	);
 
 	return (
@@ -76,7 +76,7 @@ export function EventBannerClient({ events }: { events: EventBanner[] }) {
 									" rounded-full hover:bg-custom-1/100 transition-all duration-300 h-2 ease-in-out border ",
 									index === selectedIndex
 										? "bg-custom-1/90 h-2 w-6"
-										: "bg-custom-1/30 w-4 "
+										: "bg-custom-1/30 w-4 ",
 								)}
 								onClick={() => emblaApi?.scrollTo(index)}
 							/>
@@ -101,9 +101,9 @@ export function EventBannerClient({ events }: { events: EventBanner[] }) {
 				</Button>
 			</div>
 			{/*side banner*/}
-			<div className="py-4 md:pl-4 flex flex-col justify-between">
+			<div className="py-4 md:pl-4 flex flex-col justify-between gap-4">
 				{sideEvents.map((event, index) => (
-					<div key={index} className="mb-4">
+					<div key={index} className="">
 						<Image
 							src={event.imageUrl}
 							alt={event.title || "side-banner-" + index}
