@@ -40,29 +40,44 @@ export default function CountDownClock({targetDate}: CountdownClockProps) {
 
         return () => clearInterval(intervalId)
     }, [calculateTimeLeft])
-    if (!mounted) return null; // Chờ đến khi client mount mới render
+
+    if (!mounted) {
+        return (
+            <div className="flex items-center gap-1">
+                {[0, 0, 0, 0].map((_, i) => (
+                    <div key={i} className="flex items-center gap-1">
+                        <div className="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 min-w-[40px] text-center">
+                            <span className="text-lg font-bold text-white tabular-nums">--</span>
+                        </div>
+                        {i < 3 && <span className="text-white/80 font-bold">:</span>}
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
+    const timeUnits = [
+        { value: timeLeft.days, label: 'd' },
+        { value: timeLeft.hours, label: 'h' },
+        { value: timeLeft.minutes, label: 'm' },
+        { value: timeLeft.seconds, label: 's' },
+    ];
 
     return (
-        <div className="flex justify-center space-x-0 text-red-600 font-semibold">
-            <div className="flex flex-col items-center">
-                <span className="text-2xl">{timeLeft.days}</span>
-                <span className="text-xs uppercase">Days</span>
-            </div>
-            <span className="text-2xl">:</span>
-            <div className="flex flex-col items-center">
-                <span className="text-2xl">{timeLeft.hours.toString().padStart(2, "0")}</span>
-                <span className="text-xs uppercase">Hours</span>
-            </div>
-            <span className="text-2xl">:</span>
-            <div className="flex flex-col items-center">
-                <span className="text-2xl">{timeLeft.minutes.toString().padStart(2, "0")}</span>
-                <span className="text-xs uppercase">Minutes</span>
-            </div>
-            <span className="text-2xl">:</span>
-            <div className="flex flex-col items-center">
-                <span className="text-2xl">{timeLeft.seconds.toString().padStart(2, "0")}</span>
-                <span className="text-xs uppercase">Seconds</span>
-            </div>
+        <div className="flex items-center gap-1" role="timer" aria-label="Flash sale countdown">
+            {timeUnits.map((unit, index) => (
+                <div key={unit.label} className="flex items-center gap-1">
+                    <div className="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 min-w-[40px] text-center transition-all hover:bg-white/30">
+                        <span className="text-lg font-bold text-white tabular-nums">
+                            {unit.value.toString().padStart(2, "0")}
+                        </span>
+                        <span className="text-[10px] text-white/80 uppercase ml-0.5">{unit.label}</span>
+                    </div>
+                    {index < timeUnits.length - 1 && (
+                        <span className="text-white/80 font-bold animate-pulse">:</span>
+                    )}
+                </div>
+            ))}
         </div>
     )
 }

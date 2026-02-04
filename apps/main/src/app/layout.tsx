@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "@/components/layout/navigation-bar";
 import { ReactNode } from "react";
@@ -10,19 +10,23 @@ import { AuthProvider } from "@/features/auth";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/features/react-query/provider";
 import { ChatWidget } from "@/features/chat-widget/components";
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const inter = Inter({
 	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
 	title: "Shopiew | Miscellaneous land",
 	description: "A strange shopping sanctuary",
+};
+
+export const viewport: Viewport = {
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+		{ media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+	],
 };
 
 export default function RootLayout({
@@ -31,16 +35,15 @@ export default function RootLayout({
 	children: ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 relative`}>
+		<html lang="en" className={inter.variable}>
+			<body className="font-sans antialiased bg-slate-50 relative min-h-screen flex flex-col">
 				<ReactQueryProvider>
 					<AuthProvider>
 						<AjaxProgressBarProvider>
 							<NavigationBar />
-							{children}
+							<main className="flex-1">{children}</main>
 							<Footer />
-							{/* <BackToTopButton /> */}
+							<BackToTopButton />
 							<ChatWidget />
 						</AjaxProgressBarProvider>
 					</AuthProvider>

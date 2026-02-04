@@ -10,53 +10,45 @@ import PromoTopBarServer from "@/features/promotions/components/promo-top-bar-se
 
 const NavigationBar = () => {
 	return (
-		<div className="w-full ">
+		<div className="w-full sticky top-0 z-50">
 			{/*promotion banner*/}
 			<PromoTopBarServer />
 
 			{/* Main header */}
-			<div className="w-full px-2 sm:px-4  border-b bg-white">
-				<nav className="max-w-7xl mx-auto flex items-center px-4 ">
+			<div className="w-full px-2 sm:px-4 border-b bg-white/80 backdrop-blur-lg supports-[backdrop-filter]:bg-white/60">
+				<nav className="max-w-7xl mx-auto flex items-center px-4">
 					<div>
 						{/* Mobile menu button */}
-						<Button variant="ghost" className="lg:hidden p-1">
-							<Menu className="w-5 h-5" />
+						<Button 
+							variant="ghost" 
+							size="icon"
+							className="lg:hidden"
+							aria-label="Open menu"
+						>
+							<Menu className="w-5 h-5" aria-hidden="true" />
 						</Button>
 						{/* Logo */}
 						<Link
-							href={"/"}
-							className="text-blue-500 font-bold text-xl sm:text-3xl"
+							href="/"
+							className="group flex flex-col"
 						>
-							<span className="pb-2">Shopiew</span>
-							<div className="text-[10px] sm:text-xs font-normal mt-1">
-								Good and goods
-							</div>
+							<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700 font-bold text-xl sm:text-3xl transition-all group-hover:from-brand-600 group-hover:to-brand-800">
+								Shopiew
+							</span>
+							<span className="text-[10px] sm:text-xs font-normal text-muted-foreground mt-0.5">
+								Good & goods
+							</span>
 						</Link>
 					</div>
-					<div className="w-full px-2 sm:px-4 py-2 ">
-						<div className="flex items-center gap-2 sm:gap-8 ">
+					<div className="w-full px-2 sm:px-4 py-3">
+						<div className="flex items-center gap-2 sm:gap-8">
 							{/*Search bar*/}
 							<div className="flex-1 relative">
-								{/*<div className="flex">*/}
-								{/*    <div className="relative flex-1">*/}
-								{/*        <Input*/}
-								{/*            placeholder="Instant delivery"*/}
-								{/*            className="w-full pl-10 h-9 sm:h-10"*/}
-								{/*        />*/}
-								{/*        <Search className="w-4 h-4 absolute left-3 top-[10px] text-gray-400"/>*/}
-								{/*    </div>*/}
-								{/*    <Button className="ml-2 bg-blue-500 hover:bg-blue-600 hidden sm:flex">*/}
-								{/*        Search*/}
-								{/*    </Button>*/}
-								{/*    <Button className="ml-1 bg-blue-500 hover:bg-blue-600 sm:hidden p-2">*/}
-								{/*        <Search className="w-4 h-4"/>*/}
-								{/*    </Button>*/}
-								{/*</div>*/}
 								<DroppableSearch />
 							</div>
 
 							{/* Right side buttons */}
-							<div className="flex items-center gap-2 sm:gap-6">
+							<div className="flex items-center gap-2 sm:gap-4">
 								<div className="hidden sm:block">
 									<AccountButton />
 								</div>

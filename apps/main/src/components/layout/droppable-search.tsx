@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Search } from "lucide-react";
+import { Search, Mic } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -30,6 +30,7 @@ export function DroppableSearch() {
 	const [results, setResults] = React.useState<string[]>([]);
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [selectedIndex, setSelectedIndex] = React.useState(-1);
+	const [isFocused, setIsFocused] = React.useState(false);
 	const dropdownRef = React.useRef<HTMLDivElement>(null);
 	const router = useRouter();
 
@@ -91,49 +92,80 @@ export function DroppableSearch() {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [handleClickOutside]);
+
 	const handleClickSearch = () => {
 		router.push(`/search?q=${query}`);
 	};
+
 	return (
 		<div className="relative w-full" ref={dropdownRef}>
-			<div className="relative">
+			<div className={`relative transition-all duration-300 ${isFocused ? 'scale-[1.02]' : ''}`}>
+				<div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+					<Search className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+				</div>
 				<Input
 					type="search"
-					placeholder="Search..."
+					placeholder="Search products, brands…"
 					value={query}
 					onChange={handleSearch}
 					onKeyDown={handleKeyDown}
-					className="pr-10 focus-visible:ring-2 focus-visible:ring-custom-1 focus-visible:ring-opacity-0 focus-visible:border-t-0 focus-visible:rounded-b-none transition-all"
+					onFocus={() => setIsFocused(true)}
+					onBlur={() => setIsFocused(false)}
+					autoComplete="off"
+					spellCheck={false}
+					className="pl-10 pr-20 h-11 bg-slate-50/80 border-slate-200 focus:bg-white focus-visible:ring-brand-500/20 focus-visible:border-brand-500 rounded-xl"
+					aria-label="Search products"
+					aria-expanded={isOpen}
+					aria-controls="search-results"
+					role="combobox"
 				/>
-				<Button
-					size="sm"
-					variant="ghost"
-					className="absolute right-0 top-0 h-full px-3 hover:bg-custom-1 hover:text-white"
-					aria-label="Search"
-					onClick={handleClickSearch}
-				>
-					<Search className="h-4 w-4" />
-				</Button>
+				<div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-1">
+					<Button
+						size="sm"
+						variant="ghost"
+						className="h-8 w-8 p-0 text-muted-foreground hover:text-brand-500"
+						aria-label="Voice search"
+						type="button"
+					>
+						<Mic className="h-4 w-4" aria-hidden="true" />
+					</Button>
+					<Button
+						size="sm"
+						className="h-8 px-3 rounded-lg bg-brand-500 hover:bg-brand-600"
+						aria-label="Search"
+						onClick={handleClickSearch}
+						type="button"
+					>
+						<Search className="h-4 w-4" aria-hidden="true" />
+					</Button>
+				</div>
 			</div>
 			{isOpen && results.length > 0 && (
-				<div className="absolute z-10  w-full rounded-b-lg border border-border bg-background/70 backdrop-blur-2xl shadow-lg border-t-0">
-					<ul className="max-h-60 overflow-auto py-1" role="listbox">
+				<div 
+					id="search-results"
+					className="absolute z-50 w-full mt-2 rounded-xl border border-border/50 bg-white/95 backdrop-blur-lg shadow-xl animate-fade-in overflow-hidden"
+				>
+					<ul className="max-h-72 overflow-auto py-2" role="listbox">
 						{results.map((result, index) => (
 							<li
 								key={result}
-								className={`cursor-pointer px-4 py-2 text-sm hover:bg-gray-300 hover:text-accent-foreground ${
+								className={`cursor-pointer px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${
 									index === selectedIndex
-										? "bg-gray-300 text-accent-foreground"
-										: ""
+										? "bg-brand-50 text-brand-700"
+										: "hover:bg-slate-50"
 								}`}
 								role="option"
 								aria-selected={index === selectedIndex}
 								onClick={() => handleClick(result)}
 							>
-								{result}
+								<Search className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+								<span>{result}</span>
 							</li>
 						))}
 					</ul>
+					<div className="border-t px-4 py-2 text-xs text-muted-foreground">
+						Press <kbd className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[10px]">↵</kbd> to search
+					</div>
 				</div>
 			)}
 		</div>

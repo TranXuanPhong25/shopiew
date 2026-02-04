@@ -2,6 +2,7 @@ import { ProductCardProps } from "@/features/products/types";
 import ProductGrid from "@/features/homepage/components/product-grid";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const products: ProductCardProps[] = [
 	{
@@ -258,14 +259,21 @@ const products: ProductCardProps[] = [
 
 export default function ProductDiscoveryGrid() {
 	return (
-		<div className="mt-4 bg-white p-4 rounded-2xl shadow-sm mb-4 w-full">
-			<h2 className="text-center text-2xl font-bold mb-4">
-				Daily Discovery
-			</h2>
+		<div className="mt-4 bg-white p-6 rounded-2xl shadow-sm mb-4 w-full">
+			<div className="flex items-center justify-center gap-2 mb-6">
+				<Sparkles className="w-5 h-5 text-brand-500" aria-hidden="true" />
+				<h2 className="text-center text-2xl font-bold bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
+					Daily Discovery
+				</h2>
+				<Sparkles className="w-5 h-5 text-brand-500" aria-hidden="true" />
+			</div>
 			<ProductGrid products={products} />
-			<div className={"grid place-items-center mt-4"}>
-				<Button variant="default" className="w-[250px]">
-					<Link href={"/daily-discovery"}>View more</Link>
+			<div className="flex justify-center mt-6">
+				<Button asChild variant="outline" size="lg" className="group">
+					<Link href="/daily-discovery">
+						Explore More
+						<ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+					</Link>
 				</Button>
 			</div>
 		</div>

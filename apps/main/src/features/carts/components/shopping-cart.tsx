@@ -10,6 +10,9 @@ import {
 	CreateOrderRequest,
 	OrderItemInput,
 } from "@/features/orders";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ShoppingBag, ArrowRight } from "lucide-react";
 
 export default function ShoppingCart() {
 	const {
@@ -81,14 +84,37 @@ export default function ShoppingCart() {
 		createOrder(orderRequest);
 	};
 
-	if (isLoading) return <div className="min-h-[60vh]" />;
-	if (error) return <div>Error loading cart: {error.message}</div>;
+	if (isLoading) {
+		return (
+			<div className="max-w-7xl mx-auto my-4 min-h-[60vh] px-4">
+				<div className="animate-pulse space-y-4">
+					<div className="h-8 bg-gray-200 rounded-lg w-32" />
+					<div className="h-24 bg-gray-200 rounded-2xl" />
+					<div className="h-48 bg-gray-200 rounded-2xl" />
+				</div>
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className="max-w-7xl mx-auto my-4 min-h-[60vh] px-4">
+				<div className="text-center py-16 bg-white rounded-2xl shadow-sm">
+					<p className="text-sale-600 font-medium">Error loading cart: {error.message}</p>
+				</div>
+			</div>
+		);
+	}
+
 	return (
-		<div className="max-w-7xl mx-auto my-4 min-h-[60vh]">
+		<div className="max-w-7xl mx-auto my-4 min-h-[60vh] px-4">
 			<div className="flex flex-col lg:flex-row gap-4">
 				{/* Cart Items */}
-				<div className="flex-1">
-					<h1 className="text-xl font-semibold mb-4 ml-4">Your Cart</h1>
+				<div className="flex-1 min-w-0">
+					<h1 className="text-2xl font-bold mb-4 flex items-center gap-2">
+						<ShoppingBag className="w-6 h-6 text-brand-500" aria-hidden="true" />
+						Your Cart
+					</h1>
 					<div className="space-y-4">
 						<CartHeader
 							selectedItemsCount={selectedItems.length}
@@ -96,7 +122,7 @@ export default function ShoppingCart() {
 							onSelectAll={handleSelectAll}
 						/>
 
-						{items.length != 0 ? (
+						{items.length > 0 ? (
 							shops.map((shop) => (
 								<ShopSection
 									shopName={shop.name}
@@ -112,18 +138,34 @@ export default function ShoppingCart() {
 								/>
 							))
 						) : (
-							<div>Your cart is empty</div>
+							<div className="bg-white rounded-2xl shadow-sm p-12 text-center">
+								<div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-brand-50 mb-4">
+									<ShoppingBag className="w-10 h-10 text-brand-400" aria-hidden="true" />
+								</div>
+								<h2 className="text-xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
+								<p className="text-muted-foreground mb-6 max-w-sm mx-auto text-pretty">
+									Looks like you haven't added any items yet. Start exploring our products!
+								</p>
+								<Button asChild size="lg" className="group">
+									<Link href="/">
+										Start Shopping
+										<ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+									</Link>
+								</Button>
+							</div>
 						)}
 					</div>
 				</div>
 
 				{/* Summary */}
-				<CartSummary
-					totalOriginal={totalOriginal}
-					totalAfterDiscount={totalAfterDiscount}
-					selectedItemsCount={selectedItems.length}
-					onCheckout={handleCheckout}
-				/>
+				{items.length > 0 && (
+					<CartSummary
+						totalOriginal={totalOriginal}
+						totalAfterDiscount={totalAfterDiscount}
+						selectedItemsCount={selectedItems.length}
+						onCheckout={handleCheckout}
+					/>
+				)}
 			</div>
 
 			{/* Checkout Dialog */}

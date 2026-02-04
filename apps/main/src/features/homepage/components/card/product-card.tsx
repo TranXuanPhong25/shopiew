@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import { MapPin, Star } from "lucide-react";
+import Link from "next/link";
+import { MapPin, Star, Heart, ShoppingCart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductCardProps } from "@/features/products/types";
-import { clsx } from "clsx";
+import { cn } from "@/lib/utils";
 
 export default function ProductCard({
 	product,
@@ -11,65 +14,106 @@ export default function ProductCard({
 	product: ProductCardProps;
 	compact?: boolean;
 }) {
+	const discountPercent = Math.round(
+		100 - (product.salePrice / product.originalPrice) * 100
+	);
+
 	return (
-		<Card className="max-w-sm overflow-hidden border">
-			<div className="relative">
-				{/* Main product image */}
-				<div className="">
-					<Image
-						src="https://placehold.co/400x400.png"
-						alt="Laneige Cica Sleeping Mask"
-						width={400}
-						height={400}
-						className="w-full h-auto"
-					/>
-				</div>
-			</div>
+		<Link href={`/products/${product.id}`} className="block group">
+			<Card className="max-w-sm overflow-hidden border-0 bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+				<div className="relative overflow-hidden">
+					{/* Discount badge */}
+					{discountPercent > 0 && (
+						<div className="absolute top-2 left-2 z-10">
+							<span className="inline-flex items-center px-2 py-1 rounded-lg text-xs font-bold bg-gradient-to-r from-sale-500 to-sale-600 text-white shadow-sm">
+								-{discountPercent}%
+							</span>
+						</div>
+					)}
 
-			<CardContent className="p-2">
-				{/* Product Name */}
-				<h3
-					className={clsx("font-medium text-ellipsis line-clamp-2 ", {
-						"text-sm": compact,
-					})}
-				>
-					{product.name}
-				</h3>
-
-				{/* Rating */}
-				<div className="flex items-center gap-1 justify-between">
-					<div className="flex items-center gap-1">
-						<Star className="w-4 h-4 fill-yellow-400 stroke-yellow-400" />
-						{product.rating}
+					{/* Quick action buttons */}
+					<div className="absolute top-2 right-2 z-10 flex flex-col gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+						<button 
+							className="p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white hover:scale-110 transition-all"
+							aria-label={`Add ${product.name} to wishlist`}
+							onClick={(e) => {
+								e.preventDefault();
+								// TODO: Add to wishlist
+							}}
+						>
+							<Heart className="w-4 h-4 text-gray-600 hover:text-sale-500" aria-hidden="true" />
+						</button>
+						<button 
+							className="p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white hover:scale-110 transition-all"
+							aria-label={`Quick add ${product.name} to cart`}
+							onClick={(e) => {
+								e.preventDefault();
+								// TODO: Quick add to cart
+							}}
+						>
+							<ShoppingCart className="w-4 h-4 text-gray-600 hover:text-brand-500" aria-hidden="true" />
+						</button>
 					</div>
 
-					<span className="text-sm text-muted-foreground ml-1">
-						Đã bán 1132
-					</span>
+					{/* Product image */}
+					<div className="aspect-square overflow-hidden bg-slate-50">
+						<Image
+							src={product.imageUrl || "https://placehold.co/400x400.png"}
+							alt={product.name}
+							width={400}
+							height={400}
+							className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+						/>
+					</div>
 				</div>
 
-				{/* Price */}
-				<div className="flex items-center gap-2">
-					<span className="text-xl font-bold text-red-500">
-						{product.salePrice}
-					</span>
-					<span className="text-sm text-red-500 bg-orange-100 px-1 rounded">
-						-
-						{100 -
-							Math.round(
-								(product.salePrice / product.originalPrice) * 100,
-							)}
-						%
-					</span>
-				</div>
+				<CardContent className="p-3">
+					{/* Product Name */}
+					<h3
+						className={cn(
+							"font-medium text-gray-800 line-clamp-2 min-h-[2.5rem] group-hover:text-brand-600 transition-colors",
+							compact ? "text-sm" : "text-base"
+						)}
+					>
+						{product.name}
+					</h3>
 
-				{/* Delivery */}
-				<div className="flex items-center justify-between gap-2  mt-2 text-sm text-muted-foreground ">
-					<span className="text-xs flex">
-						<MapPin className={"size-4"} /> {product.soldAddress}
-					</span>
-				</div>
-			</CardContent>
-		</Card>
+					{/* Rating & Sold */}
+					<div className="flex items-center gap-1 justify-between mt-2">
+						<div className="flex items-center gap-1">
+							<Star className="w-4 h-4 fill-amber-400 stroke-amber-400" aria-hidden="true" />
+							<span className="text-sm font-medium text-gray-700">{product.rating}</span>
+						</div>
+						<span className="text-xs text-muted-foreground">
+							{product.soldQuantity.toLocaleString()} sold
+						</span>
+					</div>
+
+					{/* Price */}
+					<div className="flex items-baseline gap-2 mt-2">
+						<span className="text-lg font-bold text-sale-600 tabular-nums">
+							{new Intl.NumberFormat('vi-VN', {
+								style: 'currency',
+								currency: 'VND',
+							}).format(product.salePrice)}
+						</span>
+						{discountPercent > 0 && (
+							<span className="text-xs text-muted-foreground line-through tabular-nums">
+								{new Intl.NumberFormat('vi-VN', {
+									style: 'currency',
+									currency: 'VND',
+								}).format(product.originalPrice)}
+							</span>
+						)}
+					</div>
+
+					{/* Location */}
+					<div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
+						<MapPin className="w-3 h-3" aria-hidden="true" />
+						<span>{product.soldAddress}</span>
+					</div>
+				</CardContent>
+			</Card>
+		</Link>
 	);
 }
