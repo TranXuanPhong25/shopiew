@@ -1,3 +1,13 @@
+## [1.0.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.12.1...v1.0.0) (2026-02-04)
+
+### ⚠ BREAKING CHANGES
+
+* **main:** introduce a new UI design system with incompatible components and APIs
+
+### 🚀 Features
+
+* **main:** new UI design system ([ace5473](https://github.com/TranXuanPhong25/shopiew/commit/ace5473831bc47ab6960a97fba73208d4382cd55))
+
 ## [0.12.1](https://github.com/TranXuanPhong25/shopiew/compare/v0.12.0...v0.12.1) (2026-02-03)
 
 ### 🐛 Bug Fixes
