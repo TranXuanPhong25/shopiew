@@ -16,3 +16,12 @@ export type CheckoutFormData = {
 	paymentMethod: string;
 	customerNote?: string;
 };
+
+export type SavedAddress = {
+	id: string;
+	recipientName: string;
+	recipientPhone: string;
+	address: string;
+	isDefault: boolean;
+	label?: string; // e.g., "Home", "Office"
+};
