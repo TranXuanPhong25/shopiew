@@ -118,7 +118,6 @@ export type CreateOrderResponse = {
 
 // Order status enum
 export type OrderStatus =
-	| "CREATED"
 	| "UNCONFIRMED"
 	| "CONFIRMED"
 	| "PROCESSING"
@@ -137,11 +136,6 @@ export const ORDER_STATUS_INFO: Record<
 	OrderStatus,
 	{ label: string; color: string; description: string }
 > = {
-	CREATED: {
-		label: "Đã tạo",
-		color: "!bg-blue-100 !text-blue-800",
-		description: "Đơn hàng đang được xử lý",
-	},
 	UNCONFIRMED: {
 		label: "Chưa xác nhận",
 		color: "!bg-gray-100 !text-gray-800",

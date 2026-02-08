@@ -162,7 +162,7 @@ export default function OrderPage({ params }: OrderPageProps) {
 	}
 
 	const isPending =
-		order.status === "CREATED" ||
+		order.status === "UNCONFIRMED" ||
 		order.status === "CONFIRMED" ||
 		order.status === "PROCESSING";
 

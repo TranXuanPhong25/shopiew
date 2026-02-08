@@ -16,7 +16,6 @@ interface OrderStatusBannerProps {
 }
 
 const STATUS_ICONS = {
-	CREATED: Clock,
 	UNCONFIRMED: Clock,
 	CONFIRMED: CheckCircle2,
 	PROCESSING: Package,
@@ -29,10 +28,8 @@ const STATUS_ICONS = {
 };
 
 const STATUS_MESSAGES = {
-	CREATED:
-		"Đơn hàng đã được tạo thành công. Vui lòng chờ xác nhận từ người bán.",
 	UNCONFIRMED:
-		"Đang chờ xác nhận từ người bán. Bạn sẽ nhận được thông báo khi đơn hàng được xác nhận.",
+		"Đơn hàng đã được tạo thành công. Vui lòng chờ xác nhận từ người bán. Bạn sẽ nhận được thông báo khi đơn hàng được xác nhận.",
 	CONFIRMED: "Người bán đã xác nhận đơn hàng. Đơn hàng đang được chuẩn bị.",
 	PROCESSING:
 		"Đơn hàng đang được đóng gói. Sẽ sớm được giao cho đơn vị vận chuyển.",

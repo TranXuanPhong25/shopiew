@@ -62,12 +62,28 @@ const data = {
           url: "/orders",
         },
         {
-          title: "Returned/Canceled Orders",
-          url: "/orders/returned",
+          title: "Pending Confirmation",
+          url: "/orders/pending-confirmation",
         },
         {
-          title: "Delivery Management",
-          url: "/orders/delivery-management",
+          title: "Processing",
+          url: "/orders/processing",
+        },
+        {
+          title: "Shipping",
+          url: "/orders/shipping",
+        },
+        {
+          title: "Completed",
+          url: "/orders/completed",
+        },
+        {
+          title: "Cancelled",
+          url: "/orders/cancelled",
+        },
+        {
+          title: "Returns & Refunds",
+          url: "/orders/returns",
         },
       ],
     },

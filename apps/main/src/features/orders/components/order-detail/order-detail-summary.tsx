@@ -31,7 +31,7 @@ export function OrderDetailSummary({
 }: OrderDetailSummaryProps) {
 	const statusInfo =
 		ORDER_STATUS_INFO[order.status as OrderStatus] ||
-		ORDER_STATUS_INFO.CREATED;
+		ORDER_STATUS_INFO.UNCONFIRMED;
 
 	return (
 		<Card className="p-4">

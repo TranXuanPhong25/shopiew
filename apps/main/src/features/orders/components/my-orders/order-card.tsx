@@ -18,7 +18,7 @@ interface OrderCardProps {
 export function OrderCard({ order, formatDateTime }: OrderCardProps) {
 	const statusInfo =
 		ORDER_STATUS_INFO[order.status as OrderStatus] ||
-		ORDER_STATUS_INFO.CREATED;
+		ORDER_STATUS_INFO.UNCONFIRMED;
 
 	const getShopBadge = () => {
 		// In real app, this would come from order data
