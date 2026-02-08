@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { OrderStatusBadge } from "./order-status-badge";
-import type { OrderListItemDTO } from "@/types/order";
+import type { OrderListItemDTO } from "../types";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Package, MapPin, Clock, DollarSign } from "lucide-react";

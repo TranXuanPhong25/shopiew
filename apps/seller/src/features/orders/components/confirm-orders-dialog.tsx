@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { OrderStatusBadge } from "./order-status-badge";
-import type { OrderListItemDTO } from "@/types/order";
+import type { OrderListItemDTO } from "../types";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
 interface ConfirmOrdersDialogProps {

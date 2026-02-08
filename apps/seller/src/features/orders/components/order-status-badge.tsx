@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { OrderStatus } from "@/types/order";
+import { OrderStatus } from "../types";
 
 interface OrderStatusBadgeProps {
 	status: OrderStatus;

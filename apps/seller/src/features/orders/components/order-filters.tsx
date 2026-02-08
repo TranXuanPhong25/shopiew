@@ -9,7 +9,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { OrderStatus } from "@/types/order";
+import { OrderStatus } from "../types";
 import { Filter, X } from "lucide-react";
 
 export interface OrderFilterValues {

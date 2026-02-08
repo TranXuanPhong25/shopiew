@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { OrderStatusBadge } from "./order-status-badge";
-import type { OrderListItemDTO } from "@/types/order";
+import type { OrderListItemDTO } from "../types";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 

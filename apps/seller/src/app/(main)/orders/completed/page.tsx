@@ -5,13 +5,10 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth";
 import {
 	useOrders,
-	useConfirmOrders,
 	OrderFilters,
 	OrderTableView,
 	OrderCardView,
 	ViewToggle,
-	BulkActionsBar,
-	ConfirmOrdersDialog,
 	OrderStatus,
 	type OrderFilterValues,
 	type ViewMode,
@@ -20,30 +17,21 @@ import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RefreshCcw, AlertCircle } from "lucide-react";
-import { toast } from "sonner";
 
-export default function PendingConfirmationPage() {
+export default function CompletedPage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const { user, shop } = useAuth();
 
-	// View mode
 	const [viewMode, setViewMode] = useState<ViewMode>("table");
 
-	// Filters from URL
 	const [filters, setFilters] = useState<OrderFilterValues>({
-		status: OrderStatus.UNCONFIRMED,
+		status: OrderStatus.DELIVERED,
 	});
 
-	// Pagination
 	const currentPage = parseInt(searchParams.get("page") || "0");
 	const pageSize = parseInt(searchParams.get("size") || "20");
 
-	// Selection
-	const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
-	const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-
-	// Hooks
 	const { orders, loading, error, pageInfo, refetch } = useOrders({
 		userId: user?.userId || "",
 		status: filters.status,
@@ -51,19 +39,15 @@ export default function PendingConfirmationPage() {
 		page: currentPage,
 		size: pageSize,
 	});
-	const { confirmOrders, loading: isConfirming } = useConfirmOrders();
 
-	// Update URL when page changes
 	const handlePageChange = (newPage: number) => {
 		const params = new URLSearchParams(searchParams);
 		params.set("page", newPage.toString());
 		router.push(`?${params.toString()}`);
 	};
 
-	// Handle filters change
 	const handleFiltersChange = (newFilters: OrderFilterValues) => {
 		setFilters(newFilters);
-		// Reset to page 0 when filters change
 		if (currentPage !== 0) {
 			const params = new URLSearchParams(searchParams);
 			params.set("page", "0");
@@ -71,72 +55,15 @@ export default function PendingConfirmationPage() {
 		}
 	};
 
-	// Selection handlers
-	const handleSelectOrder = (orderId: number, selected: boolean) => {
-		setSelectedIds((prev) => {
-			const newSet = new Set(prev);
-			if (selected) {
-				newSet.add(orderId);
-			} else {
-				newSet.delete(orderId);
-			}
-			return newSet;
-		});
-	};
-
-	const handleSelectAll = (selected: boolean) => {
-		if (selected) {
-			setSelectedIds(new Set(orders.map((o) => o.id)));
-		} else {
-			setSelectedIds(new Set());
-		}
-	};
-
-	const handleClearSelection = () => {
-		setSelectedIds(new Set());
-	};
-
-	// Confirm orders
-	const handleConfirmClick = () => {
-		setShowConfirmDialog(true);
-	};
-
-	const handleConfirm = async () => {
-		const orderIds = Array.from(selectedIds);
-		if (orderIds.length === 0) return;
-
-		try {
-			const response = await confirmOrders(orderIds);
-
-			if (response.failedCount > 0) {
-				toast.error(`${response.failedCount} đơn hàng không thể xác nhận`, {
-					description: response.failedOrders
-						.map((f) => f.reason)
-						.join(", "),
-				});
-			}
-
-			// Clear selection
-			setSelectedIds(new Set());
-			setShowConfirmDialog(false);
-		} catch (err) {
-			toast.error("Có lỗi xảy ra khi xác nhận đơn hàng");
-			console.error("Confirm error:", err);
-		}
-	};
-
-	const selectedOrders = orders.filter((o) => selectedIds.has(o.id));
-
 	return (
 		<div className="space-y-6 py-3">
-			{/* Header */}
 			<div className="flex items-center justify-between">
 				<div>
 					<h1 className="text-3xl font-bold tracking-tight">
-						Đơn hàng cần xác nhận
+						Đơn hàng hoàn thành
 					</h1>
 					<p className="text-muted-foreground">
-						Quản lý và xác nhận các đơn hàng đang chờ xử lý
+						Các đơn hàng đã giao thành công đến khách hàng
 					</p>
 				</div>
 				<div className="flex items-center gap-3">
@@ -154,13 +81,11 @@ export default function PendingConfirmationPage() {
 				</div>
 			</div>
 
-			{/* Filters */}
 			<OrderFilters
 				filters={filters}
 				onFiltersChange={handleFiltersChange}
 			/>
 
-			{/* Error state */}
 			{error && (
 				<div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950">
 					<div className="flex items-start gap-2">
@@ -177,7 +102,6 @@ export default function PendingConfirmationPage() {
 				</div>
 			)}
 
-			{/* Loading state */}
 			{loading && (
 				<div className="space-y-3">
 					<Skeleton className="h-12 w-full" />
@@ -186,25 +110,23 @@ export default function PendingConfirmationPage() {
 				</div>
 			)}
 
-			{/* Orders list */}
 			{!loading && !error && (
 				<>
 					{viewMode === "table" ? (
 						<OrderTableView
 							orders={orders}
-							selectedIds={selectedIds}
-							onSelectOrder={handleSelectOrder}
-							onSelectAll={handleSelectAll}
+							selectedIds={new Set()}
+							onSelectOrder={() => {}}
+							onSelectAll={() => {}}
 						/>
 					) : (
 						<OrderCardView
 							orders={orders}
-							selectedIds={selectedIds}
-							onSelectOrder={handleSelectOrder}
+							selectedIds={new Set()}
+							onSelectOrder={() => {}}
 						/>
 					)}
 
-					{/* Pagination */}
 					{pageInfo && pageInfo.totalPages > 1 && (
 						<Pagination
 							currentPage={currentPage + 1}
@@ -213,7 +135,6 @@ export default function PendingConfirmationPage() {
 						/>
 					)}
 
-					{/* Results count */}
 					{pageInfo && (
 						<p className="text-center text-sm text-muted-foreground">
 							Hiển thị {orders.length} trong tổng số{" "}
@@ -222,23 +143,6 @@ export default function PendingConfirmationPage() {
 					)}
 				</>
 			)}
-
-			{/* Bulk actions bar */}
-			<BulkActionsBar
-				selectedCount={selectedIds.size}
-				onConfirm={handleConfirmClick}
-				onClear={handleClearSelection}
-				isConfirming={isConfirming}
-			/>
-
-			{/* Confirm dialog */}
-			<ConfirmOrdersDialog
-				open={showConfirmDialog}
-				onOpenChange={setShowConfirmDialog}
-				orders={selectedOrders}
-				onConfirm={handleConfirm}
-				isConfirming={isConfirming}
-			/>
 		</div>
 	);
 }
