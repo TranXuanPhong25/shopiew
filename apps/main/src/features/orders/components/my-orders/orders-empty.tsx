@@ -8,7 +8,7 @@ export function OrdersEmpty() {
 		<Card className="p-6 text-center space-y-3">
 			<Package className="h-10 w-10 mx-auto text-muted-foreground" />
 			<p className="font-medium">Bạn chưa có đơn hàng nào</p>
-			<p className="text-sm text-muted-foreground">
+			<p className="text-sm text-muted-foreground pb-2">
 				Khi mua hàng, đơn sẽ hiển thị tại đây.
 			</p>
 			<Link href="/">

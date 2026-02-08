@@ -9,10 +9,9 @@ const FILTERS = [
 	{ value: "ALL" as const, label: "Tất cả" },
 	{ value: "UNCONFIRMED" as const, label: "Chờ xác nhận" },
 	{ value: "CONFIRMED" as const, label: "Đã xác nhận" },
-	{ value: "PROCESSING" as const, label: "Đang xử lý" },
-	{ value: "SHIPPING" as const, label: "Chờ vận chuyển" },
-	{ value: "DELIVERED" as const, label: "Chờ nhận" },
-	{ value: "COMPLETED" as const, label: "Cần đánh giá" },
+	{ value: "PICKED_UP" as const, label: "Chờ vận chuyển" },
+	{ value: "SHIPPED" as const, label: "Đang vận chuyển" },
+	{ value: "DELIVERED" as const, label: "Đã giao" },
 	{ value: "CANCELLED" as const, label: "Đã hủy" },
 	{ value: "RETURNED" as const, label: "Trả hàng" },
 	{ value: "REFUNDED" as const, label: "Đã hoàn tiền" },
@@ -23,7 +22,7 @@ export function OrdersTabFilters({
 	onFilterChange,
 }: OrdersTabFiltersProps) {
 	return (
-		<div className=" z-10 bg-white border-b">
+		<div className=" z-10 bg-white border-b ">
 			<div className="flex items-center overflow-x-auto scrollbar-hide px-4">
 				{FILTERS.map((filter) => (
 					<button
