@@ -1,3 +1,15 @@
+## [1.2.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.1.0...v1.2.0) (2026-02-08)
+
+### 🚀 Features
+
+* **reviews, addresses:** react-query, sample address ([98d8197](https://github.com/TranXuanPhong25/shopiew/commit/98d819701608a9b9f05143dc49cf26b976c2e301))
+* **selelr:** order ([d2e5982](https://github.com/TranXuanPhong25/shopiew/commit/d2e5982f612a416f809b9452eef041f5809b6387))
+* **seller:** order management ([e66dafb](https://github.com/TranXuanPhong25/shopiew/commit/e66dafb9f55b0b1aa5372862d68bfad631ba0768))
+
+### 🔨 Technical Changes
+
+* **products:** integrate with api ([79f41f6](https://github.com/TranXuanPhong25/shopiew/commit/79f41f6514e7f9f46817fad3facb20e351b72ff5))
+
 ## [1.1.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.0.0...v1.1.0) (2026-02-08)
 
 ### 🚀 Features
