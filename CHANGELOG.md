@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.0.0...v1.1.0) (2026-02-08)
+
+### 🚀 Features
+
+* **main:** checkout page ([8cb2632](https://github.com/TranXuanPhong25/shopiew/commit/8cb2632656e33def5e43ae0e04c5c623eac431b7))
+* **main:** rating ([a4c7d2b](https://github.com/TranXuanPhong25/shopiew/commit/a4c7d2b5fee9d40e47f9c19f3ac54738c6e467ba))
+
 ## [1.0.0](https://github.com/TranXuanPhong25/shopiew/compare/v0.12.1...v1.0.0) (2026-02-04)
 
 ### ⚠ BREAKING CHANGES
