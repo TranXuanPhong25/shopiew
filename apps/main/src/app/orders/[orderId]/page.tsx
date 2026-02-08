@@ -201,7 +201,7 @@ export default function OrderPage({ params }: OrderPageProps) {
 							paymentLabel={paymentInfo.label}
 							formatDateTime={formatDateTime}
 						/>
-						<OrderActions />
+						<OrderActions order={order} />
 					</div>
 				</div>
 			</div>

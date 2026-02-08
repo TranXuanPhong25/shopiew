@@ -2,13 +2,40 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, MessageCircle, Headphones } from "lucide-react";
+import { FileText, MessageCircle, Headphones, Star } from "lucide-react";
+import Link from "next/link";
+import { OrderDTO } from "../../types";
 
-export function OrderActions() {
+interface OrderActionsProps {
+	order?: OrderDTO;
+}
+
+export function OrderActions({ order }: OrderActionsProps) {
+	const canRate =
+		order &&
+		(order.status === "DELIVERED" || order.status === "COMPLETED");
+
 	return (
 		<Card className="p-4">
 			<h2 className="font-semibold mb-4">Hỗ trợ đơn hàng</h2>
 			<div className="space-y-3">
+				{/* Rate Products Button - Show only for delivered/completed orders */}
+				{canRate && (
+					<Link href={`/rating/${order.id}`}>
+						<Button
+							variant="default"
+							className="w-full justify-start gap-3 h-auto py-3 bg-yellow-500 hover:bg-yellow-600 text-white"
+						>
+							<Star className="h-5 w-5 flex-shrink-0 fill-current" />
+							<div className="text-left">
+								<p className="font-medium">Đánh giá sản phẩm</p>
+								<p className="text-xs opacity-90">
+									Chia sẻ trải nghiệm của bạn
+								</p>
+							</div>
+						</Button>
+					</Link>
+				)}
 				<Button
 					variant="outline"
 					className="w-full justify-start gap-3 h-auto py-3"

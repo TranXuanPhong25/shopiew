@@ -126,7 +126,7 @@ export function OrderCard({ order, formatDateTime }: OrderCardProps) {
 							variant="outline"
 							className="flex-1 border-primary text-primary hover:bg-primary/5"
 						>
-							Viết đánh giá
+							<Link href={`/rating/${order.id}`}>Viết đánh giá</Link>
 						</Button>
 						<Button className="flex-1 bg-primary hover:bg-primary/90">
 							Mua lại
