@@ -39,8 +39,8 @@ export default function OrdersPage() {
 			: orders.filter((order) => order.status === statusFilter);
 
 	return (
-		<div className="max-w-7xl  mx-auto py-4 px-4 min-h-screen bg-gray-50">
-			<div className="sticky top-4 z-10">
+		<div className="max-w-7xl  mx-auto py-4  min-h-screen bg-gray-50">
+			<div className="sticky top-4 z-10 shadow-md ">
 				<OrdersSearchBar />
 				<OrdersTabFilters
 					activeFilter={statusFilter}
@@ -55,13 +55,13 @@ export default function OrdersPage() {
 			)}
 
 			{error && !isLoading && (
-				<div className="mt-4 px-4">
+				<div className="mt-4">
 					<OrdersError onRetry={refetch} />
 				</div>
 			)}
 
 			{!isLoading && !error && filteredOrders.length === 0 && (
-				<div className="mt-4 px-4">
+				<div className="mt-4">
 					<OrdersEmpty />
 				</div>
 			)}

@@ -4,7 +4,7 @@ import { use, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useGetOrder } from "@/features/orders";
-import { useCreateReview } from "@/features/reviews";
+import { useCreateReview } from "@/features/reviews/hooks/use-create-review";
 import { ProductReviewCard } from "@/features/reviews/components";
 import { ReviewFormState, CreateReviewRequest } from "@/features/reviews/types";
 import { Button } from "@/components/ui/button";
@@ -79,20 +79,14 @@ export default function RatingPage({ params }: RatingPageProps) {
 		setIsSubmitting(true);
 
 		try {
+			let hasErrors = false;
 			// Submit reviews sequentially
 			for (const form of validForms) {
-				// Auto-generate title from comment (first 50 chars or use default)
-				const title =
-					form.comment.length >= 10
-						? form.comment.slice(0, 47) + "..."
-						: `Đánh giá ${form.rating} sao`;
-
 				const request: CreateReviewRequest = {
 					productId: parseInt(form.productId),
 					userId: order.userId, // TODO: Get from auth context
 					username: "User", // TODO: Get from auth context
 					rating: form.rating,
-					title: title,
 					comment: form.comment,
 				};
 
@@ -110,6 +104,8 @@ export default function RatingPage({ params }: RatingPageProps) {
 					}));
 				} catch (error: any) {
 					// Mark error for this specific form
+					hasErrors = true;
+
 					setReviewForms((prev) => ({
 						...prev,
 						[form.productId]: {
@@ -121,7 +117,6 @@ export default function RatingPage({ params }: RatingPageProps) {
 			}
 
 			// Check if all were successful
-			const hasErrors = Object.values(reviewForms).some((f) => f.error);
 			if (!hasErrors) {
 				toast.success("Hoàn thành đánh giá!", {
 					description: "Cảm ơn bạn đã chia sẻ đánh giá của mình.",
@@ -196,7 +191,8 @@ export default function RatingPage({ params }: RatingPageProps) {
 					<div>
 						<h1 className="text-2xl font-bold mb-2">Đánh giá sản phẩm</h1>
 						<p className="text-gray-600">
-							Đơn hàng: <span className="font-medium">{order.orderNumber}</span>
+							Đơn hàng:{" "}
+							<span className="font-medium">{order.orderNumber}</span>
 						</p>
 					</div>
 
@@ -223,15 +219,19 @@ export default function RatingPage({ params }: RatingPageProps) {
 							variantName: item.variantName,
 							quantity: item.quantity,
 						}}
-						formState={reviewForms[item.productId] || {
-							productId: item.productId,
-							rating: 0,
-							comment: "",
-							images: [],
-							imagePreviews: [],
-							isSubmitted: false,
-						}}
-						onChange={(changes) => handleFormChange(item.productId, changes)}
+						formState={
+							reviewForms[item.productId] || {
+								productId: item.productId,
+								rating: 0,
+								comment: "",
+								images: [],
+								imagePreviews: [],
+								isSubmitted: false,
+							}
+						}
+						onChange={(changes) =>
+							handleFormChange(item.productId, changes)
+						}
 						disabled={isSubmitting}
 					/>
 				))}

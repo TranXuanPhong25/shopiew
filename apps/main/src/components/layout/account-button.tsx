@@ -11,7 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell, LogOut, ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { Bell, LogOut, ShoppingBag, ShoppingCart, User, MapPin } from "lucide-react";
 import Modal from "../ui/modal";
 import { AuthForms } from "@/features/auth/components/auth-forms";
 import { useAuth } from "@/features/auth";
@@ -88,6 +88,12 @@ const AccountButton = () => {
 					<Link href="/orders" className="flex items-center gap-2 w-full">
 						<ShoppingBag className="h-4 w-4" />
 						<span>Đơn hàng của tôi</span>
+					</Link>
+				</DropdownMenuItem>
+				<DropdownMenuItem asChild>
+					<Link href="/addresses" className="flex items-center gap-2 w-full">
+						<MapPin className="h-4 w-4" />
+						<span>Địa chỉ giao hàng</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />

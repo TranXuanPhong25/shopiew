@@ -10,7 +10,7 @@ import PromoTopBarServer from "@/features/promotions/components/promo-top-bar-se
 
 const NavigationBar = () => {
 	return (
-		<div className="w-full sticky top-0 z-50">
+		<div className="w-full top-0 z-50">
 			{/*promotion banner*/}
 			<PromoTopBarServer />
 
@@ -19,8 +19,8 @@ const NavigationBar = () => {
 				<nav className="max-w-7xl mx-auto flex items-center px-4">
 					<div>
 						{/* Mobile menu button */}
-						<Button 
-							variant="ghost" 
+						<Button
+							variant="ghost"
 							size="icon"
 							className="lg:hidden"
 							aria-label="Open menu"
@@ -28,10 +28,7 @@ const NavigationBar = () => {
 							<Menu className="w-5 h-5" aria-hidden="true" />
 						</Button>
 						{/* Logo */}
-						<Link
-							href="/"
-							className="group flex flex-col"
-						>
+						<Link href="/" className="group flex flex-col">
 							<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700 font-bold text-xl sm:text-3xl transition-all group-hover:from-brand-600 group-hover:to-brand-800">
 								Shopiew
 							</span>

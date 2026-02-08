@@ -5,7 +5,6 @@ export interface CreateReviewRequest {
 	userId: string;
 	username: string;
 	rating: number; // 1-5
-	title: string; // 10-100 chars (auto-generated from comment)
 	comment: string; // 20-1000 chars
 }
 
@@ -15,7 +14,6 @@ export interface ReviewResponse {
 	userId: string;
 	username: string;
 	rating: number;
-	title: string;
 	comment: string;
 	createdAt: string;
 	updatedAt: string;

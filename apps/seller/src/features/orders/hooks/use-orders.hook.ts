@@ -3,7 +3,35 @@ import { OrderService, type GetOrdersParams } from '../services';
 import type { ConfirmOrdersResponse } from '../types';
 import { toast } from 'sonner';
 
-export const useOrders = (params: GetOrdersParams) => {
+export interface UseOrdersResult {
+	orders: any[];
+	loading: boolean;
+	error: Error | null;
+	pageInfo: {
+		totalElements: number;
+		totalPages: number;
+		currentPage: number;
+		size: number;
+		hasNext: boolean;
+		hasPrev: boolean;
+	} | null;
+	refetch: () => void;
+}
+
+export interface UseConfirmOrdersResult {
+	confirmOrders: (orderIds: number[]) => Promise<ConfirmOrdersResponse>;
+	loading: boolean;
+	error: Error | null;
+}
+
+export interface UseOrderDetailResult {
+	order: any | null;
+	loading: boolean;
+	error: Error | null;
+	refetch: () => void;
+}
+
+export const useOrders = (params: GetOrdersParams): UseOrdersResult => {
 	const { data, isLoading, error, refetch } = useQuery({
 		queryKey: ['orders', params],
 		queryFn: async () => {
@@ -44,7 +72,7 @@ export const useOrders = (params: GetOrdersParams) => {
 	};
 };
 
-export const useConfirmOrders = () => {
+export const useConfirmOrders = (): UseConfirmOrdersResult => {
 	const queryClient = useQueryClient();
 	const { mutateAsync, isPending, isError, error } = useMutation({
 		mutationKey: ['confirmOrders'],
@@ -74,7 +102,7 @@ export const useConfirmOrders = () => {
 	};
 };
 
-export const useOrderDetail = (orderId?: number) => {
+export const useOrderDetail = (orderId?: number): UseOrderDetailResult => {
 	const { data, isLoading, error, refetch } = useQuery({
 		queryKey: ['orderDetail', orderId],
 		queryFn: async () => {

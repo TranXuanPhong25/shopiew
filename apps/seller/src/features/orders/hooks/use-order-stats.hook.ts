@@ -12,7 +12,14 @@ export interface OrderStats {
 	totalRevenue: number;
 }
 
-export const useOrderStats = (shopId?: string) => {
+export interface UseOrderStatsResult {
+	stats: OrderStats | null;
+	loading: boolean;
+	error: Error | null;
+	refetch: () => void;
+}
+
+export const useOrderStats = (shopId?: string): UseOrderStatsResult => {
 	const { data, isLoading, error, refetch } = useQuery({
 		queryKey: ['orderStats', shopId],
 		queryFn: async () => {
