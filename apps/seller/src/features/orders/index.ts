@@ -7,6 +7,7 @@ export {
 	ViewToggle,
 	BulkActionsBar,
 	ConfirmOrdersDialog,
+	ReadyToShipDialog,
 	type OrderFilterValues,
 	type ViewMode,
 } from './components';
@@ -26,7 +27,8 @@ export {
 // Services
 export { OrderService, OrderStatsService, type GetOrdersParams } from './services';
 
-// Types (enum needs separate export)
+export { ShippingLabelPrintDialog } from './components';
+
 export { OrderStatus } from './types';
 export type {
 	OrderItemDTO,

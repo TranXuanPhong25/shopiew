@@ -9,6 +9,7 @@ export const useVariantFormIntegration = () => {
 		return variants
 			.filter((variant) => variant.selected)
 			.map((variant) => ({
+				id: variant.id, // Include ID for updates
 				name: variant.name,
 				originalPrice: variant.originalPrice
 					? variant.originalPrice.replace(/\.|,/g, "")

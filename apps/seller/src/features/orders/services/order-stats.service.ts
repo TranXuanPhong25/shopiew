@@ -1,14 +1,14 @@
-import axiosClient from '@/lib/clients/shopiewClient';
-import type { OrderStatsResponse } from '../types/order-stats.types';
+import axiosClient from "@/lib/clients/shopiewClient";
+import type { OrderStatsResponse } from "../types/order-stats.types";
 
-const ORDERS_BASE = '/orders';
+const ORDERS_BASE = "/orders";
 
 interface BackendOrderStats {
 	totalOrders: number;
 	unconfirmedCount: number;
 	confirmedCount: number;
-	processingCount: number;
-	shippedCount: number;
+	readyToShipCount: number;
+	shippingCount: number;
 	deliveredCount: number;
 	completedCount: number;
 	cancelledCount: number;
@@ -33,8 +33,8 @@ export class OrderStatsService {
 				statusCounts: {
 					CREATED: 0,
 					CONFIRMED: data.confirmedCount,
-					PICKED_UP: 0,
-					SHIPPED: data.shippedCount,
+					READY_TO_SHIP: data.readyToShipCount,
+					SHIPPING: data.shippingCount,
 					DELIVERED: data.deliveredCount,
 					CANCELLED: data.cancelledCount,
 					REFUNDED: 0,
@@ -45,7 +45,7 @@ export class OrderStatsService {
 
 			return stats;
 		} catch (error) {
-			console.error('Failed to fetch order stats:', error);
+			console.error("Failed to fetch order stats:", error);
 			throw error;
 		}
 	}
@@ -56,10 +56,10 @@ export class OrderStatsService {
 	static transformStats(response: OrderStatsResponse) {
 		return {
 			totalOrders: response.totalOrders,
-			pendingConfirmation: response.statusCounts.CREATED,
-			processing:
-				response.statusCounts.CONFIRMED + response.statusCounts.PICKED_UP,
-			shipping: response.statusCounts.SHIPPED,
+			pendingConfirmation: response.statusCounts.UNCONFIRMED,
+			processing: response.statusCounts.CONFIRMED,
+			readyToShip: response.statusCounts.READY_TO_SHIP,
+			shipping: response.statusCounts.SHIPPING,
 			completed: response.statusCounts.DELIVERED,
 			cancelled: response.statusCounts.CANCELLED,
 			returns: response.statusCounts.REFUNDED,

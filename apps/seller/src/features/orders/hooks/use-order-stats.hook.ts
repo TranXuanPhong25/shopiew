@@ -5,6 +5,7 @@ export interface OrderStats {
 	totalOrders: number;
 	pendingConfirmation: number;
 	processing: number;
+	readyToShip: number;
 	shipping: number;
 	completed: number;
 	cancelled: number;

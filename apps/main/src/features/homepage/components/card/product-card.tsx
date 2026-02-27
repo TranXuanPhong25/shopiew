@@ -15,7 +15,7 @@ export default function ProductCard({
 	compact?: boolean;
 }) {
 	const discountPercent = Math.round(
-		100 - (product.salePrice / product.originalPrice) * 100
+		100 - (product.salePrice / product.originalPrice) * 100,
 	);
 
 	return (
@@ -33,7 +33,7 @@ export default function ProductCard({
 
 					{/* Quick action buttons */}
 					<div className="absolute top-2 right-2 z-10 flex flex-col gap-2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-						<button 
+						<button
 							className="p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white hover:scale-110 transition-all"
 							aria-label={`Add ${product.name} to wishlist`}
 							onClick={(e) => {
@@ -41,9 +41,12 @@ export default function ProductCard({
 								// TODO: Add to wishlist
 							}}
 						>
-							<Heart className="w-4 h-4 text-gray-600 hover:text-sale-500" aria-hidden="true" />
+							<Heart
+								className="w-4 h-4 text-gray-600 hover:text-sale-500"
+								aria-hidden="true"
+							/>
 						</button>
-						<button 
+						<button
 							className="p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white hover:scale-110 transition-all"
 							aria-label={`Quick add ${product.name} to cart`}
 							onClick={(e) => {
@@ -51,14 +54,19 @@ export default function ProductCard({
 								// TODO: Quick add to cart
 							}}
 						>
-							<ShoppingCart className="w-4 h-4 text-gray-600 hover:text-brand-500" aria-hidden="true" />
+							<ShoppingCart
+								className="w-4 h-4 text-gray-600 hover:text-brand-500"
+								aria-hidden="true"
+							/>
 						</button>
 					</div>
 
 					{/* Product image */}
 					<div className="aspect-square overflow-hidden bg-slate-50">
 						<Image
-							src={product.imageUrl || "https://placehold.co/400x400.png"}
+							src={
+								product.imageUrl || "https://placehold.co/400x400.png"
+							}
 							alt={product.name}
 							width={400}
 							height={400}
@@ -72,7 +80,7 @@ export default function ProductCard({
 					<h3
 						className={cn(
 							"font-medium text-gray-800 line-clamp-2 min-h-[2.5rem] group-hover:text-brand-600 transition-colors",
-							compact ? "text-sm" : "text-base"
+							compact ? "text-sm" : "text-base",
 						)}
 					>
 						{product.name}
@@ -81,27 +89,35 @@ export default function ProductCard({
 					{/* Rating & Sold */}
 					<div className="flex items-center gap-1 justify-between mt-2">
 						<div className="flex items-center gap-1">
-							<Star className="w-4 h-4 fill-amber-400 stroke-amber-400" aria-hidden="true" />
-							<span className="text-sm font-medium text-gray-700">{product.rating}</span>
+							<Star
+								className="w-4 h-4 fill-amber-400 stroke-amber-400"
+								aria-hidden="true"
+							/>
+							<span className="text-sm font-medium text-gray-700">
+								{product.rating}
+							</span>
 						</div>
 						<span className="text-xs text-muted-foreground">
-							{product.soldQuantity.toLocaleString()} sold
+							{product.soldQuantity
+								? product.soldQuantity.toLocaleString()
+								: 0}{" "}
+							sold
 						</span>
 					</div>
 
 					{/* Price */}
 					<div className="flex items-baseline gap-2 mt-2">
 						<span className="text-lg font-bold text-sale-600 tabular-nums">
-							{new Intl.NumberFormat('vi-VN', {
-								style: 'currency',
-								currency: 'VND',
+							{new Intl.NumberFormat("vi-VN", {
+								style: "currency",
+								currency: "VND",
 							}).format(product.salePrice)}
 						</span>
 						{discountPercent > 0 && (
 							<span className="text-xs text-muted-foreground line-through tabular-nums">
-								{new Intl.NumberFormat('vi-VN', {
-									style: 'currency',
-									currency: 'VND',
+								{new Intl.NumberFormat("vi-VN", {
+									style: "currency",
+									currency: "VND",
 								}).format(product.originalPrice)}
 							</span>
 						)}

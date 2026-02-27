@@ -21,11 +21,15 @@ const statusConfig: Record<
 		label: "Đã xác nhận",
 		variant: "default",
 	},
-	[OrderStatus.PICKED_UP]: {
-		label: "Đã lấy hàng",
+	[OrderStatus.PROCESSING]: {
+		label: "Đang xử lý",
 		variant: "secondary",
 	},
-	[OrderStatus.SHIPPED]: {
+	[OrderStatus.READY_TO_SHIP]: {
+		label: "Chờ vận chuyển",
+		variant: "secondary",
+	},
+	[OrderStatus.SHIPPING]: {
 		label: "Đang giao",
 		variant: "secondary",
 	},

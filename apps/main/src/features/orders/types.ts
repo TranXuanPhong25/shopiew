@@ -121,6 +121,7 @@ export type OrderStatus =
 	| "UNCONFIRMED"
 	| "CONFIRMED"
 	| "PROCESSING"
+	| "READY_TO_SHIP"
 	| "SHIPPING"
 	| "DELIVERED"
 	| "COMPLETED"
@@ -150,6 +151,11 @@ export const ORDER_STATUS_INFO: Record<
 		label: "Đang xử lý",
 		color: "!bg-yellow-100 !text-yellow-800",
 		description: "Đơn hàng đang được chuẩn bị",
+	},
+	READY_TO_SHIP: {
+		label: "Chờ vận chuyển",
+		color: "!bg-yellow-100 !text-yellow-800",
+		description: "Đơn hàng đã sẵn sàng, chờ shipper đến lấy",
 	},
 	SHIPPING: {
 		label: "Đang giao",

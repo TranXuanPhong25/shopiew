@@ -31,6 +31,7 @@ const OrdersPage = () => {
 		totalOrders: 0,
 		pendingConfirmation: 0,
 		processing: 0,
+		readyToShip: 0,
 		shipping: 0,
 		completed: 0,
 		cancelled: 0,
@@ -186,6 +187,29 @@ const OrdersPage = () => {
 								)}
 								<p className="text-xs text-muted-foreground">
 									Đang chuẩn bị hàng
+								</p>
+							</CardContent>
+						</Card>
+					</Link>
+
+					<Link href="/orders/ready-to-ship">
+						<Card className="cursor-pointer transition-all hover:shadow-md hover:border-teal-300">
+							<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+								<CardTitle className="text-sm font-medium">
+									Chờ shipper lấy
+								</CardTitle>
+								<Truck className="h-4 w-4 text-teal-500" />
+							</CardHeader>
+							<CardContent>
+								{loading ? (
+									<Skeleton className="h-8 w-12" />
+								) : (
+									<div className="text-2xl font-bold">
+										{displayStats.readyToShip}
+									</div>
+								)}
+								<p className="text-xs text-muted-foreground">
+									Chờ shipper đến lấy hàng
 								</p>
 							</CardContent>
 						</Card>

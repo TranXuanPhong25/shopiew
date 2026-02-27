@@ -9,6 +9,7 @@ import {
 import {useAuth} from "@/features/auth";
 import {Copy, MoreVerticalIcon, Pencil, Star, Trash} from "lucide-react";
 import {useDeleteProducts} from "./hook";
+import Link from "next/link";
 
 const ProductActions = ({
    productId,
@@ -33,9 +34,11 @@ const ProductActions = ({
             </Button>
          </DropdownMenuTrigger>
          <DropdownMenuContent align="end" className="w-36">
-            <DropdownMenuItem>
-               <Pencil className=" size-4" />
-               <span>Edit</span>
+            <DropdownMenuItem asChild>
+               <Link href={`/products/${productId[0]}/edit`} className="cursor-pointer">
+                  <Pencil className=" size-4" />
+                  <span>Edit</span>
+               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
                <Copy className=" size-4" />

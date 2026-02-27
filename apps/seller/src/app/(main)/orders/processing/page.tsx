@@ -9,20 +9,26 @@ import {
 	OrderCardView,
 	ViewToggle,
 	OrderStatus,
+	ReadyToShipDialog,
 	type OrderFilterValues,
 	type ViewMode,
+	type OrderListItemDTO,
 } from "@/features/orders";
 import { useAuth } from "@/features/auth";
 import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
-import { RefreshCcw, AlertCircle } from "lucide-react";
+import { RefreshCcw, AlertCircle, Truck } from "lucide-react";
 
 export default function ProcessingPage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
 	const [viewMode, setViewMode] = useState<ViewMode>("table");
+	const [selectedOrder, setSelectedOrder] = useState<OrderListItemDTO | null>(
+		null,
+	);
+	const [readyToShipDialogOpen, setReadyToShipDialogOpen] = useState(false);
 
 	const [filters, setFilters] = useState<OrderFilterValues>({
 		status: OrderStatus.CONFIRMED,
@@ -55,6 +61,15 @@ export default function ProcessingPage() {
 		}
 	};
 
+	const handleOrderClick = (order: OrderListItemDTO) => {
+		setSelectedOrder(order);
+		setReadyToShipDialogOpen(true);
+	};
+
+	const handleReadyToShipSuccess = () => {
+		refetch();
+	};
+
 	return (
 		<div className="space-y-6 py-3">
 			<div className="flex items-center justify-between">
@@ -63,7 +78,8 @@ export default function ProcessingPage() {
 						Đơn hàng đang xử lý
 					</h1>
 					<p className="text-muted-foreground">
-						Các đơn hàng đang được chuẩn bị và đóng gói
+						Các đơn hàng đang được chuẩn bị và đóng gói. Click vào đơn để
+						xác nhận sẵn sàng giao hàng.
 					</p>
 				</div>
 				<div className="flex items-center gap-3">
@@ -118,12 +134,14 @@ export default function ProcessingPage() {
 							selectedIds={new Set()}
 							onSelectOrder={() => {}}
 							onSelectAll={() => {}}
+							onOrderClick={handleOrderClick}
 						/>
 					) : (
 						<OrderCardView
 							orders={orders}
 							selectedIds={new Set()}
 							onSelectOrder={() => {}}
+							onOrderClick={handleOrderClick}
 						/>
 					)}
 
@@ -143,6 +161,13 @@ export default function ProcessingPage() {
 					)}
 				</>
 			)}
+
+			<ReadyToShipDialog
+				order={selectedOrder}
+				open={readyToShipDialogOpen}
+				onOpenChange={setReadyToShipDialogOpen}
+				onSuccess={handleReadyToShipSuccess}
+			/>
 		</div>
 	);
 }

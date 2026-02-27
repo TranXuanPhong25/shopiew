@@ -80,4 +80,27 @@ export class OrderService {
 		);
 		return response.data;
 	}
+
+	/**
+	 * Mark order as ready to ship (trigger fulfillment)
+	 */
+	static async markReadyToShip(
+		id: number,
+		request: {
+			specialInstructions?: string;
+		},
+	): Promise<{
+		orderId: number;
+		orderNumber: string;
+		packageNumber: string;
+		pickupScheduledAt: string;
+		estimatedDelivery: string;
+		message: string;
+	}> {
+		const response = await axiosClient.post(
+			`${ORDERS_BASE}/${id}/ready-to-ship`,
+			request,
+		);
+		return response.data;
+	}
 }

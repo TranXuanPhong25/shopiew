@@ -14,6 +14,8 @@ export type Product = RawProduct & {
 	updatedAt: string;
 	images?: string[];
 	coverImage: string;
+	variants?: ProductVariant[];
+	categoryPath?: Array<{ id: number; name: string; }>;
 };
 export type Brand = {
 	id: string;
@@ -23,6 +25,7 @@ export type Brand = {
 };
 
 export type RawProductVariant = {
+	id?: string;
 	originalPrice: string;
 	salePrice: string;
 	stockQuantity: string;
@@ -32,8 +35,6 @@ export type RawProductVariant = {
 };
 
 export type ProductVariant = RawProductVariant & {
-	images: string[];
-	coverImage: string;
 	id: string;
 };
 

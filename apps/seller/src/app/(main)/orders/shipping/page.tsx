@@ -25,11 +25,11 @@ export default function ShippingPage() {
 
 	const [viewMode, setViewMode] = useState<ViewMode>("table");
 	const [shippingStatus, setShippingStatus] = useState<OrderStatus>(
-		OrderStatus.PICKED_UP
+		OrderStatus.SHIPPING,
 	);
 
 	const [filters, setFilters] = useState<OrderFilterValues>({
-		status: OrderStatus.PICKED_UP,
+		status: OrderStatus.SHIPPING,
 	});
 
 	const currentPage = parseInt(searchParams.get("page") || "0");
@@ -93,11 +93,8 @@ export default function ShippingPage() {
 
 			<Tabs value={shippingStatus} onValueChange={handleStatusChange}>
 				<TabsList className="grid w-full max-w-md grid-cols-2">
-					<TabsTrigger value={OrderStatus.PICKED_UP}>
+					<TabsTrigger value={OrderStatus.SHIPPING}>
 						Đã lấy hàng
-					</TabsTrigger>
-					<TabsTrigger value={OrderStatus.SHIPPED}>
-						Đang vận chuyển
 					</TabsTrigger>
 				</TabsList>
 			</Tabs>

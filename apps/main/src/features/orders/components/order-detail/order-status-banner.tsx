@@ -19,6 +19,7 @@ const STATUS_ICONS = {
 	UNCONFIRMED: Clock,
 	CONFIRMED: CheckCircle2,
 	PROCESSING: Package,
+	READY_TO_SHIP: Package,
 	SHIPPING: Truck,
 	DELIVERED: CheckCircle2,
 	COMPLETED: CheckCircle2,
@@ -33,6 +34,7 @@ const STATUS_MESSAGES = {
 	CONFIRMED: "Người bán đã xác nhận đơn hàng. Đơn hàng đang được chuẩn bị.",
 	PROCESSING:
 		"Đơn hàng đang được đóng gói. Sẽ sớm được giao cho đơn vị vận chuyển.",
+	READY_TO_SHIP: "Đơn hàng đã sẵn sàng để shipper lấy.",
 	SHIPPING:
 		"Đơn hàng đang trên đường giao đến bạn. Vui lòng chú ý điện thoại.",
 	DELIVERED:
@@ -67,6 +69,8 @@ export function OrderStatusBanner({ order }: OrderStatusBannerProps) {
 			case "CONFIRMED":
 			case "PROCESSING":
 				return "bg-blue-50 border-blue-200";
+			case "READY_TO_SHIP":
+				return "bg-yellow-50 border-yellow-200";
 			default:
 				return "bg-gray-50 border-gray-200";
 		}
@@ -87,6 +91,8 @@ export function OrderStatusBanner({ order }: OrderStatusBannerProps) {
 			case "CONFIRMED":
 			case "PROCESSING":
 				return "text-blue-600";
+			case "READY_TO_SHIP":
+				return "text-yellow-600";
 			default:
 				return "text-gray-600";
 		}
@@ -107,6 +113,8 @@ export function OrderStatusBanner({ order }: OrderStatusBannerProps) {
 			case "CONFIRMED":
 			case "PROCESSING":
 				return "text-blue-800";
+			case "READY_TO_SHIP":
+				return "text-yellow-800";
 			default:
 				return "text-gray-800";
 		}

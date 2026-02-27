@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import BasicInfoSection from "./basic-info-section/basic-info-section";
 import { toast } from "sonner";
 import FloatingNotificationBar from "@/features/notifications/floating-notification-bar";
-import { useCreateProduct } from "../../hook";
+import { useCreateProduct, useGetProductById, useUpdateProduct } from "../../hook";
 import { ErrorResponse } from "@/lib/clients/types/ErrorResponse";
 import { NewProductFormData, NewProductFormSchema } from "@/lib/validations";
 import { useAuth } from "@/features/auth/hook";
@@ -18,9 +18,19 @@ import OthersInfoSection from "./others-info-section";
 import { useVariantFormIntegration } from "./variants/hook";
 import VerticalSectionsNav from "@/components/navigations/vertical-sections-nav";
 import ProductFormSkeleton from "./product-form-skeleton";
+import { useEffect } from "react";
+import { useProductMediaStore, useVariantStore } from "@/stores";
 
-export default function NewProductForm() {
+type FormMode = 'create' | 'update';
+
+interface NewProductFormProps {
+	mode?: FormMode;
+	productId?: string;
+}
+
+export default function NewProductForm({ mode = 'create', productId }: NewProductFormProps) {
 	const { shop, loading } = useAuth();
+	const { product, isLoading: isLoadingProduct } = useGetProductById(productId || '');
 	const {
 		register,
 		handleSubmit,
@@ -64,11 +74,90 @@ export default function NewProductForm() {
 		},
 	});
 	const { createProduct } = useCreateProduct();
+	const { updateProduct } = useUpdateProduct();
 	const {
 		getSelectedVariantsForSubmission,
 		hasSelectedVariants,
 		resetAllVariants,
 	} = useVariantFormIntegration();
+	const { setCoverImage, setImages } = useProductMediaStore();
+	const { setVariants } = useVariantStore();
+
+	// Pre-populate form when in update mode
+	useEffect(() => {
+		if (mode === 'update' && product) {
+			// Set form values
+			reset({
+				name: product.name || "",
+				category: product.categoryId ? `${product.categoryId}-${product.categoryPath?.[product.categoryPath.length - 1]?.name || ''}` : "",
+				description: product.description || "<p></p>",
+				sku: product.variants?.[0]?.sku || "",
+				specs: {
+					brand: product.specs?.brand || "",
+					packageSize: product.specs?.packageSize || "",
+					activeIngredients: product.specs?.activeIngredients || "",
+					ingredients: product.specs?.ingredients || "",
+					quantity: product.specs?.quantity || "",
+					responsibleManufacturingAddress: product.specs?.responsibleManufacturingAddress || "",
+					weightValue: product.specs?.weightValue || "",
+					weightUnit: product.specs?.weightUnit || "g",
+					packagingType: product.specs?.packagingType || "Type A",
+					productSize: product.specs?.productSize || "",
+					packagingMaterial: product.specs?.packagingMaterial || "",
+				},
+				originalPrice: product.variants?.[0]?.originalPrice?.toString() || "",
+				salePrice: product.variants?.[0]?.salePrice?.toString() || "",
+				stockQuantity: product.variants?.[0]?.stockQuantity?.toString() || "",
+				maxPurchaseQuantity: "",
+				status: product.status || "ACTIVE",
+				isNew: "New",
+				shippingInfo: {
+					weightAfterPackaging: "",
+					dimensions: {
+						width: "",
+						length: "",
+						height: "",
+					},
+				},
+			});
+
+			// Set cover image and product images
+			if (product.coverImage) {
+				// Store URL string, not File
+				setCoverImage(product.coverImage as any);
+			}
+			if (product.images && product.images.length > 0) {
+				// Store URL strings for existing images
+				setImages(product.images.map((url, idx) => ({
+					id: `existing_${idx}`,
+					file: url as any, // Store URL string
+				})));
+			}
+
+			// Set variants if they exist
+			if (product.variants && product.variants.length > 0) {
+				// Initialize variant store with existing variants - preserve database IDs
+				const formattedVariants = product.variants.map(v => ({
+					id: v.id, // Keep the original database ID as string
+					name: Object.values(v.attributes || {}).join('/'),
+					originalPrice: v.originalPrice?.toString() || "",
+					salePrice: v.salePrice?.toString() || "",
+					available: v.stockQuantity?.toString() || "",
+					sku: v.sku || "",
+					selected: true,
+					images: v.images?.map((url, idx) => ({
+						id: `variant_${v.id}_${idx}`,
+						file: url as any, // Store URL string
+					})) || [],
+					combination: Object.entries(v.attributes || {}).map(([key, value]) => ({
+						name: key,
+						value: String(value),
+					})),
+				}));
+				setVariants(formattedVariants);
+			}
+		}
+	}, [mode, product, reset, setCoverImage, setImages, setVariants]);
 
 	const onSubmit = async (data: NewProductFormData) => {
 		if (!shop?.id) {
@@ -89,42 +178,62 @@ export default function NewProductForm() {
 						images: [],
 					},
 				];
-		await createProduct(
-			{
-				product: {
-					shopId: shop?.id,
-					name: data.name,
-					categoryId: parseInt(data.category.split("-")[0]),
-					description: data.description,
-					brand: {
-						id: "1",
-					},
-					specs: {
-						...data.specs,
-						packageSize: data.specs.packageSize
-							? String(data.specs.packageSize)
-							: "",
-					},
-					status: data.status,
+
+		const productData = {
+			product: {
+				shopId: shop?.id,
+				name: data.name,
+				categoryId: parseInt(data.category.split("-")[0]),
+				description: data.description,
+				brand: {
+					id: "1",
 				},
-				variants: submitVariants,
-				shippingInfo: {
-					...data.shippingInfo,
+				specs: {
+					...data.specs,
+					packageSize: data.specs.packageSize
+						? String(data.specs.packageSize)
+						: "",
 				},
+				status: data.status,
 			},
-			{
-				onError: (error: unknown) => {
-					const err = error as ErrorResponse;
-					toast.error(`Error creating product`, {
-						description: err.detail,
-					});
-				},
-				onSuccess: () => {
-					toast.success("Product created successfully!");
-					handleReset();
-				},
+			variants: submitVariants,
+			shippingInfo: {
+				...data.shippingInfo,
 			},
-		);
+		};
+
+		if (mode === 'update' && productId) {
+			await updateProduct(
+				{ productId, data: productData },
+				{
+					onError: (error: unknown) => {
+						const err = error as ErrorResponse;
+						toast.error(`Error updating product`, {
+							description: err.detail,
+						});
+					},
+					onSuccess: () => {
+						toast.success("Product updated successfully!");
+					},
+				},
+			);
+		} else {
+			await createProduct(
+				productData,
+				{
+					onError: (error: unknown) => {
+						const err = error as ErrorResponse;
+						toast.error(`Error creating product`, {
+							description: err.detail,
+						});
+					},
+					onSuccess: () => {
+						toast.success("Product created successfully!");
+						handleReset();
+					},
+				},
+			);
+		}
 	};
 	const handleReset = () => {
 		reset();
@@ -133,7 +242,7 @@ export default function NewProductForm() {
 
 	return (
 		<>
-			{loading ? (
+			{loading || (mode === 'update' && isLoadingProduct) ? (
 				<ProductFormSkeleton />
 			) : (
 				<div className="relative flex justify-center">

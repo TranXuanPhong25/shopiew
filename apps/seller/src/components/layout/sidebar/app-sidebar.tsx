@@ -70,6 +70,10 @@ const data = {
           url: "/orders/processing",
         },
         {
+          title: "Ready to Ship",
+          url: "/orders/ready-to-ship",
+        },
+        {
           title: "Shipping",
           url: "/orders/shipping",
         },
