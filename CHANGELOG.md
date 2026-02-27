@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.2.0...v1.3.0) (2026-02-27)
+
+### 🚀 Features
+
+* fulfillment, orders management ([65245ae](https://github.com/TranXuanPhong25/shopiew/commit/65245aeb11c9601f0b258977c0ab1a2853711914))
+
 ## [1.2.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.1.0...v1.2.0) (2026-02-08)
 
 ### 🚀 Features
