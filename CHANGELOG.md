@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.3.0...v1.4.0) (2026-03-01)
+
+### 🚀 Features
+
+* noti+chat ([53e820e](https://github.com/TranXuanPhong25/shopiew/commit/53e820e6fab6141fc35c00e025667ca459fc73d7))
+
 ## [1.3.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.2.0...v1.3.0) (2026-02-27)
 
 ### 🚀 Features
