@@ -6,6 +6,7 @@ import { DroppableSearch } from "@/components/layout/droppable-search";
 import AccountButton from "@/components/layout/account-button";
 import AddressIndicator from "./nav/address-indicator";
 import CartIndicator from "./nav/cart-indicator";
+import NotificationIndicator from "./nav/notification-indicator";
 import PromoTopBarServer from "@/features/promotions/components/promo-top-bar-server";
 
 const NavigationBar = () => {
@@ -53,6 +54,7 @@ const NavigationBar = () => {
 									<AccountButton />
 								</div>
 
+								<NotificationIndicator />
 								<CartIndicator />
 							</div>
 						</div>

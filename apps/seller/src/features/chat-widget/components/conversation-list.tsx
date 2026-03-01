@@ -4,6 +4,7 @@ import {ScrollArea} from "@/components/ui/scroll-area"
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Button} from "@/components/ui/button"
 import {cn} from "@/lib/utils"
+import {Loader2, Plus} from "lucide-react"
 import type {Conversation} from "./data"
 
 
@@ -12,6 +13,8 @@ interface ConversationListProps {
   selectedConversationId: string | null
   onSelectConversation: (id: string) => void
   onStartNewAIChat?: () => void
+  isLoading?: boolean
+  onNewConversation?: () => void
 }
 
 export function ConversationList({
@@ -19,11 +22,18 @@ export function ConversationList({
   selectedConversationId,
   onSelectConversation,
   onStartNewAIChat,
+  isLoading,
+  onNewConversation,
 }: ConversationListProps) {
   return (
     <div className="flex flex-col h-full border-r">
-      <div className="p-4 border-b">
+      <div className="p-4 border-b flex items-center justify-between">
         <h2 className="text-lg font-semibold">Chat</h2>
+        {onNewConversation && (
+          <Button variant="ghost" size="icon" onClick={onNewConversation} aria-label="New conversation">
+            <Plus className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       
       <Tabs defaultValue="conversations" className="flex-1 flex flex-col ">
@@ -37,27 +47,37 @@ export function ConversationList({
         <TabsContent value="conversations" className="flex-1 m-0 ">
           <ScrollArea className="h-full">
             <div className="p-2">
-              {conversations.map((conversation) => (
-                <div
-                  key={conversation.id}
-                  className={cn(
-                    "flex flex-col gap-1 p-3 rounded-lg cursor-pointer transition-colors",
-                    selectedConversationId === conversation.id 
-                      ? "bg-accent text-accent-foreground" 
-                      : "hover:bg-muted",
-                  )}
-                  onClick={() => onSelectConversation(conversation.id)}
-                  role="button"
-                  aria-pressed={selectedConversationId === conversation.id}
-                  tabIndex={0}
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-medium text-sm">{conversation.name}</h3>
-                    <span className="text-xs text-muted-foreground">{conversation.timestamp}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground truncate">{conversation.lastMessage}</p>
+              {isLoading ? (
+                <div className="flex justify-center py-8">
+                  <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
                 </div>
-              ))}
+              ) : conversations.length === 0 ? (
+                <div className="text-center text-muted-foreground py-8 text-sm">
+                  <p>No conversations yet.</p>
+                </div>
+              ) : (
+                conversations.map((conversation) => (
+                  <div
+                    key={conversation.id}
+                    className={cn(
+                      "flex flex-col gap-1 p-3 rounded-lg cursor-pointer transition-colors",
+                      selectedConversationId === conversation.id 
+                        ? "bg-accent text-accent-foreground" 
+                        : "hover:bg-muted",
+                    )}
+                    onClick={() => onSelectConversation(conversation.id)}
+                    role="button"
+                    aria-pressed={selectedConversationId === conversation.id}
+                    tabIndex={0}
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-medium text-sm">{conversation.name}</h3>
+                      <span className="text-xs text-muted-foreground">{conversation.timestamp}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground truncate">{conversation.lastMessage}</p>
+                  </div>
+                ))
+              )}
             </div>
           </ScrollArea>
         </TabsContent>
@@ -121,3 +141,4 @@ export function ConversationList({
     </div>
   )
 }
+

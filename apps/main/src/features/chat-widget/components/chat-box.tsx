@@ -7,7 +7,10 @@ import { X } from "lucide-react"
 import { ConversationList } from "./conversation-list"
 import { MessageDisplay } from "./messages-display"
 import { AIChatInterface } from "./ai-chat-interface"
-import { dummyConversations, dummyMessages } from "./data"
+import { toDisplayConversation } from "./data"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { ChatApiService } from "../service"
+import { useAuth } from "@/features/auth"
 
 interface ChatBoxProps {
   onClose: () => void
@@ -17,9 +20,27 @@ type ChatView = 'list' | 'ai-chat' | 'conversation'
 
 export function ChatBox({ onClose }: ChatBoxProps) {
   const [currentView, setCurrentView] = useState<ChatView>('list')
-  const [selectedConversationId, setSelectedConversationId] = useState<string | null>(dummyConversations[0]?.id || null)
+  const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null)
+  const queryClient = useQueryClient()
+  const { user } = useAuth()
 
-  const selectedConversation = dummyConversations.find((conv) => conv.id === selectedConversationId)
+  const { data: apiConversations = [], isLoading } = useQuery({
+    queryKey: ['chat-conversations'],
+    queryFn: () => ChatApiService.listConversations(),
+    refetchInterval: 30000,
+  })
+
+  const conversations = apiConversations.map(toDisplayConversation)
+  const selectedConversation = conversations.find((conv) => conv.id === selectedConversationId)
+
+  const { mutate: createConversation } = useMutation({
+    mutationFn: () => ChatApiService.createConversation('customer_shop'),
+    onSuccess: (newConv) => {
+      queryClient.invalidateQueries({ queryKey: ['chat-conversations'] })
+      setSelectedConversationId(newConv.id)
+      setCurrentView('conversation')
+    },
+  })
 
   const handleSelectConversation = (id: string) => {
     setSelectedConversationId(id)
@@ -29,7 +50,6 @@ export function ChatBox({ onClose }: ChatBoxProps) {
   const handleStartNewAIChat = () => {
     setCurrentView('ai-chat')
   }
-
 
   return (
     <Card className="relative w-[80vw] max-w-3xl h-[70vh] max-h-[600px] flex flex-col shadow-lg rounded-lg overflow-hidden">
@@ -42,15 +62,22 @@ export function ChatBox({ onClose }: ChatBoxProps) {
       <div className="flex flex-1 min-h-0">
         <div className="w-1/3 min-w-[200px] max-w-[300px] border-r">
           <ConversationList
-            conversations={dummyConversations}
+            conversations={conversations}
             selectedConversationId={selectedConversationId}
             onSelectConversation={handleSelectConversation}
             onStartNewAIChat={handleStartNewAIChat}
+            isLoading={isLoading}
+            onNewConversation={() => createConversation()}
           />
         </div>
         <div className="flex-1">
-          {currentView === 'conversation' ? (
-            <MessageDisplay messages={dummyMessages} selectedConversation={selectedConversation || null} />
+          {currentView === 'conversation' && selectedConversationId ? (
+            <MessageDisplay
+              conversationId={selectedConversationId}
+              conversationName={selectedConversation?.name || 'Chat'}
+              currentUserId={user?.id || ''}
+              currentUserType="customer"
+            />
           ) : (
             <AIChatInterface />
           )}
