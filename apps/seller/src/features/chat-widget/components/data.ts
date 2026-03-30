@@ -14,9 +14,7 @@ export interface ApiMessage {
 	senderType: string;
 	content: string;
 	messageType: "text" | "image" | "file" | "system_event";
-	isBotMessage: boolean;
 	createdAt: string;
-	deletedAt?: string | null;
 }
 
 // Display types for ConversationList component
@@ -38,7 +36,7 @@ export interface Message {
 }
 
 const CONVERSATION_TYPE_LABELS: Record<string, string> = {
-	customer_shop: "Customer",
+	customer_shop: "Shop Chat",
 	customer_bot: "AI Assistant",
 	customer_system: "System",
 };

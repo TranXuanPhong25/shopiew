@@ -14,9 +14,7 @@ export interface ApiMessage {
 	senderType: string;
 	content: string;
 	messageType: "text" | "image" | "file" | "system_event";
-	isBotMessage: boolean;
 	createdAt: string;
-	deletedAt?: string | null;
 }
 
 // Display types for ConversationList component

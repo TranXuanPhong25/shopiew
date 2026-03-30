@@ -54,6 +54,11 @@ export function ConversationList({
               ) : conversations.length === 0 ? (
                 <div className="text-center text-muted-foreground py-8 text-sm">
                   <p>No conversations yet.</p>
+                  {onNewConversation && (
+                    <Button variant="outline" size="sm" className="mt-2" onClick={onNewConversation}>
+                      Start a conversation
+                    </Button>
+                  )}
                 </div>
               ) : (
                 conversations.map((conversation) => (
@@ -141,4 +146,3 @@ export function ConversationList({
     </div>
   )
 }
-
