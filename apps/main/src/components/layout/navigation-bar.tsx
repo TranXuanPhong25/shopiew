@@ -8,6 +8,7 @@ import AddressIndicator from "./nav/address-indicator";
 import CartIndicator from "./nav/cart-indicator";
 import NotificationIndicator from "./nav/notification-indicator";
 import PromoTopBarServer from "@/features/promotions/components/promo-top-bar-server";
+import Image from "next/image";
 
 const NavigationBar = () => {
 	return (
@@ -29,13 +30,20 @@ const NavigationBar = () => {
 							<Menu className="w-5 h-5" aria-hidden="true" />
 						</Button>
 						{/* Logo */}
-						<Link href="/" className="group flex flex-col">
-							<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700 font-bold text-xl sm:text-3xl transition-all group-hover:from-brand-600 group-hover:to-brand-800">
-								Shopiew
-							</span>
-							<span className="text-[10px] sm:text-xs font-normal text-muted-foreground mt-0.5">
-								Good & goods
-							</span>
+						<Link
+							href="/"
+							className="group flex items-center"
+							aria-label="Shopiew home"
+						>
+							<div className="w-[180px] h-[40px] overflow-hidden relative">
+								<Image
+									src="/shopiew-logo.png"
+									alt="Shopiew Logo"
+									fill
+									className="object-cover object-center"
+								/>
+							</div>
+							<span className="sr-only">Shopiew</span>
 						</Link>
 					</div>
 					<div className="w-full px-2 sm:px-4 py-3">

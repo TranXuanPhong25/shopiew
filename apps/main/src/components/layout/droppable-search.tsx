@@ -5,44 +5,33 @@ import { Search, Mic } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-
-// This is a mock function to simulate search results
-const mockSearch = (query: string) => {
-	const items = [
-		"Apple",
-		"Banana",
-		"Cherry",
-		"Date",
-		"Elderberry",
-		"Fig",
-		"Grape",
-		"Honeydew",
-		"Imbe",
-		"Jackfruit",
-	];
-	return items.filter((item) =>
-		item.toLowerCase().includes(query.toLowerCase()),
-	);
-};
+import searchService from "@/features/search/service";
 
 export function DroppableSearch() {
 	const [query, setQuery] = React.useState("");
 	const [results, setResults] = React.useState<string[]>([]);
-	const [isOpen, setIsOpen] = React.useState(false);
 	const [selectedIndex, setSelectedIndex] = React.useState(-1);
 	const [isFocused, setIsFocused] = React.useState(false);
+	const [isOpen, setIsOpen] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(false);
 	const dropdownRef = React.useRef<HTMLDivElement>(null);
 	const router = useRouter();
+
+	const runSearch = React.useCallback(
+		(searchQuery: string) => {
+			const value = searchQuery.trim();
+			if (!value) return;
+			router.push(`/search?query=${encodeURIComponent(value)}`);
+		},
+		[router],
+	);
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const newQuery = e.target.value;
 		setQuery(newQuery);
-		if (newQuery.trim()) {
-			const searchResults = mockSearch(newQuery);
-			setResults(searchResults);
-			setIsOpen(true);
-			setSelectedIndex(-1);
-		} else {
+		setSelectedIndex(-1);
+
+		if (!newQuery.trim()) {
 			setResults([]);
 			setIsOpen(false);
 		}
@@ -51,8 +40,9 @@ export function DroppableSearch() {
 	const handleClick = (result: string) => {
 		setQuery(result);
 		setIsOpen(false);
-		router.push(`/search?query=${result}`);
+		runSearch(result);
 	};
+
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === "ArrowDown") {
 			e.preventDefault();
@@ -63,14 +53,15 @@ export function DroppableSearch() {
 			e.preventDefault();
 			setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
 		} else if (e.key === "Enter") {
+			e.preventDefault();
 			if (selectedIndex === -1) {
-				router.push(`/search?query=${query}`);
+				runSearch(query);
 				setIsOpen(false);
-				setQuery(query);
 				return;
 			}
-			router.push(`/search?query=${results[selectedIndex]}`);
-			setQuery(results[selectedIndex]);
+			const selectedValue = results[selectedIndex];
+			runSearch(selectedValue);
+			setQuery(selectedValue);
 			setIsOpen(false);
 		} else if (e.key === "Escape") {
 			setIsOpen(false);
@@ -93,15 +84,55 @@ export function DroppableSearch() {
 		};
 	}, [handleClickOutside]);
 
+	React.useEffect(() => {
+		const normalizedQuery = query.trim();
+		if (!normalizedQuery) return;
+
+		let isActive = true;
+		setIsLoading(true);
+
+		const timeoutId = setTimeout(async () => {
+			try {
+				const response = await searchService.autocomplete(
+					normalizedQuery,
+					5,
+				);
+				if (!isActive) return;
+
+				const suggestions = response.data?.suggestions ?? [];
+				setResults(suggestions);
+				setIsOpen(true);
+			} catch {
+				if (!isActive) return;
+				setResults([]);
+				setIsOpen(false);
+			} finally {
+				if (isActive) {
+					setIsLoading(false);
+				}
+			}
+		}, 250);
+
+		return () => {
+			isActive = false;
+			clearTimeout(timeoutId);
+		};
+	}, [query]);
+
 	const handleClickSearch = () => {
-		router.push(`/search?q=${query}`);
+		runSearch(query);
 	};
 
 	return (
 		<div className="relative w-full" ref={dropdownRef}>
-			<div className={`relative transition-all duration-300 ${isFocused ? 'scale-[1.02]' : ''}`}>
+			<div
+				className={`relative transition-all duration-300 ${isFocused ? "scale-[1.02]" : ""}`}
+			>
 				<div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-					<Search className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+					<Search
+						className="h-4 w-4 text-muted-foreground"
+						aria-hidden="true"
+					/>
 				</div>
 				<Input
 					type="search"
@@ -140,12 +171,17 @@ export function DroppableSearch() {
 					</Button>
 				</div>
 			</div>
-			{isOpen && results.length > 0 && (
-				<div 
+			{isOpen && (results.length > 0 || isLoading) && (
+				<div
 					id="search-results"
-					className="absolute z-50 w-full mt-2 rounded-xl border border-border/50 bg-white/95 backdrop-blur-lg shadow-xl animate-fade-in overflow-hidden"
+					className="absolute z-50 w-full mt-2 rounded-xl border border-border/50 bg-white/100 backdrop-blur-lg shadow-xl animate-fade-in overflow-hidden z-99"
 				>
 					<ul className="max-h-72 overflow-auto py-2" role="listbox">
+						{isLoading && (
+							<li className="px-4 py-2.5 text-sm text-muted-foreground">
+								Loading suggestions...
+							</li>
+						)}
 						{results.map((result, index) => (
 							<li
 								key={result}
@@ -158,13 +194,25 @@ export function DroppableSearch() {
 								aria-selected={index === selectedIndex}
 								onClick={() => handleClick(result)}
 							>
-								<Search className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+								<Search
+									className="h-4 w-4 text-muted-foreground"
+									aria-hidden="true"
+								/>
 								<span>{result}</span>
 							</li>
 						))}
+						{!isLoading && results.length === 0 && (
+							<li className="px-4 py-2.5 text-sm text-muted-foreground">
+								No suggestions found
+							</li>
+						)}
 					</ul>
 					<div className="border-t px-4 py-2 text-xs text-muted-foreground">
-						Press <kbd className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[10px]">↵</kbd> to search
+						Press{" "}
+						<kbd className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[10px]">
+							↵
+						</kbd>{" "}
+						to search
 					</div>
 				</div>
 			)}

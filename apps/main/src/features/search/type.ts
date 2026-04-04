@@ -11,3 +11,12 @@ export interface SearchResult {
 	};
 	message: string;
 }
+
+export interface SearchAutocompleteResponse {
+	success: boolean;
+	message: string;
+	data: {
+		suggestions: string[];
+		limit: number;
+	};
+}

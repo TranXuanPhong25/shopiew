@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { useState } from "react"
+import Image from "next/image"
 
 export default function Footer() {
     const currentYear = new Date().getFullYear()
@@ -24,10 +25,15 @@ export default function Footer() {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 py-12">
                     {/* About Shopiew */}
                     <div>
-                        <Link href="/" className="inline-block mb-4">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700 font-bold text-2xl">
-                                Shopiew
-                            </span>
+                        <Link href="/" className="mb-4 inline-flex items-center" aria-label="Shopiew home">
+                            <Image
+                                src="/shopiew-logo.png"
+                                alt="Shopiew Logo"
+                                width={44}
+                                height={44}
+                                className="rounded-full object-cover"
+                            />
+                            <span className="sr-only">Shopiew</span>
                         </Link>
                         <p className="text-sm text-gray-600 mb-4 text-pretty">
                             Good & goods — Your trusted marketplace for quality products at great prices.
