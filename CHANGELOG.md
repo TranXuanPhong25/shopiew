@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/TranXuanPhong25/shopiew/compare/v2.0.0...v2.1.0) (2026-04-04)
+
+### 🚀 Features
+
+* logo, ([e39a407](https://github.com/TranXuanPhong25/shopiew/commit/e39a407f949d97eaaee925101a9583859dada48d))
+* seller ([993c8bb](https://github.com/TranXuanPhong25/shopiew/commit/993c8bb23c0630ff9c04b0b24ba2390397e02786))
+
 ## [2.0.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.4.0...v2.0.0) (2026-04-04)
 
 ### ⚠ BREAKING CHANGES
