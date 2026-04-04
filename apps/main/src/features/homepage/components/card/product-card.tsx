@@ -1,11 +1,22 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Star, Heart, ShoppingCart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAddItemToCart } from "@/features/carts/hooks/use-add-item-to-cart";
+import ProductService from "@/features/products/service";
 import { ProductCardProps } from "@/features/products/types";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+
+const WISHLIST_STORAGE_KEY = "wishlist_product_ids_v1";
+
+type QuickAddPayload = {
+	productVariantID: number;
+	shopID: string;
+};
 
 export default function ProductCard({
 	product,
@@ -14,6 +25,102 @@ export default function ProductCard({
 	product: ProductCardProps;
 	compact?: boolean;
 }) {
+	const { mutateAsync: addItemToCart, isPending: isQuickAdding } =
+		useAddItemToCart();
+	const quickAddRef = useRef<QuickAddPayload | null>(null);
+	const [isWished, setIsWished] = useState(false);
+
+	const loadWishlist = useCallback(() => {
+		if (typeof window === "undefined") return [] as number[];
+
+		try {
+			const rawValue = window.localStorage.getItem(WISHLIST_STORAGE_KEY);
+			if (!rawValue) return [];
+
+			const parsed = JSON.parse(rawValue);
+			if (!Array.isArray(parsed)) return [];
+
+			return parsed
+				.map((id) => Number(id))
+				.filter((id) => Number.isInteger(id));
+		} catch {
+			return [];
+		}
+	}, []);
+
+	const saveWishlist = useCallback((ids: number[]) => {
+		if (typeof window === "undefined") return;
+		window.localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(ids));
+	}, []);
+
+	useEffect(() => {
+		const wishedIds = loadWishlist();
+		setIsWished(wishedIds.includes(product.id));
+	}, [loadWishlist, product.id]);
+
+	const resolveQuickAddPayload = useCallback(async () => {
+		if (quickAddRef.current) return quickAddRef.current;
+
+		const detail = await ProductService.getProductById(String(product.id));
+		const firstVariantId = detail?.variants?.[0]?.id;
+		const shopId = detail?.shopId;
+
+		if (!firstVariantId || !shopId) {
+			throw new Error("Product is unavailable for quick add");
+		}
+
+		const payload = {
+			productVariantID: Number(firstVariantId),
+			shopID: String(shopId),
+		};
+
+		if (!Number.isFinite(payload.productVariantID)) {
+			throw new Error("Product variant is invalid");
+		}
+
+		quickAddRef.current = payload;
+		return payload;
+	}, [product.id]);
+
+	const handleToggleWishlist = useCallback(
+		(event: React.MouseEvent<HTMLButtonElement>) => {
+			event.preventDefault();
+
+			const wishedIds = loadWishlist();
+			if (wishedIds.includes(product.id)) {
+				const nextIds = wishedIds.filter((id) => id !== product.id);
+				saveWishlist(nextIds);
+				setIsWished(false);
+				toast.success("Removed from wishlist");
+				return;
+			}
+
+			const nextIds = [...new Set([...wishedIds, product.id])];
+			saveWishlist(nextIds);
+			setIsWished(true);
+			toast.success("Added to wishlist");
+		},
+		[loadWishlist, product.id, saveWishlist],
+	);
+
+	const handleQuickAddToCart = useCallback(
+		async (event: React.MouseEvent<HTMLButtonElement>) => {
+			event.preventDefault();
+
+			try {
+				const payload = await resolveQuickAddPayload();
+				await addItemToCart({ ...payload, quantity: 1 });
+			} catch (error) {
+				const message =
+					error instanceof Error
+						? error.message
+						: "Failed to quick add this product";
+				toast.error(message);
+			}
+		},
+		[addItemToCart, resolveQuickAddPayload],
+	);
+
 	const discountPercent = Math.round(
 		100 - (product.salePrice / product.originalPrice) * 100,
 	);
@@ -36,26 +143,31 @@ export default function ProductCard({
 						<button
 							className="p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white hover:scale-110 transition-all"
 							aria-label={`Add ${product.name} to wishlist`}
-							onClick={(e) => {
-								e.preventDefault();
-								// TODO: Add to wishlist
-							}}
+							onClick={handleToggleWishlist}
 						>
 							<Heart
-								className="w-4 h-4 text-gray-600 hover:text-sale-500"
+								className={cn(
+									"w-4 h-4 transition-colors",
+									isWished
+										? "fill-sale-500 text-sale-500"
+										: "text-gray-600 hover:text-sale-500",
+								)}
 								aria-hidden="true"
 							/>
 						</button>
 						<button
 							className="p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md hover:bg-white hover:scale-110 transition-all"
 							aria-label={`Quick add ${product.name} to cart`}
-							onClick={(e) => {
-								e.preventDefault();
-								// TODO: Quick add to cart
-							}}
+							onClick={handleQuickAddToCart}
+							disabled={isQuickAdding}
 						>
 							<ShoppingCart
-								className="w-4 h-4 text-gray-600 hover:text-brand-500"
+								className={cn(
+									"w-4 h-4",
+									isQuickAdding
+										? "text-gray-400"
+										: "text-gray-600 hover:text-brand-500",
+								)}
 								aria-hidden="true"
 							/>
 						</button>
