@@ -1,3 +1,17 @@
+## [2.0.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.4.0...v2.0.0) (2026-04-04)
+
+### ⚠ BREAKING CHANGES
+
+* chat and auth imports have been moved to shared package and require updated import paths
+
+### 🚀 Features
+
+* chat ([096a791](https://github.com/TranXuanPhong25/shopiew/commit/096a791a42dfb5ca8d67cf50c66953b2f3e98b90))
+
+### 🔨 Technical Changes
+
+* migrate chat and auth modules to shared package ([05e2126](https://github.com/TranXuanPhong25/shopiew/commit/05e21267d8582eb3f5921ca4db719d4f5fb92cc2))
+
 ## [1.4.0](https://github.com/TranXuanPhong25/shopiew/compare/v1.3.0...v1.4.0) (2026-03-01)
 
 ### 🚀 Features
