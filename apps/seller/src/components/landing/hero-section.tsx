@@ -145,7 +145,7 @@ export default function HeroSection() {
                     {/* Right Content - Registration Form */}
                     <motion.div variants={itemVariants} className="flex justify-center lg:justify-end">
                         <Image
-                            src="/Google_AI_Studio_2025-09-21T08_38_07.363Z.png"
+                            src="/shopiew-logo.png"
                             alt="Shopiew Logo"
                             width={600}
                             height={600}

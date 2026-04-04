@@ -4,6 +4,7 @@ import TestimonialsSection from "@/components/landing/testimonials-section";
 import { PageZoomTransition, CircularReveal } from "@/components/effects";
 import IntroSection from "@/components/landing/intro-section";
 import ClientOnly from "@/components/client-only";
+import PromotionalVideoSection from "@/components/landing/promotional-video-section";
 
 export default function LandingPage() {
    return (
@@ -22,6 +23,10 @@ export default function LandingPage() {
                   centerX={25}
                   centerY={50}>
                   <HeroSection />
+               </CircularReveal>
+
+               <CircularReveal duration={1.4} delay={0.15} triggerOnView={true}>
+                  <PromotionalVideoSection />
                </CircularReveal>
 
                <FeaturesSection />

@@ -18,15 +18,15 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
             <div className=" z-10 p-10 rounded-xl bg-white shadow-lg w-[400px] m-auto">
                <div className="flex justify-center gap-2 md:justify-start mx-auto w-fit mb-6">
-                  <Link href="/" className="flex items-center gap-2 font-bold text-xl text-sky-400">
+                  <Link href="/" className="flex items-center" aria-label="Seller home">
                      <Image
-                        src="/icon.png"
+                        src="/shopiew-logo.png"
                         alt="Shopiew Logo"
                         width={40}
                         height={40}
                         className="rounded-full"
                      />
-                     Shopiew Seller
+                     <span className="sr-only">Shopiew Seller</span>
                   </Link>
                </div>
                {children}
