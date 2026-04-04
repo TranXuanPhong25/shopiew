@@ -1,27 +1,27 @@
 {
-  "name": "@shopiew/common-features",
-  "version": "0.1.0",
-  "private": true,
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./react-query/provider": "./src/react-query/provider.tsx",
-    "./ajax-progress-bar/provider": "./src/ajax-progress-bar/provider.tsx",
-    "./chat-widget": "./src/chat-widget/index.ts",
-    "./auth-core": "./src/auth-core/index.ts"
-  },
-  "dependencies": {
-    "@ai-sdk/react": "^2.0.47",
-    "@bprogress/next": "^3.2.0",
-    "@tanstack/react-query": "^5.81.5",
-    "ai": "^5.0.47",
-    "axios": "^1.10.0",
-    "lucide-react": "^0.475.0",
-    "react": "19.2.3"
-  },
-  "devDependencies": {
-    "@types/react": "19.2.7",
-    "@types/react-dom": "19.2.3"
-  }
+	"name": "@shopiew/common-features",
+	"version": "0.1.0",
+	"private": true,
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./react-query/provider": "./src/react-query/provider.tsx",
+		"./ajax-progress-bar/provider": "./src/ajax-progress-bar/provider.tsx",
+		"./chat-widget": "./src/chat-widget/index.ts",
+		"./auth-core": "./src/auth-core/index.ts"
+	},
+	"dependencies": {
+		"@ai-sdk/react": "^2.0.47",
+		"@bprogress/next": "^3.2.0",
+		"@tanstack/react-query": "^5.81.5",
+		"ai": "^5.0.47",
+		"axios": "^1.10.0",
+		"lucide-react": "^0.475.0",
+		"react": "19.2.3"
+	},
+	"devDependencies": {
+		"@types/react": "19.2.7",
+		"@types/react-dom": "19.2.3"
+	}
 }

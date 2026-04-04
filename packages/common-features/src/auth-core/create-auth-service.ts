@@ -3,7 +3,11 @@ export interface AxiosClientLike {
 	post: (url: string, data?: any, config?: any) => Promise<{ data: any }>;
 }
 
-export interface AuthServiceShape<LoginResponse, RegisterResponse, Shop = unknown> {
+export interface AuthServiceShape<
+	LoginResponse,
+	RegisterResponse,
+	Shop = unknown,
+> {
 	getCurrentUser: () => Promise<LoginResponse>;
 	login: (email: string, password: string) => Promise<LoginResponse>;
 	register: (email: string, password: string) => Promise<RegisterResponse>;
@@ -11,7 +15,11 @@ export interface AuthServiceShape<LoginResponse, RegisterResponse, Shop = unknow
 	getShop: (userId: string) => Promise<Shop>;
 }
 
-export function createAuthService<LoginResponse, RegisterResponse, Shop = unknown>(
+export function createAuthService<
+	LoginResponse,
+	RegisterResponse,
+	Shop = unknown,
+>(
 	axiosClient: AxiosClientLike,
 ): AuthServiceShape<LoginResponse, RegisterResponse, Shop> {
 	return {
@@ -20,7 +28,10 @@ export function createAuthService<LoginResponse, RegisterResponse, Shop = unknow
 			return response.data;
 		},
 
-		login: async (email: string, password: string): Promise<LoginResponse> => {
+		login: async (
+			email: string,
+			password: string,
+		): Promise<LoginResponse> => {
 			const body = { email, password };
 			const response = await axiosClient.post("/auth/login", body);
 			return response.data;
