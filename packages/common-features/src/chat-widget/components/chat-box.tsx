@@ -23,6 +23,7 @@ export function ChatBox({ onClose }: ChatBoxProps) {
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null)
   const queryClient = useQueryClient()
   const { user } = useAuth()
+  const currentUserId = (user as any)?.id || (user as any)?.userId || ''
 
   const { data: apiConversations = [], isLoading } = useQuery({
     queryKey: ['chat-conversations'],
@@ -75,7 +76,7 @@ export function ChatBox({ onClose }: ChatBoxProps) {
             <MessageDisplay
               conversationId={selectedConversationId}
               conversationName={selectedConversation?.name || 'Chat'}
-              currentUserId={user?.id || ''}
+              currentUserId={currentUserId}
               currentUserType="customer"
             />
           ) : (

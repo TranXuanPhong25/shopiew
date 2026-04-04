@@ -1,5 +1,6 @@
 
 const nextConfig = {
+    transpilePackages: ["@shopiew/common-features"],
     images: {
         remotePatterns: [
             {

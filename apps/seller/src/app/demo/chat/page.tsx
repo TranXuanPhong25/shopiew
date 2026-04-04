@@ -1,6 +1,6 @@
 'use client';
 
-import { ChatWidget } from '@/features/chat-widget/components';
+import { ChatWidget } from '@shopiew/common-features';
 
 export default function ChatDemoPage() {
   return (

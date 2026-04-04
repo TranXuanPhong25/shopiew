@@ -1,6 +1,7 @@
 const path = require("path");
 
 const nextConfig = {
+	transpilePackages: ["@shopiew/common-features"],
 	outputFileTracingRoot: path.join(__dirname, "../../"),
 	turbopack: {
 		root: path.join(__dirname, "../../"),

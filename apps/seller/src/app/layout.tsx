@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode, Suspense } from "react";
-import AjaxProgressBarProvider from "@/features/ajax-progress-bar/provider";
 import { Toaster } from "@/components/ui/sonner";
-import ReactQueryProvider from "@/features/react-query/provider";
 import LoadingBlock from "@/components/ui/loading-block";
 import { AuthProvider } from "@/features/auth";
+import {
+    AjaxProgressBarProvider,
+    ChatWidget,
+    ReactQueryProvider,
+} from "@shopiew/common-features";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -39,7 +42,7 @@ export default function RootLayout({
                         <ReactQueryProvider>
                             <AjaxProgressBarProvider>
                                 {children}
-                                {/* <BackToTopButton /> */}
+                                <ChatWidget />
                             </AjaxProgressBarProvider>
                         </ReactQueryProvider>
                     </AuthProvider>

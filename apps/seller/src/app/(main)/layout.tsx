@@ -3,7 +3,6 @@ import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import NavHeader from "@/components/layout/header/nav-header";
-import { ChatWidget } from "@/features/chat-widget/components/chat-widget";
 import ProtectedPage from "@/components/auth/ProtectedPage";
 
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export default function MainLayout({
 					</div>
 				</SidebarInset>
 			</SidebarProvider>
-			<ChatWidget />
 		</ProtectedPage>
 	);
 }

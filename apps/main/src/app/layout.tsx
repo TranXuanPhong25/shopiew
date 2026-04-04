@@ -4,12 +4,14 @@ import "./globals.css";
 import NavigationBar from "@/components/layout/navigation-bar";
 import { ReactNode } from "react";
 import Footer from "@/components/layout/footer";
-import AjaxProgressBarProvider from "@/features/ajax-progress-bar/provider";
 import { BackToTopButton } from "@/components/ui/back-to-top-btn";
 import { AuthProvider } from "@/features/auth";
 import { Toaster } from "@/components/ui/sonner";
-import ReactQueryProvider from "@/features/react-query/provider";
-import { ChatWidget } from "@/features/chat-widget/components";
+import {
+	AjaxProgressBarProvider,
+	ChatWidget,
+	ReactQueryProvider,
+} from "@shopiew/common-features";
 
 const inter = Inter({
 	subsets: ["latin"],

@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { WEBSOCKET_CONFIG, buildWebSocketUrl } from "../websocket.config";
 
@@ -45,6 +46,7 @@ export function useWebSocket({
 	reconnectMaxAttempts = WEBSOCKET_CONFIG.MAX_RECONNECT_ATTEMPTS,
 }: UseWebSocketOptions) {
 	const isConnectingRef = useRef(false);
+	const manualDisconnectRef = useRef(false);
 	const [isConnected, setIsConnected] = useState(false);
 	const [isConnecting, setIsConnecting] = useState(false);
 	const wsRef = useRef<WebSocket | null>(null);
@@ -54,6 +56,7 @@ export function useWebSocket({
 	const getWebSocketUrl = useCallback(() => {
 		return buildWebSocketUrl(conversationId);
 	}, [conversationId]);
+
 	const sendMessage = useCallback(
 		(content: string, messageType: MessageType = "text") => {
 			if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
@@ -89,7 +92,9 @@ export function useWebSocket({
 			clearInterval(heartbeatIntervalRef.current);
 		}
 		if (wsRef.current) {
+			manualDisconnectRef.current = true;
 			wsRef.current.close();
+			wsRef.current = null;
 		}
 		// setIsConnected(false);
 		isConnectingRef.current = false;
@@ -109,11 +114,13 @@ export function useWebSocket({
 				setIsConnecting(false);
 				isConnectingRef.current = false;
 				reconnectAttemptsRef.current = 0;
-
+				if (reconnectTimeoutRef.current) {
+					clearTimeout(reconnectTimeoutRef.current);
+				}
 				// Send auth header via message or initial connection message
 				ws.send(
 					JSON.stringify({
-						typegetWebSocketUrl: "auth",
+						type: "auth",
 						userId,
 						userType,
 					}),
@@ -157,7 +164,10 @@ export function useWebSocket({
 				}
 
 				onDisconnected?.();
-
+				if (manualDisconnectRef.current) {
+					manualDisconnectRef.current = false;
+					return;
+				}
 				// Auto-reconnect logic
 				if (
 					autoReconnect &&
@@ -169,7 +179,7 @@ export function useWebSocket({
 					);
 
 					reconnectTimeoutRef.current = setTimeout(() => {
-						// connect();
+						connect();
 					}, reconnectInterval);
 				} else if (reconnectAttemptsRef.current >= reconnectMaxAttempts) {
 					const error = new Error(
@@ -207,10 +217,7 @@ export function useWebSocket({
 		}
 
 		return () => {
-			if (!isConnectingRef.current) {
-				// console.log("disconnecting");
-				disconnect();
-			}
+			disconnect();
 		};
 	}, [conversationId, userId, connect, disconnect]);
 

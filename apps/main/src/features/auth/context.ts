@@ -3,7 +3,9 @@
  */
 "use client";
 
-import {createContext} from 'react';
-import {AuthContextType} from './models';
+import { createAuthContext } from "@shopiew/common-features/auth-core";
+import { AuthContextType } from "./models";
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const { AuthContext, useAuthContext } = createAuthContext<AuthContextType>();
+
+export { AuthContext, useAuthContext };
